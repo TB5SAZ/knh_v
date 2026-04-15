@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* İLKEL RENK JETONLARI (PRIMITIVES) */
+  /* Üst Satır */
+  --color-dark-green: #0E4D41;
+  --color-green: #35BFA3;
+  --color-light-green: #E4F2D3;
+  --color-subtle-green: #F8FCF3;
+
+  /* Orta Satır */
+  --color-black: #203430;
+  --color-dark-grey: #63716E;
+  --color-light-grey: #A4ACAB;
+  --color-semi-subtle-grey: #E5E6E6;
+  --color-subtle-grey: #F7F7F7;
+  --color-white: #FFFFFF;
+
+  /* Alt Satır */
+  --color-red: #E63D4B;
+  --color-subtle-red: #FAEFF0;
+  --color-yellow: #F8C947;
+  --color-light-yellow: #FDF5DF;
+
+  /* SEMANTİK RENK JETONLARI (SEMANTICS) */
+  /* Marka / Aksiyon (Üst Satır) */
+  --brand-primary: var(--color-green);
+  --brand-dark: var(--color-dark-green);
+  --brand-light: var(--color-light-green);
+  --brand-bg: var(--color-subtle-green);
+
+  /* İskelet / Metin / UI (Orta Satır) */
+  --bg-main: var(--color-white);
+  --bg-surface: var(--color-subtle-grey);
+  --text-primary: var(--color-black);
+  --text-secondary: var(--color-dark-grey);
+  --border-default: var(--color-semi-subtle-grey);
+  --border-focus: var(--color-light-grey);
+
+  /* Durum / Geri Bildirim (Alt Satır) */
+  --status-success-text: var(--color-green);
+  --status-success-bg: var(--color-subtle-green);
+  --status-error-text: var(--color-red);
+  --status-error-bg: var(--color-subtle-red);
+  --status-warning-text: var(--color-yellow);
+  --status-warning-bg: var(--color-light-yellow);
+  --status-disabled-text: var(--color-black);
+  --status-disabled-bg: var(--color-light-grey);
+}
+
+@layer utilities {
+  .text-heading-40-bold,
+  .text-heading-28-bold,
+  .text-heading-24-bold,
+  .text-heading-20-bold,
+  .text-heading-18-bold,
+  .text-body-12-bold,
+  .text-body-11-bold {
+    font-family: 'DMSans_700Bold';
+  }
+
+  .text-heading-24-semibold,
+  .text-heading-18-semibold,
+  .text-heading-16-semibold,
+  .text-heading-14-semibold,
+  .text-heading-12-semibold,
+  .text-body-10-semibold,
+  .text-btn-16-semibold {
+    font-family: 'DMSans_600SemiBold';
+  }
+
+  .text-body-14-medium,
+  .text-body-12-medium,
+  .text-body-11-medium,
+  .text-body-9-medium,
+  .text-btn-14-medium,
+  .text-btn-12-medium,
+  .text-btn-11-medium {
+    font-family: 'DMSans_500Medium';
+  }
+
+  .text-body-18-regular,
+  .text-body-16-regular,
+  .text-body-14-regular,
+  .text-body-12-regular,
+  .text-body-11-regular,
+  .text-body-10-regular,
+  .text-body-9-regular,
+  .text-body-8-regular {
+    font-family: 'DMSans_400Regular';
+  }
+}
+
