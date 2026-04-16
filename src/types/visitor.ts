@@ -24,3 +24,13 @@ export interface VisitorFormData {
   entryDate: Date;
   entryTime: Date;
 }
+
+export interface VisitorUpdateData {
+  first_name?: string;
+  last_name?: string;
+  title?: string | null;
+  phone?: string | null;
+  is_foreign?: boolean;
+  is_external?: boolean;
+  tc_no?: string | null;
+}

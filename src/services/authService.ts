@@ -1,39 +1,40 @@
 import { supabase } from '@/src/lib/supabase';
+import * as Crypto from 'expo-crypto';
+import { logger } from '@/src/utils/logger';
 
 // --- Private Helpers ---
 
 const EMAIL_DOMAIN = '@konyanumune.gov.tr';
 
 /** Extracts ghost email generation logic */
-const generateGhostEmail = (tcKimlik: string): string => {
-  return `${tcKimlik}${EMAIL_DOMAIN}`;
+const generateGhostEmail = async (tcKimlik: string): Promise<string> => {
+  const hash = await Crypto.digestStringAsync(
+    Crypto.CryptoDigestAlgorithm.SHA256,
+    tcKimlik
+  );
+  return `${hash}${EMAIL_DOMAIN}`;
 };
 
-/** Validates and retrieves the registration key */
+/** Validates and retrieves the registration key via secure RPC */
 const verifyRegistrationKey = async (key: string) => {
   const { data: keyData, error: keyError } = await supabase
-    .from('registration_keys')
-    .select('*')
-    .eq('key_value', key)
-    .eq('is_used', false)
-    .single();
+    .rpc('verify_registration_key', { p_key_value: key });
 
   if (keyError || !keyData) {
-    console.error('[authService] Key verify error:', keyError);
+    logger.error('[authService] Key verify error:', keyError);
     throw new Error('Geçersiz veya daha önce kullanılmış bir yetki anahtarı girdiniz.');
   }
+  // RPC returns the row JSON which acts identically to the object returned by .single()
   return keyData;
 };
 
-/** Burns the registration key so it cannot be used again */
+/** Burns the registration key securely via RPC so it cannot be used again */
 const burnRegistrationKey = async (key: string) => {
   const { error: burnError } = await supabase
-    .from('registration_keys')
-    .update({ is_used: true })
-    .eq('key_value', key);
+    .rpc('burn_registration_key', { p_key_value: key });
 
   if (burnError) {
-    console.error('[authService] Key burn error:', burnError);
+    logger.error('[authService] Key burn error:', burnError);
   }
 };
 
@@ -67,7 +68,7 @@ const createProfile = async ({
     });
 
   if (profileError) {
-    console.error('[authService] Profile insert error:', profileError);
+    logger.error('[authService] Profile insert error:', profileError);
     throw new Error('Kullanıcı hesabı oluşturuldu ancak profil bilgileri kaydedilemedi.');
   }
 };
@@ -81,7 +82,7 @@ const fetchProfileRole = async (userId: string) => {
     .single();
 
   if (profileError || !profileData) {
-    console.error('[authService] Profile fetch error:', profileError);
+    logger.error('[authService] Profile fetch error:', profileError);
     throw new Error('Kullanıcı profil bilgileri alınamadı.');
   }
   return profileData.role;
@@ -93,7 +94,7 @@ const fetchProfileRole = async (userId: string) => {
 const signUpUser = async (email: string, password: string) => {
   const { data, error } = await supabase.auth.signUp({ email, password });
   if (error) {
-    console.error('[authService] SignUp error:', error);
+    logger.error('[authService] SignUp error:', error);
     throw new Error('Kayıt işlemi sırasında bir hata oluştu. Bilgilerinizi kontrol edip tekrar deneyiniz.');
   }
   if (!data.user) {
@@ -106,7 +107,7 @@ const signUpUser = async (email: string, password: string) => {
 const signInUser = async (email: string, password: string) => {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
-    console.error('[authService] SignIn error:', error);
+    logger.error('[authService] SignIn error:', error);
     throw new Error('Giriş başarısız. Lütfen T.C. Kimlik numaranızı ve şifrenizi kontrol ediniz.');
   }
   if (!data.user) {
@@ -119,7 +120,7 @@ const signInUser = async (email: string, password: string) => {
 const signOutUser = async () => {
   const { error } = await supabase.auth.signOut();
   if (error) {
-    console.error('[authService] SignOut error:', error);
+    logger.error('[authService] SignOut error:', error);
     throw new Error('Çıkış yaparken bir hata oluştu.');
   }
 };
@@ -141,7 +142,7 @@ export const authService = {
     const keyData = await verifyRegistrationKey(key);
 
     // 2. Supabase Auth Sign Up
-    const email = generateGhostEmail(tcKimlik);
+    const email = await generateGhostEmail(tcKimlik);
     const user = await signUpUser(email, password);
 
     // 3. Insert into Profiles Table
@@ -164,7 +165,7 @@ export const authService = {
    * Log in a user using TC Kimlik (ghost email).
    */
   async loginWithTc(tcKimlik: string, password: string) {
-    const email = generateGhostEmail(tcKimlik);
+    const email = await generateGhostEmail(tcKimlik);
     
     // 1. Supabase Auth Sign In
     const user = await signInUser(email, password);

@@ -1,23 +1,15 @@
 import { supabase } from '@/src/lib/supabase';
-import { VisitorFormValues } from '@/src/schemas/visitorSchema';
-import { Visitor } from '../types/visitor';
-
-interface VisitorUpdateData {
-  first_name?: string;
-  last_name?: string;
-  title?: string | null;
-  phone?: string | null;
-  is_foreign?: boolean;
-  is_external?: boolean;
-  tc_no?: string | null;
-}
+import { VisitorFormValues, visitorSchema } from '@/src/schemas/visitorSchema';
+import { Visitor, VisitorUpdateData } from '../types/visitor';
+import { logger } from '@/src/utils/logger';
 
 export const visitorService = {
   async searchVisitors(query: string): Promise<Visitor[]> {
+    const safeQuery = query.replace(/[%,]/g, '');
     const { data, error } = await supabase
       .from('visitors')
       .select('*')
-      .or(`first_name.ilike.%${query}%,last_name.ilike.%${query}%,tc_no.ilike.%${query}%`)
+      .or(`first_name.ilike.%${safeQuery}%,last_name.ilike.%${safeQuery}%,tc_no.ilike.%${safeQuery}%`)
       .limit(10);
 
     if (error) {
@@ -29,6 +21,7 @@ export const visitorService = {
 
   async createVisit(data: VisitorFormValues, isSecurity: boolean): Promise<{ success: boolean; visitId?: string }> {
     try {
+      visitorSchema.parse(data);
       let visitorId = data.existingVisitorId;
           
       const combinedDateTime = isSecurity 
@@ -116,7 +109,7 @@ export const visitorService = {
 
       return { success: true, visitId: visitData?.id };
     } catch (error) {
-      console.error('Visit creation error:', error);
+      logger.error('Visit creation error:', error);
       throw error;
     }
   }

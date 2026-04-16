@@ -1,4 +1,5 @@
 import { supabase } from '@/src/lib/supabase';
+import { logger } from '@/src/utils/logger';
 
 /**
  * Belirli bir departman kimliğine (ID) göre departmanın adını getirir.
@@ -15,13 +16,13 @@ export async function fetchUserDepartmentName(departmentId: string): Promise<str
       .single();
 
     if (error) {
-      console.error(`Departman (${departmentId}) adı getirilirken hata:`, error.message);
+      logger.error(`Departman (${departmentId}) adı getirilirken hata:`, error.message);
       return null;
     }
 
     return data?.name ?? null;
   } catch (err) {
-    console.error(`Departman (${departmentId}) getirme işleminde beklenmeyen hata:`, err);
+    logger.error(`Departman (${departmentId}) getirme işleminde beklenmeyen hata:`, err);
     return null;
   }
 }
@@ -41,13 +42,13 @@ export async function fetchSelectableDepartments(): Promise<{ id: string; name: 
       .order('name');
       
     if (error) {
-      console.error('Seçilebilir departmanlar getirilirken hata oluştu:', error.message);
+      logger.error('Seçilebilir departmanlar getirilirken hata oluştu:', error.message);
       return [];
     }
     
     return data || [];
   } catch (err) {
-    console.error('Seçilebilir departmanlar getirme işleminde beklenmeyen hata:', err);
+    logger.error('Seçilebilir departmanlar getirme işleminde beklenmeyen hata:', err);
     return [];
   }
 }
@@ -64,13 +65,13 @@ export async function fetchAllDepartments(): Promise<{ id: string; name: string 
       .order('name');
       
     if (error) {
-      console.error('Departmanlar getirilirken hata oluştu:', error.message);
+      logger.error('Departmanlar getirilirken hata oluştu:', error.message);
       return [];
     }
     
     return data || [];
   } catch (err) {
-    console.error('Departman listesi getirme işleminde beklenmeyen hata:', err);
+    logger.error('Departman listesi getirme işleminde beklenmeyen hata:', err);
     return [];
   }
 }
