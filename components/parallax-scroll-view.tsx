@@ -49,9 +49,9 @@ export default function ParallaxScrollView({
       style={{ backgroundColor, flex: 1 }}
       scrollEventThrottle={16}>
       <Animated.View
-        className="h-[250px] overflow-hidden"
+        className="overflow-hidden"
         style={[
-          { backgroundColor: headerBackgroundColor[colorScheme] },
+          { height: HEADER_HEIGHT, backgroundColor: headerBackgroundColor[colorScheme] },
           headerAnimatedStyle,
         ]}>
         {headerImage}

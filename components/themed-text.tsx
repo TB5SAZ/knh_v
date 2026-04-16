@@ -23,7 +23,7 @@ export function ThemedText({
   else if (type === 'defaultSemiBold') typeClasses = 'text-base leading-6 font-semibold';
   else if (type === 'title') typeClasses = 'text-[32px] font-bold leading-[32px]';
   else if (type === 'subtitle') typeClasses = 'text-[20px] font-bold';
-  else if (type === 'link') typeClasses = 'text-base leading-[30px] text-[#0a7ea4]';
+  else if (type === 'link') typeClasses = 'text-base leading-[30px]';
 
   return (
     <Text
