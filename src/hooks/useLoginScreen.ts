@@ -24,7 +24,7 @@ export function useLoginScreen() {
     description: '',
   });
 
-  const { session, isLoading: isAuthLoading } = useAuth();
+  const { session, role, isLoading: isAuthLoading } = useAuth();
 
   // Bu ref, kullanıcı yeni kayıt olduğunda otomatik login yönlendirmesini engellemek için kullanılır.
   const justRegisteredRef = useRef(false);
@@ -34,28 +34,23 @@ export function useLoginScreen() {
       // React Native (Expo Router) state güncellendiği saniyede (örn: Login Butonu animasyonu biter bitmez)
       // yapılan yönlendirmeleri yutabilir. Bu sebeple 100ms'lik minik bir garanti bekleyişi ekliyoruz.
       setTimeout(() => {
-        const dept = session?.user?.user_metadata?.department;
         let targetRoute = '/dashboard'; // Default fallback
 
-        if (dept) {
-          if (
-            dept === 'Başhekimlik' ||
-            dept === 'İdari ve Mali Hiz.' ||
-            dept === 'Destek ve Kalite' ||
-            dept === 'Sağlık Bakım Hiz.'
-          ) {
-            targetRoute = '/appointments';
-          } else if (dept === 'Güvenlik' || dept === 'Sekreter') {
-            targetRoute = '/visitors';
-          } else if (dept === 'Admin') {
+        if (role) {
+          // Sistemin profile.role yapısına göre ilk yönlendirme karar ağacı
+          if (role === 'Sistem Yöneticisi') {
             targetRoute = '/dashboard';
+          } else if (role === 'Kayıt Görevlisi' || role === 'Güvenlik Personeli' || role === 'Sekreter') {
+            targetRoute = '/visitors';
+          } else {
+            targetRoute = '/appointments';
           }
         }
 
         router.replace(targetRoute as any);
       }, 100);
     }
-  }, [session, isAuthLoading]);
+  }, [session, isAuthLoading, role]);
 
   // Tablet or Desktop handling via Tailwind breakpoint logics
   const isDesktop = width >= BREAKPOINTS.lg;

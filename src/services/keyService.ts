@@ -1,4 +1,5 @@
 import { supabase } from '@/src/lib/supabase';
+import { logger } from '@/src/utils/logger';
 
 export const keyService = {
   /**
@@ -15,7 +16,7 @@ export const keyService = {
     ]);
 
     if (error) {
-      console.error('[keyService] createRegistrationKey error:', error);
+      logger.error('[keyService] createRegistrationKey error:', error);
       throw new Error(error.message);
     }
   }

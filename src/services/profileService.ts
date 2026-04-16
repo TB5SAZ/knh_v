@@ -1,4 +1,5 @@
 import { supabase } from '@/src/lib/supabase';
+import { logger } from '@/src/utils/logger';
 
 export async function fetchProfilesByDepartment(departmentId: string): Promise<{id: string, first_name: string, last_name: string}[]> {
   const { data, error } = await supabase
@@ -7,7 +8,7 @@ export async function fetchProfilesByDepartment(departmentId: string): Promise<{
     .eq('department_id', departmentId);
 
   if (error) {
-    console.error('Kullanıcılar getirilirken hata oluştu:', error);
+    logger.error('Kullanıcılar getirilirken hata oluştu:', error);
     return [];
   }
 
