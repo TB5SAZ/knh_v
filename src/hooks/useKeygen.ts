@@ -2,26 +2,8 @@ import { useState, useEffect } from 'react';
 import * as Clipboard from 'expo-clipboard';
 import { fetchAllDepartments } from '@/src/services/departmentService';
 import { keyService } from '@/src/services/keyService';
-
-export const DEPARTMENT_ROLES: Record<string, string[]> = {
-  'Başhekimlik': ['Başhekim', 'Başhekim Yrd.'],
-  'Güvenlik': ['Güvenlik Amiri', 'Güvenlik Görevlisi'],
-  'Admin': ['Sistem Yöneticisi'],
-  'İdari ve Mali Hiz.': ['İdari ve Mali Hiz. Müd.', 'İdari ve Mali Hiz. Müd. Yrd.'],
-  'Sağlık Bakım Hiz.': ['Sağlık Bakım Hiz. Müd.', 'Sağlık Bakım Hiz. Müd. Yrd.'],
-  'Destek ve Kalite': ['Destek ve Kalite Müd.', 'Destek ve Kalite Müd. Yrd.'],
-  'Sekreter': ['Sekreter']
-};
-
-function generateRandomKey(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
-  for (let i = 0; i < 32; i++) {
-    const randomIndex = Math.floor(Math.random() * chars.length);
-    result += chars[randomIndex];
-  }
-  return result;
-}
+import { generateSecureKey } from '../utils/secureRandom';
+import { DEPARTMENT_ROLES } from '../constants';
 
 export function useKeygen() {
   const [departments, setDepartments] = useState<Array<{ label: string; value: string }>>([]);
@@ -54,8 +36,9 @@ export function useKeygen() {
     }
   };
 
-  const handleGenerateKey = () => {
-    setGeneratedKey(generateRandomKey());
+  const handleGenerateKey = async () => {
+    const key = await generateSecureKey(32);
+    setGeneratedKey(key);
   };
 
   const handleCopy = async () => {

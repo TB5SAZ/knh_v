@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, Platform } from 'react-native';
 import { Redirect } from 'expo-router';
-import { AppSelect } from '@/components/ui/AppSelect';
+import { AppSelect } from '@/src/components/core/AppSelect';
 import { AppButton } from '@/src/components/core/AppButton';
 import { AppAlert } from '@/src/components/core/AppAlert';
 import { RefreshCw, Copy, Save } from 'lucide-react-native';

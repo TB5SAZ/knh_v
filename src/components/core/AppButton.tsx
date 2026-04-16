@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Text, View } from 'react-native';
-import { Button, ButtonSpinner, ButtonIcon } from '@/components/ui/button';
+import { Button, ButtonSpinner, ButtonIcon } from '@/src/components/ui/button';
 import { LucideIcon } from 'lucide-react-native';
 
 export type AppButtonVariant = 'primary' | 'secondary' | 'ghost' | 'success' | 'error';

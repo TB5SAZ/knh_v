@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Text } from '@/components/ui/text';
-import { AppBreadcrumb } from '@/components/ui/AppBreadcrumb';
+import { Text } from '@/src/components/ui/text';
+import { AppBreadcrumb } from '@/src/components/ui/AppBreadcrumb';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function BreadcrumbTestScreen() {

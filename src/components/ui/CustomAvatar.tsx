@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, AvatarFallbackText, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallbackText, AvatarImage } from '@/src/components/ui/avatar';
 
 export interface CustomAvatarProps {
   name: string;

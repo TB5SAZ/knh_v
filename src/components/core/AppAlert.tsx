@@ -7,7 +7,7 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
-} from '@/components/ui/alert-dialog';
+} from '@/src/components/ui/alert-dialog';
 import { AppButton } from './AppButton';
 
 export type AppAlertStatus = 'success' | 'error' | 'warning' | 'info';

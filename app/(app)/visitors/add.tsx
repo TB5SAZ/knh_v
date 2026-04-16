@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { AppButton } from '@/src/components/core/AppButton';
 import { visitorSchema, VisitorFormValues, getDefaultVisitorFormValues } from '@/src/schemas/visitorSchema';
-import { saveVisitorAndVisit } from '@/src/services/visitorService';
+import { visitorService } from '@/src/services/visitorService';
 import { useVisitorData } from '@/src/hooks/visitors/useVisitorData';
 import { useVisitorSearch } from '@/src/hooks/visitors/useVisitorSearch';
 import { useAutoTimeUpdate } from '@/src/hooks/visitors/useAutoTimeUpdate';
@@ -78,7 +78,7 @@ export default function VisitorAddScreen() {
 
   const onSubmit = async (data: VisitorFormValues) => {
     try {
-      await saveVisitorAndVisit(data, isSecurity);
+      await visitorService.createVisit(data, isSecurity);
       alert('Ziyaretçi Kaydı Oluşturuldu');
       
       // Formu sıfırla

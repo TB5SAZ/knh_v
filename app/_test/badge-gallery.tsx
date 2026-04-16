@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { CustomBadge } from '@/components/ui/CustomBadge';
-import { CustomAvatar } from '@/components/ui/CustomAvatar';
+import { CustomBadge } from '@/src/components/core/CustomBadge';
+import { CustomAvatar } from '@/src/components/ui/CustomAvatar';
 
 // Helper component for the showcase
 const BoxWithBadge = ({ 
@@ -9,7 +9,7 @@ const BoxWithBadge = ({
   children 
 }: { 
   title: string; 
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => (
   <View className="items-center mb-8 mx-4">
     <Text className="text-sm text-gray-600 mb-4 font-medium">{title}</Text>
@@ -96,7 +96,7 @@ export default function BadgeGalleryScreen() {
 
       {/* Overflow Scenario (99+) */}
       <View className="mb-6">
-        <Text className="text-lg font-bold text-gray-800 mb-4 border-b border-gray-100 pb-2">Overflow (count > 99)</Text>
+        <Text className="text-lg font-bold text-gray-800 mb-4 border-b border-gray-100 pb-2">Overflow (count &gt; 99)</Text>
         <View className="flex-row flex-wrap items-end">
           <BoxWithBadge title="Medium (md)">
             <CustomBadge 

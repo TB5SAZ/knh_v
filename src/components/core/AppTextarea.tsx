@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, TextInput } from 'react-native';
-import { Textarea, TextareaInput } from '@/components/ui/textarea';
-import { FormControl, FormControlLabel, FormControlError, FormControlErrorIcon, FormControlErrorText } from '@/components/ui/form-control';
+import { Textarea, TextareaInput } from '@/src/components/ui/textarea';
+import { FormControl, FormControlLabel, FormControlError, FormControlErrorIcon, FormControlErrorText } from '@/src/components/ui/form-control';
 import { AlertCircle } from 'lucide-react-native';
 
 export interface AppTextareaProps extends React.ComponentProps<typeof TextareaInput> {

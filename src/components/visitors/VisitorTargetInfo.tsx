@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { Controller, Control, FieldErrors } from 'react-hook-form';
 import { AlertCircle } from 'lucide-react-native';
-import { AppSelect } from '@/components/ui/AppSelect';
+import { AppSelect } from '@/src/components/core/AppSelect';
 import { VisitorFormValues } from '@/src/schemas/visitorSchema';
 
 interface VisitorTargetInfoProps {

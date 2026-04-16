@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from '@/components/ui/switch';
+import { Switch } from '@/src/components/ui/switch';
 
 // Projedeki global.css içerisinde tanımlı olan marka renk hex kodları
 const ACTIVE_TRACK_COLOR = '#E4F2D3'; // var(--color-light-green)

@@ -3,7 +3,7 @@ import { View, Text, Pressable, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { AlertCircle } from 'lucide-react-native';
 import type { LucideIcon } from 'lucide-react-native';
-import { FormControl, FormControlLabel } from '@/components/ui/form-control';
+import { FormControl, FormControlLabel } from '@/src/components/ui/form-control';
 
 export interface AppDateTimePickerProps {
   label?: string;

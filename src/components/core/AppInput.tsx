@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput } from 'react-native';
-import { Input, InputField, InputSlot, InputIcon } from '@/components/ui/input';
-import { FormControl, FormControlLabel, FormControlLabelText, FormControlError, FormControlErrorText, FormControlErrorIcon } from '@/components/ui/form-control';
+import { Input, InputField, InputSlot, InputIcon } from '@/src/components/ui/input';
+import { FormControl, FormControlLabel, FormControlLabelText, FormControlError, FormControlErrorText, FormControlErrorIcon } from '@/src/components/ui/form-control';
 import { Eye, EyeOff, AlertCircle } from 'lucide-react-native';
 import { LucideIcon } from 'lucide-react-native';
 
@@ -75,7 +75,7 @@ export const AppInput = React.forwardRef<TextInput, AppInputProps>(({
         )}
         
         <InputField
-          ref={ref}
+          ref={ref as any}
           secureTextEntry={isPassword && !showPassword}
           autoComplete={isPassword ? 'off' : props.autoComplete}
           autoCorrect={isPassword ? false : props.autoCorrect}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Text } from '@/components/ui/text';
+import { Text } from '@/src/components/ui/text';
 import { Header } from '@/components/layout/Header';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
+import { GluestackUIProvider } from '@/src/components/ui/gluestack-ui-provider';
 
 export default function HeaderTestScreen() {
   const dummyBreadcrumbs = [

@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
-import { View, Text, ScrollView, Pressable, ActivityIndicator, useWindowDimensions } from 'react-native';
+import { View, Text, ScrollView, Pressable, useWindowDimensions } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { Image } from 'expo-image';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppAlert } from '@/src/components/core/AppAlert';
+import { LoadingSpinner } from '@/src/components/ui/LoadingSpinner';
 import { BREAKPOINTS } from '@/src/constants/theme';
 
-import { LoginForm } from '@/src/components/auth/LoginForm';
-import { RegisterForm } from '@/src/components/auth/RegisterForm';
+import { LoginForm } from '@/src/components/forms/LoginForm';
+import { RegisterForm } from '@/src/components/forms/RegisterForm';
 import { useLoginScreen } from '@/src/hooks/useLoginScreen';
 import { useSplashAnimation } from '@/src/hooks/useSplashAnimation';
 
@@ -72,9 +73,9 @@ export default function LoginScreen() {
                 contentFit="contain" 
               />
               {showSpinner && (
-                <ActivityIndicator 
+                <LoadingSpinner 
                   size="large" 
-                  color="#ffffff" // Explicit inline color to contrast with bg-brand-primary
+                  color="#ffffff"
                   className="absolute"
                   style={{ top: '50%', marginTop: (logoDims.height / 2) + 24 }} 
                 />

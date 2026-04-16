@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Checkbox, CheckboxIndicator, CheckboxIcon, CheckboxLabel } from '@/components/ui/checkbox';
+import { Checkbox, CheckboxIndicator, CheckboxIcon, CheckboxLabel } from '@/src/components/ui/checkbox';
 import { Check, Minus } from 'lucide-react-native';
 
 export interface AppCheckboxProps {

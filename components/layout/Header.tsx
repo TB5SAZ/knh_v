@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
-import { Text } from '@/components/ui/text';
-import { AppBreadcrumb, AppBreadcrumbItem } from '@/components/ui/AppBreadcrumb';
-import { AppIconButton } from '@/components/ui/AppIconButton';
-import { CustomAvatar } from '@/components/ui/CustomAvatar';
-import { CustomBadge } from '@/components/ui/CustomBadge';
+import { Text } from '@/src/components/ui/text';
+import { AppBreadcrumb, AppBreadcrumbItem } from '@/src/components/ui/AppBreadcrumb';
+import { AppIconButton } from '@/src/components/ui/AppIconButton';
+import { CustomAvatar } from '@/src/components/ui/CustomAvatar';
+import { CustomBadge } from '@/src/components/core/CustomBadge';
 import { ArrowLeft, Settings, Bell, Menu, ChevronLeft } from 'lucide-react-native';
 import { Image } from 'expo-image';
 import { useAuth } from '@/src/providers/AuthProvider';

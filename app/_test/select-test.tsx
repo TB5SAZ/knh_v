@@ -4,7 +4,7 @@ import { Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppInput } from '@/src/components/core/AppInput';
-import { AppSelect } from '@/components/ui/AppSelect';
+import { AppSelect } from '@/src/components/core/AppSelect';
 
 export default function SelectTestScreen() {
   const insets = useSafeAreaInsets();

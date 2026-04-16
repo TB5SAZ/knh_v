@@ -1,10 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
-import { VStack } from '@/components/ui/vstack';
-import { HStack } from '@/components/ui/hstack';
-import { Text } from '@/components/ui/text';
-import { AppNavButton } from '@/components/ui/AppNavButton';
-import { Pressable } from '@/components/ui/pressable';
+import { VStack } from '@/src/components/ui/vstack';
+import { HStack } from '@/src/components/ui/hstack';
+import { Text } from '@/src/components/ui/text';
+import { AppNavButton } from '@/src/components/core/AppNavButton';
+import { Pressable } from '@/src/components/ui/pressable';
 import { Image } from 'expo-image';
 import { 
   Home, 

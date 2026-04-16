@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Sidebar } from '@/components/layout/Sidebar';
-import { Switch } from '@/components/ui/switch';
-import { Text } from '@/components/ui/text';
-import { HStack } from '@/components/ui/hstack';
+import { Switch } from '@/src/components/ui/switch';
+import { Text } from '@/src/components/ui/text';
+import { HStack } from '@/src/components/ui/hstack';
 
 export default function SidebarShowcase() {
   const [isCollapsed, setIsCollapsed] = useState(false);

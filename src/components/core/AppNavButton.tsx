@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import { View } from 'react-native';
-import { Pressable } from '@/components/ui/pressable';
-import { HStack } from '@/components/ui/hstack';
-import { Text } from '@/components/ui/text';
+import { Pressable } from '@/src/components/ui/pressable';
+import { HStack } from '@/src/components/ui/hstack';
+import { Text } from '@/src/components/ui/text';
 import { CustomBadge } from './CustomBadge';
 import { LucideIcon, ChevronDown } from 'lucide-react-native';
 

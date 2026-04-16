@@ -14,7 +14,7 @@ import {
 } from '@expo-google-fonts/dm-sans';
 import { useEffect } from 'react';
 
-import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
+import { GluestackUIProvider } from '@/src/components/ui/gluestack-ui-provider';
 import { AuthProvider } from '@/src/providers/AuthProvider';
 import '@/global.css';
 

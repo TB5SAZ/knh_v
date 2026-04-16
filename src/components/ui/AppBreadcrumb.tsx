@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Link } from 'expo-router';
-import { Text } from '@/components/ui/text';
+import { Text } from '@/src/components/ui/text';
 
 export interface AppBreadcrumbItem {
   label: string;

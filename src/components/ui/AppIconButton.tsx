@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { View } from 'react-native';
-import { Button, ButtonIcon } from '@/components/ui/button';
+import { Button, ButtonIcon } from '@/src/components/ui/button';
 import { LucideIcon } from 'lucide-react-native';
 
 export type AppIconButtonVariant = 'solid' | 'soft' | 'outline' | 'ghost';

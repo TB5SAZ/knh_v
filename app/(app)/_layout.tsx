@@ -1,9 +1,10 @@
 import React from 'react';
 import { Slot, Redirect, usePathname } from 'expo-router';
 import { useAuth } from '@/src/providers/AuthProvider';
-import { View, ActivityIndicator, useWindowDimensions } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Header } from '@/components/layout/Header';
+import { LoadingSpinner } from '@/src/components/ui/LoadingSpinner';
 
 export default function AppLayout() {
   const { session, isLoading } = useAuth();
@@ -14,11 +15,7 @@ export default function AppLayout() {
 
   // Authentication Loading State
   if (isLoading) {
-    return (
-      <View className="flex-1 justify-center items-center bg-bg-main">
-        <ActivityIndicator size="large" color="#008080" />
-      </View>
-    );
+    return <LoadingSpinner size="large" color="#008080" className="bg-bg-main" />;
   }
 
   // Route Flashing / Render-Blocking Protection (Security Gate)

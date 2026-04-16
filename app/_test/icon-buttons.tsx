@@ -1,4 +1,4 @@
-import { AppIconButton } from '@/components/ui/AppIconButton';
+import { AppIconButton } from '@/src/components/ui/AppIconButton';
 import { Stack } from 'expo-router';
 import { Bell, Home, Settings, User } from 'lucide-react-native';
 import React from 'react';

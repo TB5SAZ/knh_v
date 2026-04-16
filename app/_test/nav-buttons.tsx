@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Stack } from 'expo-router';
 import { LayoutDashboard } from 'lucide-react-native';
-import { AppNavButton } from '@/components/ui/AppNavButton';
+import { AppNavButton } from '@/src/components/core/AppNavButton';
 
 export default function AppNavButtonShowcase() {
   return (

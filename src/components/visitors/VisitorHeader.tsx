@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { ScanLine } from 'lucide-react-native';
-import { AppSwitch } from '@/components/ui/AppSwitch';
+import { AppSwitch } from '@/src/components/ui/AppSwitch';
 import { AppButton } from '@/src/components/core/AppButton';
 import { Controller, Control, UseFormSetValue } from 'react-hook-form';
 import { VisitorFormValues } from '@/src/schemas/visitorSchema';
