@@ -34,6 +34,12 @@ function useDepartmentList(
 
   useEffect(() => {
     async function fetchDepartments() {
+      if (isRestrictedSelf && profile?.department_id && userDepartmentName) {
+        setDepartments([{ label: userDepartmentName, value: profile.department_id }]);
+        setValue('unitId', profile.department_id, { shouldValidate: true });
+        return;
+      }
+
       const data = await fetchSelectableDepartments();
         
       if (data && data.length > 0) {
@@ -45,9 +51,6 @@ function useDepartmentList(
             setValue('unitId', formatted[0].value, { shouldValidate: true });
           }
         } 
-        else if (isRestrictedSelf && profile?.department_id) {
-          setValue('unitId', profile.department_id, { shouldValidate: true });
-        }
 
         setDepartments(formatted);
       }
@@ -65,6 +68,7 @@ function useTargetUsersList(
   selectedUnitId: string,
   isRestrictedSelf: boolean,
   user: any,
+  profile: any,
   setValue: UseFormSetValue<VisitorFormValues>
 ) {
   const [targetUsers, setTargetUsers] = useState<Array<{ label: string; value: string }>>([]);
@@ -76,9 +80,16 @@ function useTargetUsersList(
         setTargetUsers([]);
         return;
       }
-      
+
       setIsLoadingUsers(true);
       try {
+        if (isRestrictedSelf && user && profile) {
+          const label = `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || 'Kullanıcı';
+          setTargetUsers([{ label, value: user.id }]);
+          setValue('targetUserId', user.id, { shouldValidate: true });
+          return;
+        }
+
         const data = await fetchProfilesByDepartment(selectedUnitId);
 
         if (data && data.length > 0) {
@@ -86,15 +97,10 @@ function useTargetUsersList(
             label: `${u.first_name} ${u.last_name}`,
             value: u.id
           }));
-
-          if (isRestrictedSelf && user) {
-            formattedUsers = formattedUsers.filter(u => u.value === user.id);
-            if (formattedUsers.length > 0) {
-              setValue('targetUserId', user.id, { shouldValidate: true });
-            }
-          }
           
           setTargetUsers(formattedUsers);
+        } else {
+          setTargetUsers([]);
         }
       } finally {
         setIsLoadingUsers(false);
@@ -106,7 +112,7 @@ function useTargetUsersList(
     }
     
     fetchUsers();
-  }, [selectedUnitId, setValue, isRestrictedSelf, user]);
+  }, [selectedUnitId, setValue, isRestrictedSelf, user, profile]);
 
   return { targetUsers, isLoadingUsers };
 }
@@ -125,7 +131,7 @@ export function useVisitorData(
   const isRestrictedSelf = userDepartmentName !== null && !isAdminOrSecurity && !isSecretary;
 
   const departments = useDepartmentList(userDepartmentName, isSecretary, isRestrictedSelf, profile, setValue);
-  const { targetUsers, isLoadingUsers } = useTargetUsersList(selectedUnitId, isRestrictedSelf, user, setValue);
+  const { targetUsers, isLoadingUsers } = useTargetUsersList(selectedUnitId, isRestrictedSelf, user, profile, setValue);
 
   return {
     userDepartmentName,

@@ -1,0 +1,987 @@
+[
+  {
+    "id": "TC001",
+    "title": "Log in and reach the dashboard",
+    "description": "A user can log in with valid credentials and is taken to the authenticated dashboard.",
+    "category": "User Login and Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify dashboard overview metrics are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Register a new account and reach the dashboard",
+    "description": "A new user can register with a valid email and password and is taken to the authenticated dashboard.",
+    "category": "User Login and Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Switch to register mode"
+      },
+      {
+        "type": "action",
+        "description": "Fill a new unique email into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid password into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the register form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify dashboard overview metrics are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Stay authenticated across in-app navigation",
+    "description": "After logging in, the user can navigate across authenticated routes without being returned to the login screen.",
+    "category": "User Login and Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click to navigate to settings"
+      },
+      {
+        "type": "action",
+        "description": "Click to navigate to appointments"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an appointments list is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user is not returned to the login/registration screen"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Check in a visitor and see status updated to inside",
+    "description": "Verifies a signed-in user can start a visitor check-in, submit required check-in data, and see the visitor’s status change to inside.",
+    "category": "Visitors",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item for visitors"
+      },
+      {
+        "type": "action",
+        "description": "Start a visitor check-in"
+      },
+      {
+        "type": "action",
+        "description": "Fill the required check-in fields with valid values"
+      },
+      {
+        "type": "action",
+        "description": "Submit the check-in"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the visitor status is updated to inside"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "View visitor details and logs from the visitors list",
+    "description": "Verifies a signed-in user can open the visitors list, select a visitor, and view that visitor’s details and visit logs.",
+    "category": "Visitors",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item for visitors"
+      },
+      {
+        "type": "action",
+        "description": "Select a visitor from the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the selected visitor’s details are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the selected visitor’s visit logs are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Dashboard shows key visitor overview sections",
+    "description": "An authenticated user can access the dashboard and see both overview metrics and visitor activity sections.",
+    "category": "Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click to navigate to the dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify dashboard overview metrics are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify active visitors and recent check-ins are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Check out a visitor and see status updated to exited",
+    "description": "Verifies a signed-in user can check a visitor in and then complete check-out so the visitor’s status updates to exited.",
+    "category": "Visitors",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item for visitors"
+      },
+      {
+        "type": "action",
+        "description": "Start a visitor check-in"
+      },
+      {
+        "type": "action",
+        "description": "Fill the required check-in fields with valid values"
+      },
+      {
+        "type": "action",
+        "description": "Submit the check-in"
+      },
+      {
+        "type": "action",
+        "description": "Start visitor check-out"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the check-out details"
+      },
+      {
+        "type": "action",
+        "description": "Submit the check-out"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the visitor status is updated to exited"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Create an appointment and see it in the list",
+    "description": "An authenticated user can create a new appointment and then see it appear in the appointments list.",
+    "category": "Appointments",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click to navigate to appointments"
+      },
+      {
+        "type": "action",
+        "description": "Start appointment creation"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid date into the appointment date field"
+      },
+      {
+        "type": "action",
+        "description": "Select a valid time in the appointment time field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a guest name into the guest field"
+      },
+      {
+        "type": "action",
+        "description": "Select a department"
+      },
+      {
+        "type": "action",
+        "description": "Submit the appointment"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new appointment appears in the appointments list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC009",
+    "title": "Add a blacklist entry and see it in the blacklist list",
+    "description": "Verifies an authorized user can add a blacklist entry and then see the new entry appear in the blacklist list.",
+    "category": "Blacklist",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item for blacklist"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a blacklist entry"
+      },
+      {
+        "type": "action",
+        "description": "Fill blacklist details with unique, identifiable values"
+      },
+      {
+        "type": "action",
+        "description": "Submit the blacklist entry"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new blacklist entry appears in the blacklist list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC010",
+    "title": "Show a blacklist warning when adding a matching visitor",
+    "description": "Verifies the system displays a blacklist warning when a user enters visitor details that match existing blacklist criteria.",
+    "category": "Blacklist",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item for blacklist"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a blacklist entry"
+      },
+      {
+        "type": "action",
+        "description": "Fill blacklist details with a specific identifiable name and another matching attribute"
+      },
+      {
+        "type": "action",
+        "description": "Submit the blacklist entry"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item for visitors"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a visitor"
+      },
+      {
+        "type": "action",
+        "description": "Fill visitor details to match the previously created blacklist criteria"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a blacklist warning is shown"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC011",
+    "title": "Edit an appointment and see updated details persist",
+    "description": "An authenticated user can edit an existing appointment and see the updated details reflected when viewing it again.",
+    "category": "Appointments",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click to navigate to appointments"
+      },
+      {
+        "type": "action",
+        "description": "Start appointment creation"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid date into the appointment date field"
+      },
+      {
+        "type": "action",
+        "description": "Select a valid time in the appointment time field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique guest name into the guest field"
+      },
+      {
+        "type": "action",
+        "description": "Select a department"
+      },
+      {
+        "type": "action",
+        "description": "Submit the appointment"
+      },
+      {
+        "type": "action",
+        "description": "Select the appointment from the appointments list"
+      },
+      {
+        "type": "action",
+        "description": "Start editing the appointment"
+      },
+      {
+        "type": "action",
+        "description": "Select a different department"
+      },
+      {
+        "type": "action",
+        "description": "Submit the appointment changes"
+      },
+      {
+        "type": "action",
+        "description": "Click to return to the appointments list"
+      },
+      {
+        "type": "action",
+        "description": "Select the same appointment from the appointments list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the appointment details reflect the updated department"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC012",
+    "title": "View and update profile settings",
+    "description": "Verifies a user can update a profile field in settings and see the updated information reflected after saving.",
+    "category": "Settings and Profile Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click to open settings"
+      },
+      {
+        "type": "action",
+        "description": "Update a profile field with a new value"
+      },
+      {
+        "type": "action",
+        "description": "Save settings"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated profile information is displayed in settings"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC013",
+    "title": "Prevent check-in submission when required fields are missing",
+    "description": "Verifies the check-in form blocks submission and shows validation when required check-in data is missing.",
+    "category": "Visitors",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item for visitors"
+      },
+      {
+        "type": "action",
+        "description": "Start a visitor check-in"
+      },
+      {
+        "type": "action",
+        "description": "Clear any prefilled required check-in fields so at least one required field is empty"
+      },
+      {
+        "type": "action",
+        "description": "Submit the check-in"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a check-in validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the visitor is not marked as inside"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC014",
+    "title": "View appointment details from the list",
+    "description": "An authenticated user can open an appointment from the list and view its details.",
+    "category": "Appointments",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click to navigate to appointments"
+      },
+      {
+        "type": "action",
+        "description": "Start appointment creation"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid date into the appointment date field"
+      },
+      {
+        "type": "action",
+        "description": "Select a valid time in the appointment time field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique guest name into the guest field"
+      },
+      {
+        "type": "action",
+        "description": "Select a department"
+      },
+      {
+        "type": "action",
+        "description": "Submit the appointment"
+      },
+      {
+        "type": "action",
+        "description": "Select the appointment from the appointments list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify appointment details are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC015",
+    "title": "Generate a new security key and view the key summary",
+    "description": "Verifies an authorized user can generate a new key after confirming intent and see the generated key summary.",
+    "category": "Key Generation (Security)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item for key generation"
+      },
+      {
+        "type": "action",
+        "description": "Request new key generation"
+      },
+      {
+        "type": "action",
+        "description": "Confirm generation intent"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a generated key summary is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC016",
+    "title": "Revoke or archive an existing key and see the key list update",
+    "description": "Verifies an authorized user can revoke or archive a key from the key list and the list reflects the change.",
+    "category": "Key Generation (Security)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item for key generation"
+      },
+      {
+        "type": "action",
+        "description": "Request new key generation"
+      },
+      {
+        "type": "action",
+        "description": "Confirm generation intent"
+      },
+      {
+        "type": "action",
+        "description": "View existing keys"
+      },
+      {
+        "type": "action",
+        "description": "Revoke or archive a key"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the key list updates to reflect the key as revoked or archived"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC017",
+    "title": "Cancel out of check-out confirmation without changing status",
+    "description": "Verifies a signed-in user can back out of check-out confirmation and the visitor remains inside.",
+    "category": "Visitors",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item for visitors"
+      },
+      {
+        "type": "action",
+        "description": "Start a visitor check-in"
+      },
+      {
+        "type": "action",
+        "description": "Fill the required check-in fields with valid values"
+      },
+      {
+        "type": "action",
+        "description": "Submit the check-in"
+      },
+      {
+        "type": "action",
+        "description": "Start visitor check-out"
+      },
+      {
+        "type": "action",
+        "description": "Cancel the check-out confirmation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the visitor status remains inside"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC018",
+    "title": "Validate required fields on login",
+    "description": "A user submitting the login form with required fields empty sees required-field validation errors and is not logged in.",
+    "category": "User Login and Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify required-field validation errors are visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user remains on the login/registration screen"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC019",
+    "title": "Validate invalid email format during registration",
+    "description": "A user attempting to register with an invalid email format is shown an email validation error and registration is not submitted.",
+    "category": "User Login and Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Switch to register mode"
+      },
+      {
+        "type": "action",
+        "description": "Fill an invalid email format into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid password into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the register form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an email validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user remains on the login/registration screen"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC020",
+    "title": "Block blacklist entry submission when required fields are missing",
+    "description": "Verifies the blacklist add form blocks submission and shows validation when required blacklist details are missing.",
+    "category": "Blacklist",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item for blacklist"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a blacklist entry"
+      },
+      {
+        "type": "action",
+        "description": "Leave at least one required blacklist field empty"
+      },
+      {
+        "type": "action",
+        "description": "Submit the blacklist entry"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a blacklist validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the blacklist list does not show a newly added entry from this attempt"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC021",
+    "title": "Prevent password update when confirmation does not match",
+    "description": "Verifies a user cannot change their password when the confirmation does not match and a validation error is shown.",
+    "category": "Settings and Profile Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click to open settings"
+      },
+      {
+        "type": "action",
+        "description": "Start the password update flow"
+      },
+      {
+        "type": "action",
+        "description": "Fill a new password into the new password field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a different password into the confirmation field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the password change"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a password mismatch validation error is visible"
+      }
+    ],
+    "priority": "Low"
+  }
+]

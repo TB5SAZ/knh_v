@@ -1,0 +1,20 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:8081",
+  "loginUser": "27098173614",
+  "loginPassword": "939623Aybars.",
+  "executionArgs": {
+    "projectName": "knh_vams",
+    "projectPath": "c:\\Users\\S.KARAMAN\\Documents\\knh_vams",
+    "testIds": [],
+    "additionalInstruction": "",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-bzWIr659WyWebLopvhkA7sYmEX4ZIp_VSWZyqbRPy5RvqAnsP5kcgxj4ZQcoSUI1yjCZrW_5634KAxo6gtQBAGP4E5fXVh5UI4Ag6ZNgH3C77joDjE6AZIrh4KYQ5XL8xa0"
+    }
+  },
+  "serverPort": 49802,
+  "proxy": "http://9782c951-dc4b-4a6c-8df6-7f2145956e8d:kpMj0ik0Vp0d8DtYTdAsKMqN5kuAqc2t@tun.testsprite.com:8080"
+}

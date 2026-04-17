@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Badge, BadgeText } from './badge';
+import { Badge, BadgeText } from '../ui/badge';
 
 export type CustomBadgeProps = {
   count?: number;

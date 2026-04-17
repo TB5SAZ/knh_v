@@ -1,0 +1,218 @@
+
+# TestSprite AI Testing Report(MCP)
+
+---
+
+## 1️⃣ Document Metadata
+- **Project Name:** knh_vams
+- **Date:** 2026-04-17
+- **Prepared by:** TestSprite AI Team
+
+---
+
+## 2️⃣ Requirement Validation Summary
+
+#### Test TC001 Log in and reach the dashboard
+- **Test Code:** [TC001_Log_in_and_reach_the_dashboard.py](./TC001_Log_in_and_reach_the_dashboard.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/44971f78-e7fe-454b-9795-aaadc7de9d4c
+- **Status:** ✅ Passed
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC002 Register a new account and reach the dashboard
+- **Test Code:** [TC002_Register_a_new_account_and_reach_the_dashboard.py](./TC002_Register_a_new_account_and_reach_the_dashboard.py)
+- **Test Error:** TEST BLOCKED
+
+A registration (sign-up) feature could not be reached on the homepage, so the test cannot continue.
+
+Observations:
+- The page shows only a login form with fields 'T.C. Kimlik No' and 'Şifre'.
+- There is no visible 'Kayıt ol', 'Üye Ol', 'Register' or similar sign-up link/button on the page.
+- The primary action shown is 'GİRİŞ YAP' (login); no path to create a new user is available.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/bc8d8f72-d4fb-4004-8acd-5cba94bc78aa
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC003 Stay authenticated across in-app navigation
+- **Test Code:** [TC003_Stay_authenticated_across_in_app_navigation.py](./TC003_Stay_authenticated_across_in_app_navigation.py)
+- **Test Error:** TEST BLOCKED
+
+The login/authenticated routes could not be reached because the app returned an "Unmatched Route" page for /login.
+
+Observations:
+- The page at http://localhost:8081/login displayed "Unmatched Route — Page could not be found." 
+- The page only shows navigation links (Go back, Sitemap) and no login form or input fields.
+- No interactive login elements were available, so authentication and subsequent route navigation cannot be tested.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/a8d5438e-c568-48d1-a437-5414e958da83
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC004 Check in a visitor and see status updated to inside
+- **Test Code:** [TC004_Check_in_a_visitor_and_see_status_updated_to_inside.py](./TC004_Check_in_a_visitor_and_see_status_updated_to_inside.py)
+- **Test Error:** TEST FAILURE
+
+The visitor check-in could not be completed because the unit (Birim) selection is not functional and prevents submission.
+
+Observations:
+- The add-visitor form displays "Birim seçimi zorunludur" and "Kişi seçimi zorunludur" but no Birim option could be confirmed (typing/clicking did not select a unit).
+- Attempts to type and confirm 'Klinik' into the Birim input and to submit the form were made; submission was blocked by client-side validation because Birim/Kişi were not selected.
+
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/ede5fa88-fbc8-4bb8-a80f-8d9cd98e8531
+- **Status:** ❌ Failed
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC005 View visitor details and logs from the visitors list
+- **Test Code:** [TC005_View_visitor_details_and_logs_from_the_visitors_list.py](./TC005_View_visitor_details_and_logs_from_the_visitors_list.py)
+- **Test Error:** TEST FAILURE
+
+The visitors page is not implemented — the app shows an "under construction" message and there is no visitor list or visitor details view to select.
+
+Observations:
+- The page displays the text 'Ziyaretçiler Sayfası (Yapım Aşamasında)'.
+- No visitor entries or selectable list items are present on the page.
+- Only a "Yeni Ziyaretçi Ekle" button is visible; there is no way to select a visitor or view visit logs.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/107ccd71-06f8-463b-8253-25eb12f87b5d
+- **Status:** ❌ Failed
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC006 Dashboard shows key visitor overview sections
+- **Test Code:** [TC006_Dashboard_shows_key_visitor_overview_sections.py](./TC006_Dashboard_shows_key_visitor_overview_sections.py)
+- **Test Error:** TEST BLOCKED
+
+The dashboard cannot be reached because the web app SPA did not load and the login/dashboard routes are not available.
+
+Observations:
+- The sitemap page is blank with 0 interactive elements (no login form or navigation links visible).
+- Navigations to / and /login returned either a blank page or an 'Unmatched Route / Page could not be found' message.
+- No login form or dashboard links were accessible, preventing authentication and verification of dashboard sections.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/b76fcf21-9f52-4138-a9f1-535d8c1555e6
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC007 Check out a visitor and see status updated to exited
+- **Test Code:** [TC007_Check_out_a_visitor_and_see_status_updated_to_exited.py](./TC007_Check_out_a_visitor_and_see_status_updated_to_exited.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/afe2a496-f6c7-4410-bb42-114304219efa
+- **Status:** ✅ Passed
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC008 Create an appointment and see it in the list
+- **Test Code:** [TC008_Create_an_appointment_and_see_it_in_the_list.py](./TC008_Create_an_appointment_and_see_it_in_the_list.py)
+- **Test Error:** TEST BLOCKED
+
+The feature could not be reached — the appointments page appears to be under construction and there is no UI to create or view appointments.
+
+Observations:
+- The main content displays "Randevular Sayfası (Yapım Aşamasında)" (Appointments page under construction).
+- There are no appointment list items, no "new appointment" button, and no form fields visible.
+- The sidebar link for Randevular is active but the page provides no functionality to create or verify appointments.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/ba916a7d-b9d2-49da-bdcd-dd729d4c5535
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC009 Add a blacklist entry and see it in the blacklist list
+- **Test Code:** [TC009_Add_a_blacklist_entry_and_see_it_in_the_blacklist_list.py](./TC009_Add_a_blacklist_entry_and_see_it_in_the_blacklist_list.py)
+- **Test Error:** TEST BLOCKED
+
+The blacklist feature cannot be reached because the Blacklist page is still under construction and provides no UI to add or view entries.
+
+Observations:
+- The page displays 'Kara Liste Sayfası (Yapım Aşamasında)' in the main content area.
+- There are no form fields, add-entry buttons, or a list/table of blacklist entries visible on the page.
+
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/88ae992d-11a2-41ef-9b6e-3d0f9dbfac58
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC010 Show a blacklist warning when adding a matching visitor
+- **Test Code:** [TC010_Show_a_blacklist_warning_when_adding_a_matching_visitor.py](./TC010_Show_a_blacklist_warning_when_adding_a_matching_visitor.py)
+- **Test Error:** TEST BLOCKED
+
+The Blacklist feature cannot be tested because the Blacklist page is not implemented. It displays a placeholder message indicating it is under construction, so creating blacklist entries and verifying matching visitor warnings is not possible.
+
+Observations:
+- The main content of the page reads 'Kara Liste Sayfası (Yapım Aşamasında)'.
+- No form fields or controls for adding a blacklist entry are visible on the page.
+- The sidebar link to 'Kara Liste' is present, but the page content is a placeholder.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/c0ddb601-2fac-4a59-b62e-64dbcab6903a
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC011 Edit an appointment and see updated details persist
+- **Test Code:** [TC011_Edit_an_appointment_and_see_updated_details_persist.py](./TC011_Edit_an_appointment_and_see_updated_details_persist.py)
+- **Test Error:** TEST FAILURE
+
+The appointments editing feature could not be tested because the Appointments page is not implemented.
+
+Observations:
+- The page displays the message "Randevular Sayfası (Yapım Aşamasında)" (Appointments page under construction).
+- No appointment list, no edit controls, and no creation UI are visible on the page.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/cd752e52-2aa5-4dc6-95d2-1f483c40178b
+- **Status:** ❌ Failed
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC012 View and update profile settings
+- **Test Code:** [TC012_View_and_update_profile_settings.py](./TC012_View_and_update_profile_settings.py)
+- **Test Error:** TEST BLOCKED
+
+The profile editing feature cannot be tested because the Settings area is not implemented.
+
+Observations:
+- Navigated to /settings and the page displays a control panel card stating the area is 'Yapım Aşamasında' (Under Construction).
+- There are no editable profile fields or a settings form present on the page.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/4c72f1ab-68d1-48a0-8b21-b01ece1842b9
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC013 Prevent check-in submission when required fields are missing
+- **Test Code:** [TC013_Prevent_check_in_submission_when_required_fields_are_missing.py](./TC013_Prevent_check_in_submission_when_required_fields_are_missing.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/4b71ca2b-329a-4464-a8c7-f1474225f40e
+- **Status:** ✅ Passed
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC014 View appointment details from the list
+- **Test Code:** [TC014_View_appointment_details_from_the_list.py](./TC014_View_appointment_details_from_the_list.py)
+- **Test Error:** TEST BLOCKED
+
+The appointments feature cannot be tested because the Randevular page is under construction.
+
+Observations:
+- The page shows the message 'Randevular Sayfası (Yapım Aşamasında)'.
+- There are no appointment list items or detail links visible on the page.
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/773282a8-5e27-4273-814c-f2a91674e87f
+- **Status:** BLOCKED
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+#### Test TC015 Generate a new security key and view the key summary
+- **Test Code:** [TC015_Generate_a_new_security_key_and_view_the_key_summary.py](./TC015_Generate_a_new_security_key_and_view_the_key_summary.py)
+- **Test Visualization and Result:** https://www.testsprite.com/dashboard/mcp/tests/97165b9d-2195-482f-a7c0-b5a63733ffa9/eeb657c0-e82f-4995-ac9c-c2629a18bd07
+- **Status:** ✅ Passed
+- **Analysis / Findings:** {{TODO:AI_ANALYSIS}}.
+---
+
+
+## 3️⃣ Coverage & Matching Metrics
+
+- **26.67** of tests passed
+
+| Requirement        | Total Tests | ✅ Passed | ❌ Failed  |
+|--------------------|-------------|-----------|------------|
+| ...                | ...         | ...       | ...        |
+---
+
+
+## 4️⃣ Key Gaps / Risks
+{AI_GNERATED_KET_GAPS_AND_RISKS}
+---

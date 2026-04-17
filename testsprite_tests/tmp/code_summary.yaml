@@ -1,0 +1,69 @@
+version: "2"
+type: frontend
+tech_stack:
+  - TypeScript
+  - React Native (Expo)
+  - Gluestack UI
+  - Supabase
+routes:
+  - path: /
+    file: app/index.tsx
+    auth_required: false
+    description: Login and Registration Screen
+  - path: /modal
+    file: app/modal.tsx
+    auth_required: false
+    description: Generic modal
+  - path: /(app)/dashboard
+    file: app/(app)/dashboard.tsx
+    auth_required: true
+    description: Main dashboard after login
+  - path: /(app)/appointments
+    file: app/(app)/appointments.tsx
+    auth_required: true
+    description: Manage appointments
+  - path: /(app)/blacklist
+    file: app/(app)/blacklist.tsx
+    auth_required: true
+    description: View or edit blacklist
+  - path: /(app)/keygen
+    file: app/(app)/keygen.tsx
+    auth_required: true
+    description: Application key generation UI
+  - path: /(app)/settings
+    file: app/(app)/settings.tsx
+    auth_required: true
+    description: User and application settings
+  - path: /(app)/visitors
+    file: app/(app)/visitors.tsx
+    auth_required: true
+    description: List of scheduled or active visitors
+features:
+  - name: User Login and Registration
+    description: Login and sign up functional blocks using React Hook Form and Supabase
+    files:
+      - app/index.tsx
+      - src/components/forms/LoginForm.tsx
+      - src/components/forms/RegisterForm.tsx
+    entry_route: /
+    user_interactions:
+      - Fill email input
+      - Fill password input
+      - Submit login form
+      - Switch to register mode
+      - Submit register form
+      - Handle success or error validation states
+    api_calls:
+      - method: POST
+        endpoint: supabase_auth
+    auth_required: false
+  - name: Dashboard
+    description: Displays dashboard info
+    files:
+      - app/(app)/dashboard.tsx
+    entry_route: /(app)/dashboard
+    user_interactions:
+      - View overview metrics
+    api_calls: []
+    auth_required: true
+known_limitations: []

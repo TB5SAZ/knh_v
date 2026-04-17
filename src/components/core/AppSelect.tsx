@@ -11,7 +11,7 @@ import {
   SelectDragIndicator,
   SelectItem,
   SelectItemText,
-} from './select';
+} from '../ui/select';
 import { ChevronDown } from 'lucide-react-native';
 
 export interface AppSelectProps {
@@ -29,9 +29,17 @@ export function AppSelect({
   onValueChange,
   isDisabled = false,
 }: AppSelectProps) {
+  // Option nesnesini bul ve label'ı çıkar, yoksa boş veya raw ID göstermemek için
+  const selectedOption = selectedValue ? options.find(opt => opt.value === selectedValue) : null;
+  const displayValue = selectedOption ? selectedOption.label : undefined;
+  
+  // Eğer seçenek henüz listede yoksa, Select'e selectedValue atamak UUID gösterilmesine yol açabiliyor.
+  const isValueInOptions = selectedOption !== null && selectedOption !== undefined;
+  const safeSelectedValue = isValueInOptions ? selectedValue : undefined;
+
   return (
     <Select
-      selectedValue={selectedValue}
+      selectedValue={safeSelectedValue}
       onValueChange={onValueChange}
       isDisabled={isDisabled}
     >
@@ -41,6 +49,7 @@ export function AppSelect({
       >
         <SelectInput
           placeholder={placeholder}
+          value={displayValue}
           className="flex-1 text-body-14-regular !text-text-secondary p-0 web:outline-none placeholder:!text-text-secondary bg-transparent"
           style={{ fontFamily: 'DMSans_400Regular' }}
         />
