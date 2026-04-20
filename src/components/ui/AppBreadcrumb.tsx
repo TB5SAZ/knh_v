@@ -25,7 +25,7 @@ export function AppBreadcrumb({ items }: AppBreadcrumbProps) {
                 {item.label}
               </Text>
             ) : (
-              <Link href={item.href || '#'}>
+              <Link href={(item.href as any) || '#'}>
                 <Text className="text-teal-500 text-sm font-medium">
                   {item.label}
                 </Text>

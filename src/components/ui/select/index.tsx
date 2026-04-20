@@ -257,6 +257,7 @@ const SelectVirtualizedList = UISelect.VirtualizedList;
 const SelectFlatList = UISelect.FlatList;
 const SelectSectionList = UISelect.SectionList;
 const SelectSectionHeaderText = UISelect.SectionHeaderText;
+// @ts-ignore: Gluestack inner type limitation
 const SelectItemText = UISelect.ItemText;
 
 export {

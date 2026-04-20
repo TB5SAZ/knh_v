@@ -23,7 +23,7 @@ export default function VisitorAddScreen() {
 
   const { control, handleSubmit, watch, setValue, reset, formState: { errors, dirtyFields } } = useForm<VisitorFormValues>({
     mode: 'onChange',
-    resolver: zodResolver(visitorSchema),
+    resolver: zodResolver(visitorSchema) as any,
     defaultValues: getDefaultVisitorFormValues(now)
   });
 
@@ -99,10 +99,10 @@ export default function VisitorAddScreen() {
         <View className="flex-col gap-5">
           
           <VisitorHeader
-            control={control}
-            setValue={setValue}
-            isExternal={isExternal}
-            isForeign={isForeign}
+            control={control as any}
+            setValue={setValue as any}
+            isExternal={isExternal ?? false}
+            isForeign={isForeign ?? false}
             onClearSuggestions={clearSuggestions}
           />
 
@@ -113,14 +113,14 @@ export default function VisitorAddScreen() {
           <View className="flex-col gap-6">
 
             <VisitorPersonalInfo
-              control={control}
-              errors={errors}
-              setValue={setValue}
-              isExternal={isExternal}
-              isForeign={isForeign}
-              firstNameVal={firstNameVal}
-              lastNameVal={lastNameVal}
-              titleVal={titleVal}
+              control={control as any}
+              errors={errors as any}
+              setValue={setValue as any}
+              isExternal={isExternal ?? false}
+              isForeign={isForeign ?? false}
+              firstNameVal={firstNameVal ?? ''}
+              lastNameVal={lastNameVal ?? ''}
+              titleVal={titleVal ?? ''}
               searchVisitors={searchVisitors}
               showSuggestions={showSuggestions}
               activeSearchField={activeSearchField}
@@ -129,8 +129,8 @@ export default function VisitorAddScreen() {
             />
 
             <VisitorTargetInfo
-              control={control}
-              errors={errors}
+              control={control as any}
+              errors={errors as any}
               departments={departments}
               targetUsers={targetUsers}
               selectedUnitId={selectedUnitId}
@@ -140,8 +140,8 @@ export default function VisitorAddScreen() {
             />
 
             <VisitorDetailsInfo
-              control={control}
-              errors={errors}
+              control={control as any}
+              errors={errors as any}
               isMobile={isMobile}
               isSecurity={isSecurity}
             />
@@ -159,7 +159,7 @@ export default function VisitorAddScreen() {
                 variant="primary" 
                 size="lg"
                 className="w-full md:w-auto md:min-w-[124px]"
-                onPress={handleSubmit(onSubmit)}
+                onPress={handleSubmit(onSubmit as any)}
               />
             </View>
           </View>

@@ -40,7 +40,7 @@ export const AppTextarea = React.forwardRef<TextInput, AppTextareaProps>(({
         className={`bg-bg-surface px-3 py-3 min-h-[120px] rounded-lg ${borderClass} w-full`}
       >
         <TextareaInput
-          ref={ref}
+          ref={ref as any}
           multiline
           numberOfLines={numberOfLines}
           textAlignVertical="top"

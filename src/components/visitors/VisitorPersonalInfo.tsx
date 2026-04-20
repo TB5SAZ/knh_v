@@ -6,6 +6,7 @@ import { AppCheckbox } from '@/src/components/core/AppCheckbox';
 import { VisitorFormValues } from '@/src/schemas/visitorSchema';
 import { maskTc } from '@/src/utils/validations';
 import { VisitorAutocompleteDropdown } from './VisitorAutocompleteDropdown';
+import { Visitor } from '@/src/types/visitor';
 
 interface VisitorPersonalInfoProps {
   control: Control<VisitorFormValues>;
@@ -19,8 +20,8 @@ interface VisitorPersonalInfoProps {
   searchVisitors: (f: string, l: string, t: string, source: 'name' | 'title') => void;
   showSuggestions: boolean;
   activeSearchField: 'name' | 'title' | null;
-  nameSuggestions: any[];
-  onSelectVisitor: (visitor: any) => void;
+  nameSuggestions: Visitor[];
+  onSelectVisitor: (visitor: Visitor) => void;
 }
 
 export const VisitorPersonalInfo: React.FC<VisitorPersonalInfoProps> = ({

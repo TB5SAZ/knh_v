@@ -1,13 +1,13 @@
 export interface Visitor {
   id: string;
-  tc_no: string;
+  tc_no?: string | null;
   first_name: string;
   last_name: string;
-  title?: string;
-  phone?: string;
-  is_foreign: boolean;
-  is_external: boolean;
-  created_at: string;
+  title?: string | null;
+  phone?: string | null;
+  is_foreign: boolean | null;
+  is_external: boolean | null;
+  created_at: string | null;
 }
 
 export interface VisitorFormData {
@@ -33,4 +33,19 @@ export interface VisitorUpdateData {
   is_foreign?: boolean;
   is_external?: boolean;
   tc_no?: string | null;
+}
+
+export type VisitorStatus = 'success' | 'pending' | 'cancelled' | 'blocked';
+
+export interface VisitorData {
+  id: string;
+  visitorName: string;
+  visitorTitle: string;
+  hostName: string;
+  hostTitle: string;
+  date: string;
+  time: string;
+  subject: string;
+  status: VisitorStatus;
+  isInternal: boolean;
 }

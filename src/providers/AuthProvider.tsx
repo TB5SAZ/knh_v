@@ -3,10 +3,10 @@ import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/src/lib/supabase';
 
 export type UserProfile = {
-  first_name?: string;
-  last_name?: string;
-  role?: string;
-  department_id?: string;
+  first_name?: string | null;
+  last_name?: string | null;
+  role?: string | null;
+  department_id?: string | null;
 };
 
 type AuthContextType = {

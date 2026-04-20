@@ -15,64 +15,6 @@ const generateGhostEmail = async (tcKimlik: string): Promise<string> => {
   return `${hash}${EMAIL_DOMAIN}`;
 };
 
-/** Validates and retrieves the registration key via secure RPC */
-const verifyRegistrationKey = async (key: string) => {
-  const { data: keyData, error: keyError } = await supabase
-    .rpc('verify_registration_key', { p_key_value: key });
-
-  if (keyError || !keyData) {
-    logger.error('[authService] Key verify error:', keyError);
-    throw new Error('Geçersiz veya daha önce kullanılmış bir yetki anahtarı girdiniz.');
-  }
-  // RPC returns the row JSON which acts identically to the object returned by .single()
-  return keyData;
-};
-
-/** Burns the registration key securely via RPC so it cannot be used again */
-const burnRegistrationKey = async (key: string) => {
-  const { error: burnError } = await supabase
-    .rpc('burn_registration_key', { p_key_value: key });
-
-  if (burnError) {
-    logger.error('[authService] Key burn error:', burnError);
-  }
-};
-
-interface ProfileData {
-  userId: string;
-  tcKimlik: string;
-  firstName: string;
-  lastName: string;
-  role: string;
-  departmentId: string | null;
-}
-
-/** Creates a profile for the newly registered user */
-const createProfile = async ({
-  userId,
-  tcKimlik,
-  firstName,
-  lastName,
-  role,
-  departmentId,
-}: ProfileData) => {
-  const { error: profileError } = await supabase
-    .from('profiles')
-    .insert({
-      id: userId,
-      tc_kimlik_no: tcKimlik,
-      first_name: firstName,
-      last_name: lastName,
-      role: role,
-      department_id: departmentId,
-    });
-
-  if (profileError) {
-    logger.error('[authService] Profile insert error:', profileError);
-    throw new Error('Kullanıcı hesabı oluşturuldu ancak profil bilgileri kaydedilemedi.');
-  }
-};
-
 /** Fetches a user's role to ensure the profile exists and is accessible */
 const fetchProfileRole = async (userId: string) => {
   const { data: profileData, error: profileError } = await supabase
@@ -89,19 +31,6 @@ const fetchProfileRole = async (userId: string) => {
 };
 
 // --- Exported Service ---
-
-/** Registers a completely new user with Supabase */
-const signUpUser = async (email: string, password: string) => {
-  const { data, error } = await supabase.auth.signUp({ email, password });
-  if (error) {
-    logger.error('[authService] SignUp error:', error);
-    throw new Error('Kayıt işlemi sırasında bir hata oluştu. Bilgilerinizi kontrol edip tekrar deneyiniz.');
-  }
-  if (!data.user) {
-    throw new Error('Kullanıcı doğrulanamadı.');
-  }
-  return data.user;
-};
 
 /** Authenticates an existing user via Supabase */
 const signInUser = async (email: string, password: string) => {
@@ -136,29 +65,37 @@ export interface RegisterParams {
 export const authService = {
   /**
    * Register a user using a pre-defined registration key.
+   * Trigger on auth.users will map this data into the public.profiles table securely.
    */
   async registerWithKey({ tcKimlik, firstName, lastName, key, password }: RegisterParams) {
-    // 1. Verify Registration Key
-    const keyData = await verifyRegistrationKey(key);
-
-    // 2. Supabase Auth Sign Up
     const email = await generateGhostEmail(tcKimlik);
-    const user = await signUpUser(email, password);
-
-    // 3. Insert into Profiles Table
-    await createProfile({
-      userId: user.id,
-      tcKimlik,
-      firstName,
-      lastName,
-      role: keyData.assigned_role,
-      departmentId: keyData.department_id
+    
+    const { data, error } = await supabase.auth.signUp({ 
+      email, 
+      password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+          tc_kimlik_no: tcKimlik,
+          registration_key: key
+        }
+      }
     });
 
-    // 4. Burn the used Registration Key
-    await burnRegistrationKey(key);
+    if (error) {
+      if (error.message.includes('Geçersiz veya kullanılmış yetki anahtarı')) {
+         throw new Error('Geçersiz veya daha önce kullanılmış bir yetki anahtarı girdiniz.');
+      }
+      logger.error('[authService] SignUp error:', error);
+      throw new Error('Kayıt işlemi sırasında bir hata oluştu. Bilgilerinizi kontrol edip tekrar deneyiniz.');
+    }
 
-    return user;
+    if (!data.user) {
+      throw new Error('Kullanıcı doğrulanamadı.');
+    }
+
+    return data.user;
   },
 
   /**

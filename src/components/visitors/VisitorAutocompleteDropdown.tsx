@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import { maskTc } from '@/src/utils/validations';
+import { Visitor } from '@/src/types/visitor';
 
 interface VisitorAutocompleteDropdownProps {
-  suggestions: any[];
-  onSelect: (visitor: any) => void;
+  suggestions: Visitor[];
+  onSelect: (visitor: Visitor) => void;
   /** Pass the tailwind z-index class if needed to override */
   zIndexClass?: string;
 }

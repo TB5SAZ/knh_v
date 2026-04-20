@@ -13,12 +13,10 @@ export const visitorSchema = z.object({
   unitId: z.string().min(1, "Birim seçimi zorunludur"),
   targetUserId: z.string().min(1, "Kişi seçimi zorunludur"),
   visitDate: z.date({
-    required_error: "Ziyaret tarihi seçimi zorunludur",
-    invalid_type_error: "Geçerli bir tarih seçiniz"
+    message: "Ziyaret tarihi seçimi zorunludur"
   }),
   visitTime: z.date({
-    required_error: "Ziyaret saati seçimi zorunludur",
-    invalid_type_error: "Geçerli bir saat seçiniz"
+    message: "Ziyaret saati seçimi zorunludur"
   }),
   visitReason: z.string().min(10, "Ziyaret nedeni en az 10 karakter olmalıdır"),
 }).superRefine((data, ctx) => {
