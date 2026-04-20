@@ -92,13 +92,17 @@ export const visitorService = {
         throw new Error('Visitor ID oluşturulamadı.');
       }
 
+      const { data: authData } = await supabase.auth.getUser();
+      const currentUserId = authData.user?.id;
+
       const { data: visitData, error: visitErr } = await supabase
         .from('visits')
         .insert({
           visitor_id: visitorId,
           visited_person_id: data.targetUserId,
           visit_purpose: data.visitReason,
-          entry_time: combinedDateTime.toISOString()
+          entry_time: combinedDateTime.toISOString(),
+          created_by: currentUserId || null,
         })
         .select('id')
         .single();
@@ -111,6 +115,118 @@ export const visitorService = {
     } catch (error) {
       logger.error('Visit creation error:', error);
       throw error;
+    }
+  },
+
+  async getMonthlyVisitorStats(): Promise<{
+    total: number;
+    internal: number;
+    external: number;
+    blocked: number;
+    cancelled: number;
+    trends: {
+      total: string;
+      internal: string;
+      external: string;
+      blocked: string;
+      cancelled: string;
+    }
+  }> {
+    try {
+      const startOfMonth = new Date();
+      startOfMonth.setDate(1);
+      startOfMonth.setHours(0, 0, 0, 0);
+
+      const startOfPrevMonth = new Date(startOfMonth);
+      startOfPrevMonth.setMonth(startOfPrevMonth.getMonth() - 1);
+
+      const [
+        totalRes, internalRes, externalRes, blockedRes, cancelledRes,
+        prevTotalRes, prevInternalRes, prevExternalRes, prevBlockedRes, prevCancelledRes
+      ] = await Promise.all([
+        supabase
+          .from('visits')
+          .select('*', { count: 'exact', head: true })
+          .gte('entry_time', startOfMonth.toISOString()),
+        supabase
+          .from('visits')
+          .select('*, visitors!inner(is_external)', { count: 'exact', head: true })
+          .gte('entry_time', startOfMonth.toISOString())
+          .eq('visitors.is_external', false),
+        supabase
+          .from('visits')
+          .select('*, visitors!inner(is_external)', { count: 'exact', head: true })
+          .gte('entry_time', startOfMonth.toISOString())
+          .eq('visitors.is_external', true),
+        supabase
+          .from('visits')
+          .select('*', { count: 'exact', head: true })
+          .gte('entry_time', startOfMonth.toISOString())
+          .eq('status', 'blocked'),
+        supabase
+          .from('visits')
+          .select('*', { count: 'exact', head: true })
+          .gte('entry_time', startOfMonth.toISOString())
+          .eq('status', 'cancelled'),
+        
+        supabase
+          .from('visits')
+          .select('*', { count: 'exact', head: true })
+          .gte('entry_time', startOfPrevMonth.toISOString())
+          .lt('entry_time', startOfMonth.toISOString()),
+        supabase
+          .from('visits')
+          .select('*, visitors!inner(is_external)', { count: 'exact', head: true })
+          .gte('entry_time', startOfPrevMonth.toISOString())
+          .lt('entry_time', startOfMonth.toISOString())
+          .eq('visitors.is_external', false),
+        supabase
+          .from('visits')
+          .select('*, visitors!inner(is_external)', { count: 'exact', head: true })
+          .gte('entry_time', startOfPrevMonth.toISOString())
+          .lt('entry_time', startOfMonth.toISOString())
+          .eq('visitors.is_external', true),
+        supabase
+          .from('visits')
+          .select('*', { count: 'exact', head: true })
+          .gte('entry_time', startOfPrevMonth.toISOString())
+          .lt('entry_time', startOfMonth.toISOString())
+          .eq('status', 'blocked'),
+        supabase
+          .from('visits')
+          .select('*', { count: 'exact', head: true })
+          .gte('entry_time', startOfPrevMonth.toISOString())
+          .lt('entry_time', startOfMonth.toISOString())
+          .eq('status', 'cancelled')
+      ]);
+
+      const calculateTrend = (curr: number, prev: number) => {
+        if (prev === 0) return curr > 0 ? '+100%' : '0%';
+        const diff = ((curr - prev) / prev) * 100;
+        return `${diff > 0 ? '+' : ''}${diff.toFixed(1)}%`;
+      };
+
+      return {
+        total: totalRes.count || 0,
+        internal: internalRes.count || 0,
+        external: externalRes.count || 0,
+        blocked: blockedRes.count || 0,
+        cancelled: cancelledRes.count || 0,
+        trends: {
+          total: calculateTrend(totalRes.count || 0, prevTotalRes.count || 0),
+          internal: calculateTrend(internalRes.count || 0, prevInternalRes.count || 0),
+          external: calculateTrend(externalRes.count || 0, prevExternalRes.count || 0),
+          blocked: calculateTrend(blockedRes.count || 0, prevBlockedRes.count || 0),
+          cancelled: calculateTrend(cancelledRes.count || 0, prevCancelledRes.count || 0)
+        }
+      };
+    } catch (error) {
+      logger.error('Error fetching monthly visitor stats:', error);
+      const zeroTrend = '0%';
+      return { 
+        total: 0, internal: 0, external: 0, blocked: 0, cancelled: 0,
+        trends: { total: zeroTrend, internal: zeroTrend, external: zeroTrend, blocked: zeroTrend, cancelled: zeroTrend }
+      };
     }
   }
 };

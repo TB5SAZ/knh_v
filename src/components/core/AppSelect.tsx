@@ -30,7 +30,7 @@ export function AppSelect({
   isDisabled = false,
 }: AppSelectProps) {
   // Option nesnesini bul ve label'ı çıkar, yoksa boş veya raw ID göstermemek için
-  const selectedOption = selectedValue ? options.find(opt => opt.value === selectedValue) : null;
+  const selectedOption = selectedValue !== undefined && selectedValue !== null ? options.find(opt => opt.value === selectedValue) : null;
   const displayValue = selectedOption ? selectedOption.label : undefined;
   
   // Eğer seçenek henüz listede yoksa, Select'e selectedValue atamak UUID gösterilmesine yol açabiliyor.
