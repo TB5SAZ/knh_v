@@ -22,6 +22,7 @@ interface VisitorPersonalInfoProps {
   activeSearchField: 'name' | 'title' | null;
   nameSuggestions: Visitor[];
   onSelectVisitor: (visitor: Visitor) => void;
+  isEditMode?: boolean;
 }
 
 export const VisitorPersonalInfo: React.FC<VisitorPersonalInfoProps> = ({
@@ -37,10 +38,11 @@ export const VisitorPersonalInfo: React.FC<VisitorPersonalInfoProps> = ({
   showSuggestions,
   activeSearchField,
   nameSuggestions,
-  onSelectVisitor
+  onSelectVisitor,
+  isEditMode = false
 }) => {
   return (
-    <View className="flex-col gap-3">
+    <View className={`flex-col gap-3 ${isEditMode ? 'opacity-80' : ''}`}>
       <View className="h-6 justify-center">
         <Text className="text-heading-14-semibold text-text-primary">Ziyaret Edenin</Text>
       </View>
@@ -57,6 +59,7 @@ export const VisitorPersonalInfo: React.FC<VisitorPersonalInfoProps> = ({
                     label="Adı" 
                     placeholder="Ziyaretçinin Adını Giriniz" 
                     value={value}
+                    editable={!isEditMode}
                     onChangeText={(text) => {
                       const formatted = text.split(' ').map(word => 
                         word ? word.charAt(0).toLocaleUpperCase('tr-TR') + word.slice(1).toLocaleLowerCase('tr-TR') : ''
@@ -79,6 +82,7 @@ export const VisitorPersonalInfo: React.FC<VisitorPersonalInfoProps> = ({
                     label="Soyadı" 
                     placeholder="Ziyaretçinin Soyadını Giriniz" 
                     value={value}
+                    editable={!isEditMode}
                     onChangeText={(text) => {
                       const formatted = text.toLocaleUpperCase('tr-TR');
                       onChange(formatted);
@@ -93,7 +97,7 @@ export const VisitorPersonalInfo: React.FC<VisitorPersonalInfoProps> = ({
           </View>
 
           {/* Autocomplete Suggestions Dropdown */}
-          {showSuggestions && activeSearchField === 'name' && nameSuggestions.length > 0 && (
+          {!isEditMode && showSuggestions && activeSearchField === 'name' && nameSuggestions.length > 0 && (
              <VisitorAutocompleteDropdown 
                suggestions={nameSuggestions} 
                onSelect={onSelectVisitor} 
@@ -114,6 +118,7 @@ export const VisitorPersonalInfo: React.FC<VisitorPersonalInfoProps> = ({
                       label="Ünvan" 
                       placeholder="Ziyaretçinin Ünvanını Giriniz" 
                       value={value}
+                      editable={!isEditMode}
                       onChangeText={(text) => {
                         const formatted = text.split(' ').map(word => 
                           word ? word.charAt(0).toLocaleUpperCase('tr-TR') + word.slice(1).toLocaleLowerCase('tr-TR') : ''
@@ -125,7 +130,7 @@ export const VisitorPersonalInfo: React.FC<VisitorPersonalInfoProps> = ({
                       error={errors.title?.message}
                     />
                     {/* Title Suggestions Dropdown */}
-                    {showSuggestions && activeSearchField === 'title' && nameSuggestions.length > 0 && (
+                    {!isEditMode && showSuggestions && activeSearchField === 'title' && nameSuggestions.length > 0 && (
                       <VisitorAutocompleteDropdown 
                         suggestions={nameSuggestions} 
                         onSelect={onSelectVisitor} 
@@ -146,6 +151,7 @@ export const VisitorPersonalInfo: React.FC<VisitorPersonalInfoProps> = ({
                     keyboardType={isForeign ? "default" : "numeric"}
                     maxLength={isForeign ? undefined : 11}
                     value={value}
+                    editable={!isEditMode}
                     onChangeText={onChange}
                     error={errors.tcNo?.message}
                   />
@@ -163,6 +169,7 @@ export const VisitorPersonalInfo: React.FC<VisitorPersonalInfoProps> = ({
                   placeholder="Ziyaretçinin Telefon Numarasını Giriniz" 
                   keyboardType="phone-pad" 
                   value={value}
+                  editable={!isEditMode}
                   onChangeText={onChange}
                   error={errors.phone?.message}
                 />
@@ -180,6 +187,7 @@ export const VisitorPersonalInfo: React.FC<VisitorPersonalInfoProps> = ({
                 value="foreign" 
                 label="Yabancı Uyruklu Ziyaretçi" 
                 isChecked={value}
+                isDisabled={isEditMode}
                 onChange={(checked) => onChange(checked)}
               />
             )}

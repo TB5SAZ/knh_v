@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, ScrollView, useWindowDimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView, useWindowDimensions, ActivityIndicator } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 import { AppButton } from '@/src/components/core/AppButton';
 import { AppAlert, AppAlertStatus } from '@/src/components/core/AppAlert';
@@ -16,14 +16,15 @@ import { VisitorHeader } from '@/src/components/visitors/VisitorHeader';
 import { VisitorPersonalInfo } from '@/src/components/visitors/VisitorPersonalInfo';
 import { VisitorTargetInfo } from '@/src/components/visitors/VisitorTargetInfo';
 import { VisitorDetailsInfo } from '@/src/components/visitors/VisitorDetailsInfo';
-import { maskTc } from '@/src/utils/validations';
 
-export default function VisitorAddScreen() {
+export default function VisitorEditScreen() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const router = useRouter();
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
   const now = new Date();
-  const router = useRouter();
 
+  const [isLoading, setIsLoading] = useState(true);
   const [alertConfig, setAlertConfig] = useState<{
     isOpen: boolean;
     title: string;
@@ -51,6 +52,51 @@ export default function VisitorAddScreen() {
   const lastNameVal = watch('lastName');
   const titleVal = watch('title');
 
+  // Fetch initial data
+  useEffect(() => {
+    if (!id) return;
+    
+    const fetchVisit = async () => {
+      try {
+        const visit = await visitorService.getVisitById(id);
+        const visitor = visit.visitor;
+        const department_id = visit.visited_person?.department_id;
+        const entryTime = new Date(visit.entry_time);
+
+        reset({
+          existingVisitorId: visitor.id,
+          isExternal: visitor.is_external ?? true,
+          firstName: visitor.first_name || '',
+          lastName: visitor.last_name || '',
+          isForeign: visitor.is_foreign ?? false,
+          tcNo: visitor.tc_no || '',
+          title: visitor.title || '',
+          phone: visitor.phone || '',
+          unitId: department_id || '',
+          targetUserId: visit.visited_person_id || '',
+          visitDate: entryTime,
+          visitTime: entryTime,
+          visitReason: visit.visit_purpose || '',
+        });
+      } catch (error: any) {
+        setAlertConfig({
+          isOpen: true,
+          title: 'Hata',
+          description: error.message || 'Kayıt bulunamadı.',
+          status: 'error',
+          onClose: () => {
+            setAlertConfig(prev => ({ ...prev, isOpen: false }));
+            router.back();
+          }
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchVisit();
+  }, [id, reset, router]);
+
   // Hedef Birim / Kişi Verileri Hook'u
   const { 
     userDepartmentName, 
@@ -74,33 +120,20 @@ export default function VisitorAddScreen() {
     clearSuggestions 
   } = useVisitorSearch();
 
-  // Güvenlikse veya tarih/saat manuel değiştirilmemişse sürekli zamanı güncelle
-  useAutoTimeUpdate(setValue, isSecurity, dirtyFields);
+  // We do NOT use auto-time update in edit mode!
+  // useAutoTimeUpdate(setValue, isSecurity, dirtyFields);
 
   const handleSelectVisitor = (visitor: any) => {
-    const unmaskedTc = visitor.tc_no || ''; 
-    const tcNoVal = maskTc(unmaskedTc);
-
-    setValue('firstName', visitor.first_name, { shouldValidate: true });
-    setValue('lastName', visitor.last_name, { shouldValidate: true });
-    setValue('isExternal', visitor.is_external, { shouldValidate: true });
-    setValue('isForeign', visitor.is_foreign, { shouldValidate: true });
-    setValue('tcNo', tcNoVal, { shouldValidate: true });
-    setValue('title', visitor.title || '', { shouldValidate: true });
-    setValue('phone', visitor.phone || '', { shouldValidate: true });
-    setValue('existingVisitorId', visitor.id);
-    
-    clearSuggestions();
+    // Disabled in edit mode
   };
 
   const onSubmit = async (data: VisitorFormValues) => {
     try {
-      await visitorService.createVisit(data, isSecurity);
-      
+      await visitorService.updateVisit(id, data, false);
       setAlertConfig({
         isOpen: true,
         title: 'Başarılı',
-        description: 'Ziyaretçi Kaydı Oluşturuldu',
+        description: 'Ziyaret başarıyla güncellendi.',
         status: 'success',
         onClose: () => {
           setAlertConfig(prev => ({ ...prev, isOpen: false }));
@@ -118,6 +151,14 @@ export default function VisitorAddScreen() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <View className="flex-1 items-center justify-center bg-bg-surface">
+        <ActivityIndicator size="large" color="#63716e" />
+      </View>
+    );
+  }
+
   return (
     <ScrollView 
       className="flex-1 bg-bg-surface" 
@@ -133,6 +174,7 @@ export default function VisitorAddScreen() {
             isExternal={isExternal ?? false}
             isForeign={isForeign ?? false}
             onClearSuggestions={clearSuggestions}
+            isEditMode={true}
           />
 
           {/* Divider */}
@@ -151,10 +193,11 @@ export default function VisitorAddScreen() {
               lastNameVal={lastNameVal ?? ''}
               titleVal={titleVal ?? ''}
               searchVisitors={searchVisitors}
-              showSuggestions={showSuggestions}
-              activeSearchField={activeSearchField}
-              nameSuggestions={nameSuggestions}
+              showSuggestions={false} // Disabled logic
+              activeSearchField={null} // Disabled
+              nameSuggestions={[]} // Disabled
               onSelectVisitor={handleSelectVisitor}
+              isEditMode={true}
             />
 
             <VisitorTargetInfo
@@ -184,7 +227,7 @@ export default function VisitorAddScreen() {
           <View className="flex-row w-full md:justify-end">
             <View className="w-full md:w-auto">
               <AppButton 
-                title="Ziyaretçi Ekle" 
+                title="Kaydet / Güncelle" 
                 variant="primary" 
                 size="lg"
                 className="w-full md:w-auto md:min-w-[124px]"

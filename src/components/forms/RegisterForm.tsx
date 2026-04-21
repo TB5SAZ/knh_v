@@ -25,7 +25,7 @@ interface RegisterFormProps {
   justRegisteredRef: React.MutableRefObject<boolean>;
 }
 
-export function RegisterForm({ isLoading, setIsLoading, setAlertState, onBackToLogin, justRegisteredRef }: RegisterFormProps) {
+export const RegisterForm = React.memo(({ isLoading, setIsLoading, setAlertState, onBackToLogin, justRegisteredRef }: RegisterFormProps) => {
   const {
     control,
     handleSubmit,
@@ -200,4 +200,4 @@ export function RegisterForm({ isLoading, setIsLoading, setAlertState, onBackToL
       </View>
     </View>
   );
-}
+});

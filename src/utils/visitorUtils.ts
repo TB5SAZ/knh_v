@@ -7,6 +7,8 @@ interface RawVisitorData {
   entry_time?: string | null;
   visit_purpose?: string | null;
   status?: string | null;
+  created_by?: string | null;
+  visited_person_id?: string | null;
   visitors?: {
     first_name?: string | null;
     last_name?: string | null;
@@ -41,6 +43,8 @@ export const mapVisitorData = (item: RawVisitorData): VisitorData => {
     subject: item.visit_purpose || '',
     status: (item.status as VisitorStatus) || 'success',
     isInternal: item.visitors ? !item.visitors.is_external : false,
+    createdBy: item.created_by || undefined,
+    visitedPersonId: item.visited_person_id || undefined,
   };
 };
 
@@ -54,6 +58,7 @@ export const buildBaseQuery = async (safeQuery: string) => {
       entry_time,
       status,
       created_by,
+      visited_person_id,
       visitors!inner (
         first_name,
         last_name,
@@ -120,6 +125,11 @@ export const applyFiltersAndSort = (
   }
 
 
+
+  // Özel admin departmanı dışındakiler silinenleri göremez
+  if (profile?.department_id !== TARGET_DEPARTMENTS.ADMIN_DEPT_ID) {
+    query = query.neq('status', 'deleted');
+  }
 
   const [sortBy, order] = sortOption.split('-');
   return query.order(sortBy, { ascending: order === 'asc' }).range(from, to);

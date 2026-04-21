@@ -1,4 +1,5 @@
 import { supabase } from '@/src/lib/supabase';
+import { AppError } from '@/src/utils/errors';
 import { VisitorFormValues, visitorSchema } from '@/src/schemas/visitorSchema';
 import { Visitor, VisitorUpdateData } from '../types/visitor';
 import { logger } from '@/src/utils/logger';
@@ -40,11 +41,11 @@ const upsertVisitorInformation = async (data: VisitorFormValues): Promise<string
 
     if (visErr) {
       if (visErr.code === '23505') {
-        throw new Error('Bu T.C. Kimlik / Pasaport no ile kayıtlı başka bir ziyaretçi bulunuyor. Lütfen listeden seçin.');
+        throw new AppError('Bu T.C. Kimlik / Pasaport no ile kayıtlı başka bir ziyaretçi bulunuyor. Lütfen listeden seçin.');
       }
-      throw new Error(`Ziyaretçi kaydedilirken hata oluştu: ${visErr.message}`);
+      throw new AppError(`Ziyaretçi kaydedilirken hata oluştu: ${visErr.message}`);
     }
-    if (!newVis) throw new Error('Visitor ID oluşturulamadı.');
+    if (!newVis) throw new AppError('Visitor ID oluşturulamadı.');
     return newVis.id;
   }
 
@@ -69,9 +70,9 @@ const upsertVisitorInformation = async (data: VisitorFormValues): Promise<string
 
   if (updateErr) {
     if (updateErr.code === '23505') {
-      throw new Error('Bu T.C. Kimlik / Pasaport no ile kayıtlı başka bir ziyaretçi bulunuyor.');
+      throw new AppError('Bu T.C. Kimlik / Pasaport no ile kayıtlı başka bir ziyaretçi bulunuyor.');
     }
-    throw new Error(`Ziyaretçi bilgileri güncellenirken hata oluştu: ${updateErr.message}`);
+    throw new AppError(`Ziyaretçi bilgileri güncellenirken hata oluştu: ${updateErr.message}`);
   }
 
   return visitorId;
@@ -86,7 +87,7 @@ const createVisitRecord = async (
   const currentUserId = authData.user?.id;
 
   if (!currentUserId) {
-    throw new Error('Oturum bilgisi bulunamadı. Lütfen tekrar giriş yapın.');
+    throw new AppError('Oturum bilgisi bulunamadı. Lütfen tekrar giriş yapın.');
   }
 
   const { data: visitData, error: visitErr } = await supabase
@@ -102,9 +103,9 @@ const createVisitRecord = async (
     .single();
 
   if (visitErr) {
-    throw new Error(`Kayıt oluşturulurken bir hata oluştu: ${visitErr.message}`);
+    throw new AppError(`Kayıt oluşturulurken bir hata oluştu: ${visitErr.message}`);
   }
-  if (!visitData) throw new Error('Visit record ID not returned.');
+  if (!visitData) throw new AppError('Visit record ID not returned.');
 
   return visitData.id;
 };
@@ -132,21 +133,34 @@ const calculateTrendForStats = (curr: number, prev: number) => {
 // --- SERVICE OBJECT ---
 
 export const visitorService = {
+  /**
+   * Search visitors by first name, last name, or TC No/Passport No.
+   * @param query - The search string.
+   * @returns Array of matching visitors (max 10).
+   * @throws AppError if search fails.
+   */
   async searchVisitors(query: string): Promise<Visitor[]> {
     const safeQuery = query.replace(/[%",]/g, '');
     const { data, error } = await supabase
       .from('visitors')
-      .select('*')
+      .select('id, first_name, last_name, tc_no, title, phone, is_foreign, is_external, created_at')
       .or(`first_name.ilike."%${safeQuery}%",last_name.ilike."%${safeQuery}%",tc_no.ilike."%${safeQuery}%"`)
       .limit(10);
 
     if (error) {
-      throw new Error(`Ziyaretçi arama hatası: ${error.message}`);
+      throw new AppError(`Ziyaretçi arama hatası: ${error.message}`);
     }
 
     return data || [];
   },
 
+  /**
+   * Creates a new visit record and upserts visitor information if necessary.
+   * @param data - The visitor form values from UI.
+   * @param isSecurity - Check if the user acting is a Security Personnel.
+   * @returns Result indicating success and the new visit ID.
+   * @throws AppError if any database operation fails.
+   */
   async createVisit(data: VisitorFormValues, isSecurity: boolean): Promise<{ success: boolean; visitId?: string }> {
     try {
       visitorSchema.parse(data);
@@ -162,6 +176,10 @@ export const visitorService = {
     }
   },
 
+  /**
+   * Fetches monthly visitor statistics including trends comparing current and previous months.
+   * @returns Object containing totals and trend percentages.
+   */
   async getMonthlyVisitorStats() {
     try {
       const startOfMonth = new Date();
@@ -192,5 +210,113 @@ export const visitorService = {
         trends: { total: zeroTrend, internal: zeroTrend, external: zeroTrend, blocked: zeroTrend, cancelled: zeroTrend }
       };
     }
+  },
+
+  /**
+   * Retrieves full details for a single visit by its ID.
+   * @param visitId - UUID of the visit record.
+   * @returns The visit object with relationships included.
+   * @throws AppError if fetch fails.
+   */
+  async getVisitById(visitId: string) {
+    const { data: visit, error } = await supabase
+      .from('visits')
+      .select(`
+        id,
+        visit_purpose,
+        entry_time,
+        status,
+        created_by,
+        visited_person_id,
+        visitor:visitor_id (id, first_name, last_name, tc_no, title, phone, is_foreign, is_external, created_at),
+        visited_person:visited_person_id (department_id)
+      `)
+      .eq('id', visitId)
+      .single();
+
+    if (error) {
+      throw new AppError(`Ziyaret bilgisi alınırken hata oluştu: ${error.message}`);
+    }
+
+    return visit;
+  },
+
+  /**
+   * Updates an existing visit's details.
+   * @param visitId - UUID of the visit to update.
+   * @param data - The new data payload.
+   * @param isSecurity - If acting as a security guard (affects time calculation).
+   * @returns Result indicating success.
+   * @throws AppError if update fails or insufficient permissions.
+   */
+  async updateVisit(visitId: string, data: VisitorFormValues, isSecurity: boolean): Promise<{ success: boolean }> {
+    try {
+      const combinedDateTime = buildCombinedDateTime(data, isSecurity);
+
+      const { data: authData } = await supabase.auth.getUser();
+      const currentUserId = authData.user?.id;
+      if (!currentUserId) throw new AppError('Oturum bilgisi bulunamadı.');
+
+      const { data: updatedData, error: visitErr } = await supabase
+        .from('visits')
+        .update({
+          visited_person_id: data.targetUserId,
+          visit_purpose: data.visitReason,
+          entry_time: combinedDateTime.toISOString(),
+        })
+        .eq('id', visitId)
+        .select('id');
+
+      if (visitErr) throw new AppError(`Ziyaret güncellenirken hata oluştu: ${visitErr.message}`);
+      if (!updatedData || updatedData.length === 0) {
+        throw new AppError('Bu kaydı güncellemek için yetkiniz bulunmamaktadır.');
+      }
+
+      return { success: true };
+    } catch (error) {
+      logger.error('Visit update error:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Soft deletes or permanently deletes a visit by ID.
+   * @param visitId - UUID of the visit.
+   * @param isSoftDelete - If true, changes status to 'deleted'. If false, removes from table.
+   * @returns Result indicating success.
+   * @throws AppError if deletion fails.
+   */
+  async deleteVisit(visitId: string, isSoftDelete = true): Promise<{ success: boolean }> {
+    try {
+      const { data: authData } = await supabase.auth.getUser();
+      const currentUserId = authData.user?.id;
+      if (!currentUserId) throw new AppError('Oturum bilgisi bulunamadı.');
+
+      if (isSoftDelete) {
+        const { error: updateErr } = await supabase
+          .from('visits')
+          .update({ status: 'deleted' })
+          .eq('id', visitId);
+
+        if (updateErr) {
+          throw new AppError(`Ziyaret silinirken hata oluştu: ${updateErr.message}`);
+        }
+      } else {
+        const { error: deleteErr } = await supabase
+          .from('visits')
+          .delete()
+          .eq('id', visitId);
+          
+        if (deleteErr) {
+          throw new AppError(`Ziyaret kalıcı olarak silinirken hata oluştu: ${deleteErr.message}`);
+        }
+      }
+
+      return { success: true };
+    } catch (error) {
+      logger.error('Visit delete error:', error);
+      throw error;
+    }
   }
 };
+

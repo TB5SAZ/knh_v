@@ -11,6 +11,7 @@ export interface AppCheckboxProps {
   size?: 'sm' | 'md' | 'lg';
   onChange?: (isSelected: boolean) => void;
   className?: string; // Container className
+  isDisabled?: boolean;
 }
 
 const SIZE_MAPS = {
@@ -28,6 +29,7 @@ export const AppCheckbox = ({
   size = 'md',
   onChange,
   className = '',
+  isDisabled = false,
 }: AppCheckboxProps) => {
 
   const [internalChecked, setInternalChecked] = useState(defaultIsChecked);
@@ -53,6 +55,7 @@ export const AppCheckbox = ({
     <Checkbox
       value={value}
       isChecked={isActuallyChecked || isIndeterminate}
+      isDisabled={isDisabled}
       onChange={handleChange}
       className={`flex-row items-center justify-start ${className}`}
     >

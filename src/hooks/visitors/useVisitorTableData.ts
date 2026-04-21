@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../providers/AuthProvider';
 import { VisitorData } from '../../types/visitor';
 import { mapVisitorData, buildBaseQuery, applyFiltersAndSort } from '../../utils/visitorUtils';
+import { supabase } from '../../lib/supabase';
 
 interface UseVisitorTableDataProps {
   searchQuery?: string;
@@ -26,6 +27,7 @@ export const useVisitorTableData = ({
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [activeRowId, setActiveRowId] = useState<string | null>(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
   
   const { user, profile } = useAuth();
 
@@ -86,13 +88,34 @@ export const useVisitorTableData = ({
       isSubscribed = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, currentPage, itemsPerPage, sortOption, departmentId, hostId, profile?.department_id, user?.id]);
+  }, [searchQuery, currentPage, itemsPerPage, sortOption, departmentId, hostId, profile?.department_id, user?.id, refreshTrigger]);
+
+  useEffect(() => {
+    // Supabase Realtime Subscription for 'visits' table
+    const channel = supabase.channel('visits-all-changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'visits' },
+        (payload) => {
+          console.log('[Realtime] visit table change detected:', payload.eventType);
+          setRefreshTrigger(prev => prev + 1); // trigger a re-fetch
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const refresh = () => setRefreshTrigger(prev => prev + 1);
 
   return {
     visitors,
     isLoading,
     totalCount,
     activeRowId,
-    setActiveRowId
+    setActiveRowId,
+    refresh
   };
 };

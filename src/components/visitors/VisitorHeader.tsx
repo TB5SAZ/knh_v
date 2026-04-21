@@ -11,7 +11,9 @@ interface VisitorHeaderProps {
   setValue: UseFormSetValue<VisitorFormValues>;
   isExternal: boolean;
   isForeign: boolean;
+  isForeign: boolean;
   onClearSuggestions: () => void;
+  isEditMode?: boolean;
 }
 
 export const VisitorHeader: React.FC<VisitorHeaderProps> = ({ 
@@ -19,7 +21,8 @@ export const VisitorHeader: React.FC<VisitorHeaderProps> = ({
   setValue, 
   isExternal, 
   isForeign,
-  onClearSuggestions
+  onClearSuggestions,
+  isEditMode = false
 }) => {
   const handleScanId = () => {
     setValue('firstName', 'Ahmet', { shouldValidate: true });
@@ -36,9 +39,13 @@ export const VisitorHeader: React.FC<VisitorHeaderProps> = ({
     <View className="flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-0">
       {/* Left */}
       <View className="flex-col gap-1">
-        <Text className="text-heading-16-semibold text-text-primary">Ziyaretçi Ekle</Text>
+        <Text className="text-heading-16-semibold text-text-primary">
+          {isEditMode ? 'Ziyaretçi Düzenle' : 'Ziyaretçi Ekle'}
+        </Text>
         <Text className="text-body-11-regular text-text-secondary">
-          Ziyaretçi bilgilerini girerek yeni bir kayıt oluşturun.
+          {isEditMode 
+            ? 'Mevcut ziyaretçi kaydı üzerinde değişiklik yapabilirsiniz.' 
+            : 'Ziyaretçi bilgilerini girerek yeni bir kayıt oluşturun.'}
         </Text>
       </View>
 

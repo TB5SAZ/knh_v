@@ -1,4 +1,5 @@
 import { supabase } from '@/src/lib/supabase';
+import { AppError } from '@/src/utils/errors';
 import * as Crypto from 'expo-crypto';
 import { logger } from '@/src/utils/logger';
 
@@ -25,7 +26,7 @@ const fetchProfileRole = async (userId: string) => {
 
   if (profileError || !profileData) {
     logger.error('[authService] Profile fetch error:', profileError);
-    throw new Error('Kullanıcı profil bilgileri alınamadı.');
+    throw new AppError('Kullanıcı profil bilgileri alınamadı.');
   }
   return profileData.role;
 };
@@ -37,10 +38,10 @@ const signInUser = async (email: string, password: string) => {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
     logger.error('[authService] SignIn error:', error);
-    throw new Error('Giriş başarısız. Lütfen T.C. Kimlik numaranızı ve şifrenizi kontrol ediniz.');
+    throw new AppError('Giriş başarısız. Lütfen T.C. Kimlik numaranızı ve şifrenizi kontrol ediniz.');
   }
   if (!data.user) {
-    throw new Error('Kullanıcı doğrulanamadı.');
+    throw new AppError('Kullanıcı doğrulanamadı.');
   }
   return data.user;
 };
@@ -50,7 +51,7 @@ const signOutUser = async () => {
   const { error } = await supabase.auth.signOut();
   if (error) {
     logger.error('[authService] SignOut error:', error);
-    throw new Error('Çıkış yaparken bir hata oluştu.');
+    throw new AppError('Çıkış yaparken bir hata oluştu.');
   }
 };
 
@@ -85,14 +86,14 @@ export const authService = {
 
     if (error) {
       if (error.message.includes('Geçersiz veya kullanılmış yetki anahtarı')) {
-         throw new Error('Geçersiz veya daha önce kullanılmış bir yetki anahtarı girdiniz.');
+         throw new AppError('Geçersiz veya daha önce kullanılmış bir yetki anahtarı girdiniz.');
       }
       logger.error('[authService] SignUp error:', error);
-      throw new Error('Kayıt işlemi sırasında bir hata oluştu. Bilgilerinizi kontrol edip tekrar deneyiniz.');
+      throw new AppError('Kayıt işlemi sırasında bir hata oluştu. Bilgilerinizi kontrol edip tekrar deneyiniz.');
     }
 
     if (!data.user) {
-      throw new Error('Kullanıcı doğrulanamadı.');
+      throw new AppError('Kullanıcı doğrulanamadı.');
     }
 
     return data.user;

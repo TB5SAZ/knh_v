@@ -28,7 +28,7 @@ interface LoginFormProps {
   justRegisteredRef: React.MutableRefObject<boolean>;
 }
 
-export function LoginForm({ isLoading, setIsLoading, setAlertState, justRegisteredRef }: LoginFormProps) {
+export const LoginForm = React.memo(({ isLoading, setIsLoading, setAlertState, justRegisteredRef }: LoginFormProps) => {
   const {
     control,
     handleSubmit,
@@ -80,7 +80,7 @@ export function LoginForm({ isLoading, setIsLoading, setAlertState, justRegister
         isOpen: true,
         status: 'error',
         title: 'Giriş Başarısız',
-        description: 'TC Kimlik veya Şifre hatalı. Lütfen tekrar deneyiniz.'
+        description: error.message || 'TC Kimlik veya Şifre hatalı. Lütfen tekrar deneyiniz.'
       });
     } finally {
       setIsLoading(false);
@@ -103,6 +103,8 @@ export function LoginForm({ isLoading, setIsLoading, setAlertState, justRegister
             keyboardType="numeric"
             autoComplete="off"
             maxLength={11}
+            accessibilityLabel="T.C. Kimlik Numarası Girişi"
+            accessibilityRole="text"
           />
         )}
       />
@@ -120,6 +122,8 @@ export function LoginForm({ isLoading, setIsLoading, setAlertState, justRegister
             onChangeText={onChange}
             error={error?.message}
             onSubmitEditing={handleSubmit(onLogin)}
+            accessibilityLabel="Şifre Girişi"
+            accessibilityRole="text"
           />
         )}
       />
@@ -161,8 +165,10 @@ export function LoginForm({ isLoading, setIsLoading, setAlertState, justRegister
           isLoading={isLoading}
           isDisabled={!isValid}
           onPress={handleSubmit(onLogin)}
+          accessibilityRole="button"
+          accessibilityLabel="Sisteme Giriş Yap"
         />
       </View>
     </View>
   );
-}
+});

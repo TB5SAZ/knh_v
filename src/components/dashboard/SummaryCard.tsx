@@ -4,6 +4,7 @@ import { VStack } from '@/src/components/ui/vstack';
 import { HStack } from '@/src/components/ui/hstack';
 import { Text } from '@/src/components/ui/text';
 import { LucideIcon } from 'lucide-react-native';
+import { COLORS } from '@/src/constants/theme';
 
 export type SummaryCardVariant = 'default' | 'primary';
 
@@ -49,7 +50,7 @@ export function SummaryCard({
         <HStack className="items-center gap-2">
           <Icon 
             size={18} 
-            color={isPrimary ? "#35BFA3" : "#63716E"}
+            color={isPrimary ? COLORS.dashboard.success : COLORS.dashboard.neutral}
             strokeWidth={1.5}
           />
           <Text
@@ -105,7 +106,7 @@ export function SummaryCard({
           <HStack className="items-center gap-3">
             <Icon 
               size={32} 
-              color={isPrimary ? "#0E4D41" : "#63716E"}
+              color={isPrimary ? COLORS.dashboard.successDark : COLORS.dashboard.neutral}
               strokeWidth={1.5}
             />
             <Text

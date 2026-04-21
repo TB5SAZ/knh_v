@@ -35,7 +35,7 @@ export interface VisitorUpdateData {
   tc_no?: string | null;
 }
 
-export type VisitorStatus = 'success' | 'pending' | 'cancelled' | 'blocked';
+export type VisitorStatus = 'success' | 'pending' | 'cancelled' | 'blocked' | 'deleted';
 
 export interface VisitorData {
   id: string;
@@ -48,4 +48,6 @@ export interface VisitorData {
   subject: string;
   status: VisitorStatus;
   isInternal: boolean;
+  createdBy?: string;
+  visitedPersonId?: string;
 }

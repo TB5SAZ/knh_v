@@ -5,6 +5,7 @@ import { VStack } from '@/src/components/ui/vstack';
 import { Text } from '@/src/components/ui/text';
 import { PieChart } from 'react-native-gifted-charts';
 import { UserX, ShieldOff, Building2, Globe } from 'lucide-react-native';
+import { COLORS } from '@/src/constants/theme';
 
 // We will generate pieData dynamically inside the component
 
@@ -23,8 +24,8 @@ const LegendItem = ({ color, title, value, percentage, icon: Icon, iconColor }: 
       <HStack className="items-center gap-2">
         <View className="h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
         <Text 
-          className="text-[12px] text-[#203430]" 
-          style={{ fontFamily: 'DMSans_400Regular' }}
+          className="text-[12px]" 
+          style={{ fontFamily: 'DMSans_400Regular', color: COLORS.chart.textPrimary }}
         >
           {title}
         </Text>
@@ -32,15 +33,15 @@ const LegendItem = ({ color, title, value, percentage, icon: Icon, iconColor }: 
       <HStack className="items-center gap-1.5 ml-4">
         <Icon size={16} color={iconColor} />
         <Text 
-          className="text-[12px] text-[#63716E]" 
-          style={{ fontFamily: 'DMSans_400Regular' }}
+          className="text-[12px]" 
+          style={{ fontFamily: 'DMSans_400Regular', color: COLORS.chart.textSecondary }}
         >
           {value}
         </Text>
-        <View className="h-[1px] w-2 bg-[#A4ACAB]" />
+        <View className="h-[1px] w-2" style={{ backgroundColor: COLORS.chart.separator }} />
         <Text 
-          className="text-[12px] text-[#203430]" 
-          style={{ fontFamily: 'DMSans_700Bold' }}
+          className="text-[12px]" 
+          style={{ fontFamily: 'DMSans_700Bold', color: COLORS.chart.textPrimary }}
         >
           {percentage}
         </Text>
@@ -70,10 +71,10 @@ export default function VisitorDistributionChart({ stats }: VisitorDistributionC
   const getPercentage = (value: number) => `${Math.round((value / totalVal) * 100)}%`;
 
   const pieData = [
-    { value: cancelledVal, color: '#0E4D41' },
-    { value: blockedVal, color: '#E63D4B' },
-    { value: internalVal, color: '#35BFA3' },
-    { value: externalVal > 0 ? externalVal : 1, color: '#E4F2D3' }, // Prevent empty pie if 0
+    { value: cancelledVal, color: COLORS.chart.cancelled },
+    { value: blockedVal, color: COLORS.chart.blocked },
+    { value: internalVal, color: COLORS.chart.internal },
+    { value: externalVal > 0 ? externalVal : 1, color: COLORS.chart.external }, // Prevent empty pie if 0
   ];
 
   return (
@@ -119,40 +120,40 @@ export default function VisitorDistributionChart({ stats }: VisitorDistributionC
           {/* Column 1 */}
           <VStack className="flex-1 gap-4 items-center justify-center md:pl-2 lg:pl-12">
             <LegendItem 
-              color="#0E4D41" 
+              color={COLORS.chart.cancelled}
               title="İptal Edilen Ziyaretler" 
               value={cancelledVal.toString()} 
               percentage={getPercentage(cancelledVal)} 
               icon={UserX} 
-              iconColor="#35BFA3" 
+              iconColor={COLORS.chart.internal} 
             />
             <LegendItem 
-              color="#E63D4B" 
+              color={COLORS.chart.blocked} 
               title="Engellenen Ziyaretler" 
               value={blockedVal.toString()} 
               percentage={getPercentage(blockedVal)} 
               icon={ShieldOff} 
-              iconColor="#E63D4B" 
+              iconColor={COLORS.chart.blocked} 
             />
           </VStack>
           
           {/* Column 2 */}
           <VStack className="flex-1 gap-4 items-center justify-center md:pl-2 lg:pl-8">
             <LegendItem 
-              color="#35BFA3" 
+              color={COLORS.chart.internal} 
               title="Kurum İçi Ziyaretler" 
               value={internalVal.toString()} 
               percentage={getPercentage(internalVal)} 
               icon={Building2} 
-              iconColor="#35BFA3" 
+              iconColor={COLORS.chart.internal} 
             />
             <LegendItem 
-              color="#E4F2D3" 
+              color={COLORS.chart.external} 
               title="Kurum Dışı Ziyaretler" 
               value={externalVal.toString()} 
               percentage={getPercentage(externalVal)} 
               icon={Globe} 
-              iconColor="#35BFA3" 
+              iconColor={COLORS.chart.internal} 
             />
           </VStack>
         </HStack>

@@ -5,6 +5,7 @@ import { View, useWindowDimensions } from 'react-native';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Header } from '@/components/layout/Header';
 import { LoadingSpinner } from '@/src/components/ui/LoadingSpinner';
+import { COLORS } from '@/src/constants/theme';
 
 export default function AppLayout() {
   const { session, isLoading } = useAuth();
@@ -15,7 +16,7 @@ export default function AppLayout() {
 
   // Authentication Loading State
   if (isLoading) {
-    return <LoadingSpinner size="large" color="#008080" className="bg-bg-main" />;
+    return <LoadingSpinner size="large" color={COLORS.brandPrimary} className="bg-bg-main" />;
   }
 
   // Route Flashing / Render-Blocking Protection (Security Gate)
@@ -23,33 +24,42 @@ export default function AppLayout() {
     return <Redirect href="/" />;
   }
 
-  let title = "Ana Sayfa";
-  let isMainPage = true;
+  const ROUTE_MAP: Record<string, { title: string; isMainPage?: boolean; breadcrumbItems?: { label: string; href?: string }[] }> = {
+    '/visitors': { title: 'Ziyaretçiler' },
+    '/appointments': { title: 'Randevular' },
+    '/blacklist': { title: 'Kara Liste' },
+    '/settings': { title: 'Kontrol Paneli / Ayarlar' },
+    '/dashboard': { title: 'Ana Sayfa' },
+    '/keygen': { title: 'Davet Anahtarı Üret' },
+    '/visitors/add': {
+      title: 'Ziyaretçi Ekle',
+      isMainPage: false,
+      breadcrumbItems: [
+        { label: 'Ziyaretçiler', href: '/visitors' },
+        { label: 'Ziyaretçi Ekle' }
+      ]
+    }
+  };
+
+  let title = "Detaylar";
+  let isMainPage = false;
   let breadcrumbItems: { label: string; href?: string }[] = [];
 
-  if (pathname === '/visitors') {
-    title = "Ziyaretçiler";
-  } else if (pathname === '/appointments') {
-    title = "Randevular";
-  } else if (pathname === '/blacklist') {
-    title = "Kara Liste";
-  } else if (pathname === '/settings') {
-    title = "Kontrol Paneli / Ayarlar";
-  } else if (pathname === '/dashboard') {
-    title = "Ana Sayfa";
-  } else if (pathname === '/keygen') {
-    title = "Davet Anahtarı Üret";
-  } else if (pathname === '/visitors/add') {
-    isMainPage = false;
-    title = "Ziyaretçi Ekle";
+  const exactMatch = ROUTE_MAP[pathname];
+  if (exactMatch) {
+    title = exactMatch.title;
+    isMainPage = exactMatch.isMainPage ?? true;
+    breadcrumbItems = exactMatch.breadcrumbItems || [];
+  } else if (pathname.startsWith('/visitors/edit')) {
+    title = "Ziyaretçi Düzenle";
     breadcrumbItems = [
       { label: 'Ziyaretçiler', href: '/visitors' },
-      { label: 'Ziyaretçi Ekle' }
+      { label: 'Ziyaretçi Düzenle' }
     ];
-  } else {
-    // If it's none of the main sidebar links, it means it's a subpage (like add visitor)
-    isMainPage = false;
-    title = "Detaylar"; // A default for subpages unless handled otherwise
+  } else if (pathname === '/') {
+    // Default fallback for root inside (app)
+    title = "Ana Sayfa";
+    isMainPage = true;
   }
 
   // Authorized Access Only

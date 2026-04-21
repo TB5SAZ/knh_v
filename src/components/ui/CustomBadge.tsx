@@ -10,6 +10,7 @@ const badgeStyle = tva({
       pending: 'bg-[#A4ACAB]',
       cancelled: 'bg-[#0E4D41]',
       blocked: 'bg-[#E63D4B]',
+      deleted: 'bg-[#6B7280]',
     },
   },
   defaultVariants: {
@@ -21,7 +22,7 @@ const badgeTextStyle = tva({
   base: 'font-body font-normal text-white text-[11px] leading-[1.3] text-center',
 });
 
-export type CustomBadgeStatus = 'success' | 'pending' | 'cancelled' | 'blocked';
+export type CustomBadgeStatus = 'success' | 'pending' | 'cancelled' | 'blocked' | 'deleted';
 
 export interface CustomBadgeProps {
   status: CustomBadgeStatus;
@@ -33,6 +34,7 @@ const statusTextMap: Record<CustomBadgeStatus, string> = {
   pending: 'Bekleniyor',
   cancelled: 'İptal Edildi',
   blocked: 'Engellendi',
+  deleted: 'Silindi',
 };
 
 export const CustomBadge = ({ status, className }: CustomBadgeProps) => {

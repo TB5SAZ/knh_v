@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable as NativePressable } from 'react-native';
+import { Link } from 'expo-router';
 import { CustomBadge } from '../../ui/CustomBadge';
 import { CustomAvatar } from '../../ui/CustomAvatar';
 import { Pencil, Trash2, ShieldOff } from 'lucide-react-native';
@@ -9,54 +10,83 @@ import { VisitorData } from '../../../types/visitor';
 interface VisitorTableRowProps {
   item: VisitorData;
   isCompact: boolean;
-  isActionsRestricted: boolean;
+  canBlockOrDelete: boolean;
   activeRowId: string | null;
   setActiveRowId: (id: string | null) => void;
+  currentUserId?: string;
+  isAdmin?: boolean;
+  isAdminDept?: boolean;
+  onDelete?: (id: string) => void;
 }
 
 export const VisitorTableRow = ({
   item,
   isCompact,
-  isActionsRestricted,
+  canBlockOrDelete,
   activeRowId,
-  setActiveRowId
+  setActiveRowId,
+  currentUserId,
+  isAdmin,
+  isAdminDept,
+  onDelete,
 }: VisitorTableRowProps) => {
   const isInternalBg = item.isInternal ? 'bg-[#f8fcf3]' : 'bg-white';
-  const actionWidth = isActionsRestricted ? 'w-[50px]' : 'w-[130px]';
-  const translateXHover = isActionsRestricted ? 'xl:group-hover:translate-x-[50px]' : 'xl:group-hover:translate-x-[130px]';
-  const translateXActive = isActionsRestricted ? 'translate-x-[50px]' : 'translate-x-[130px]';
+  const canEdit = isAdmin || (currentUserId && (currentUserId === item.createdBy || currentUserId === item.visitedPersonId));
+  const canDelete = (isAdminDept || (currentUserId && currentUserId === item.visitedPersonId)) && item.status !== 'deleted';
+  const hasAnyAction = canEdit || canBlockOrDelete || canDelete;
+
+  const actionCount = [canEdit, canBlockOrDelete, canDelete].filter(Boolean).length;
+  // action widths based on how many icons are visible
+  const actionWidthMap: Record<number, string> = { 0: 'w-0', 1: 'w-[50px]', 2: 'w-[90px]', 3: 'w-[130px]' };
+  const actionWidth = actionWidthMap[actionCount] || 'w-0';
+  const translateXHoverMap: Record<number, string> = { 0: '', 1: 'xl:group-hover:translate-x-[50px]', 2: 'xl:group-hover:translate-x-[90px]', 3: 'xl:group-hover:translate-x-[130px]' };
+  const translateXActiveMap: Record<number, string> = { 0: '', 1: 'translate-x-[50px]', 2: 'translate-x-[90px]', 3: 'translate-x-[130px]' };
+  
+  const translateXHover = translateXHoverMap[actionCount] || '';
+  const translateXActive = translateXActiveMap[actionCount] || '';
 
   return (
     <NativePressable
-      onLongPress={() => setActiveRowId(item.id)}
+      onLongPress={() => {
+        if (hasAnyAction) setActiveRowId(item.id);
+      }}
       delayLongPress={250}
       onPress={() => {
-        if (activeRowId === item.id) setActiveRowId(null);
+        if (hasAnyAction && activeRowId === item.id) setActiveRowId(null);
       }}
-      className={`group h-[56px] border-b border-[#e5e6e6] w-full relative overflow-hidden ${isInternalBg}`}
+      className={`group h-[56px] border-b border-[#e5e6e6] w-full relative overflow-hidden ${isInternalBg} ${!hasAnyAction ? 'pointer-events-auto' : ''}`}
     >
       {/* Sol Taraf Eylemler (Arkaplan) */}
-      <View className={`absolute left-0 top-0 bottom-0 ${actionWidth} flex-row items-center justify-start gap-[8px] pl-[10px]`}>
-        <TableActionBadge 
-          theme="solid"
-          actionType="neutral" 
-          icon={Pencil} 
-        />
-        {!isActionsRestricted && (
-          <>
-            <TableActionBadge 
-              theme="solid"
-              actionType="error" 
-              icon={ShieldOff} 
-            />
-            <TableActionBadge 
-              theme="solid"
-              actionType="warning" 
-              icon={Trash2} 
-            />
-          </>
+      {hasAnyAction && (
+        <View className={`absolute left-0 top-0 bottom-0 ${actionWidth} flex-row items-center justify-start gap-[8px] pl-[10px]`}>
+        {canEdit && (
+          <Link href={`/visitors/edit/${item.id}`} asChild>
+            <NativePressable>
+              <TableActionBadge 
+                theme="solid"
+                actionType="neutral" 
+                icon={Pencil} 
+              />
+            </NativePressable>
+          </Link>
         )}
-      </View>
+        {canBlockOrDelete && (
+          <TableActionBadge 
+            theme="solid"
+            actionType="error" 
+            icon={ShieldOff} 
+          />
+        )}
+        {canDelete && (
+          <TableActionBadge 
+            theme="solid"
+            actionType="warning" 
+            icon={Trash2} 
+            onPress={() => onDelete && onDelete(item.id)}
+          />
+        )}
+        </View>
+      )}
 
       {/* Kayan İçerik (Foreground) */}
       <View 
