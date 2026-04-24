@@ -3,6 +3,7 @@ import { View, ScrollView, useWindowDimensions } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
+import { ShieldOff } from 'lucide-react-native';
 
 import { AppButton } from '@/src/components/core/AppButton';
 import { AppAlert, AppAlertStatus } from '@/src/components/core/AppAlert';
@@ -30,6 +31,10 @@ export default function VisitorAddScreen() {
     description: string;
     status: AppAlertStatus;
     onClose: () => void;
+    disableCloseForSeconds?: number;
+    className?: string;
+    titleClassName?: string;
+    icon?: any;
   }>({
     isOpen: false,
     title: '',
@@ -95,18 +100,35 @@ export default function VisitorAddScreen() {
 
   const onSubmit = async (data: VisitorFormValues) => {
     try {
-      await visitorService.createVisit(data, isSecurity);
+      const res = await visitorService.createVisit(data, isSecurity);
       
-      setAlertConfig({
-        isOpen: true,
-        title: 'Başarılı',
-        description: 'Ziyaretçi Kaydı Oluşturuldu',
-        status: 'success',
-        onClose: () => {
-          setAlertConfig(prev => ({ ...prev, isOpen: false }));
-          router.push('/visitors');
-        }
-      });
+      if (res.isBlocked) {
+        setAlertConfig({
+          isOpen: true,
+          title: 'Uyarı: Engellenen Ziyaretçi',
+          description: `Kayıt oluşturuldu fakat ziyaretçi kara listede olduğu için 'engellendi' olarak işaretlendi.${res.blockReason ? `\n\nSebep: ${res.blockReason}` : ''}`,
+          status: 'error',
+          disableCloseForSeconds: 5,
+          className: 'border-2 border-status-error-text',
+          titleClassName: 'text-status-error-text',
+          icon: ShieldOff,
+          onClose: () => {
+            setAlertConfig(prev => ({ ...prev, isOpen: false }));
+            router.push('/visitors');
+          }
+        });
+      } else {
+        setAlertConfig({
+          isOpen: true,
+          title: 'Başarılı',
+          description: 'Ziyaretçi Kaydı Oluşturuldu',
+          status: 'success',
+          onClose: () => {
+            setAlertConfig(prev => ({ ...prev, isOpen: false }));
+            router.push('/visitors');
+          }
+        });
+      }
     } catch (error: any) {
       setAlertConfig({
         isOpen: true,
@@ -202,6 +224,10 @@ export default function VisitorAddScreen() {
         description={alertConfig.description}
         status={alertConfig.status}
         onClose={alertConfig.onClose}
+        disableCloseForSeconds={alertConfig.disableCloseForSeconds}
+        className={alertConfig.className}
+        titleClassName={alertConfig.titleClassName}
+        icon={alertConfig.icon}
       />
     </ScrollView>
   );

@@ -13,6 +13,12 @@ export default function AppLayout() {
   const { width } = useWindowDimensions();
   const isMobile = width < 768; // Tailwind 'md' breakpoint
   const isTablet = width >= 768 && width < 1280; // Tailwind 'xl' breakpoint
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
+  // Close mobile menu on route change
+  React.useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   // Authentication Loading State
   if (isLoading) {
@@ -64,12 +70,33 @@ export default function AppLayout() {
 
   // Authorized Access Only
   return (
-    <View className="flex-row h-full bg-bg-surface w-full overflow-hidden">
+    <View className="flex-row h-full bg-bg-surface w-full overflow-hidden relative">
+      {/* Desktop/Tablet Sidebar */}
       {!isMobile && (
         <Sidebar isCollapsed={isTablet} />
       )}
+      
+      {/* Mobile Sidebar Overlay */}
+      {isMobile && isMobileMenuOpen && (
+        <View className="absolute inset-0 z-[100] flex-row" style={{ zIndex: 100, elevation: 100 }}>
+          <View className="h-full">
+            <Sidebar isCollapsed={false} onClose={() => setIsMobileMenuOpen(false)} />
+          </View>
+          {/* Dismiss overlay */}
+          <View 
+            className="flex-1 bg-black/50" 
+            onTouchStart={() => setIsMobileMenuOpen(false)}
+          />
+        </View>
+      )}
+
       <View className="flex-1 flex-col h-full">
-        <Header title={title} isMainPage={isMainPage} breadcrumbItems={breadcrumbItems} />
+        <Header 
+          title={title} 
+          isMainPage={isMainPage} 
+          breadcrumbItems={breadcrumbItems} 
+          onMenuPress={() => setIsMobileMenuOpen(true)}
+        />
         <View className="flex-1 overflow-hidden">
           <Slot />
         </View>

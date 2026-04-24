@@ -33,7 +33,10 @@ export function VisitorListCard({ onAddVisitor }: VisitorListCardProps = {}) {
   React.useEffect(() => {
     if (filters.selectedDepartment) {
       fetchProfilesByDepartment(filters.selectedDepartment).then((data) => {
-        setProfiles([{ label: 'Tüm Kişiler', value: '' }, ...data.map(p => ({ label: `${p.first_name} ${p.last_name}`, value: p.id }))]);
+        setProfiles([{ label: 'Tüm Kişiler', value: '' }, ...data.map(p => ({ 
+          label: `${p.first_name} ${p.last_name}${p.role ? ` / ${p.role}` : ''}`, 
+          value: p.id 
+        }))]);
       });
       filters.setSelectedProfile(''); // Departman değişirse kişiyi sıfırla
     } else {
@@ -44,14 +47,16 @@ export function VisitorListCard({ onAddVisitor }: VisitorListCardProps = {}) {
 
   return (
     <VStack className="bg-white rounded-2xl p-4 md:p-6 gap-4 w-full shrink">
-      <VisitorListHeader 
-        isMobile={isMobile}
-        isCompact={isCompact}
-        filters={filters}
-        departments={departments}
-        profiles={profiles}
-        onAddVisitor={onAddVisitor}
-      />
+      <View style={{ zIndex: 10 }}>
+        <VisitorListHeader 
+          isMobile={isMobile}
+          isCompact={isCompact}
+          filters={filters}
+          departments={departments}
+          profiles={profiles}
+          onAddVisitor={onAddVisitor}
+        />
+      </View>
 
       <View className="w-full overflow-hidden shrink mt-1 md:mt-2">
         <VisitorTable 

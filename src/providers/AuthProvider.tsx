@@ -3,6 +3,7 @@ import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/src/lib/supabase';
 
 export type UserProfile = {
+  id?: string;
   first_name?: string | null;
   last_name?: string | null;
   role?: string | null;

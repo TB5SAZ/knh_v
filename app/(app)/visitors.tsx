@@ -36,6 +36,8 @@ export default function VisitorsScreen() {
     <ScrollView 
       className="flex-1 bg-transparent w-full"
       contentContainerClassName="p-4 md:p-6 gap-4 md:gap-6"
+      keyboardShouldPersistTaps="handled"
+      nestedScrollEnabled
     >
       <View className="flex-col lg:flex-row gap-5 w-full">
         {/* Left Side: Summary Cards */}
@@ -82,7 +84,7 @@ export default function VisitorsScreen() {
         </View>
 
         {/* Right Side: Visitor Distribution Chart */}
-        <View className="flex-col flex-1 w-full">
+        <View className="flex-col lg:flex-1 w-full">
           <VisitorDistributionChart stats={stats} />
         </View>
       </View>

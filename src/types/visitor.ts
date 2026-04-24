@@ -50,4 +50,5 @@ export interface VisitorData {
   isInternal: boolean;
   createdBy?: string;
   visitedPersonId?: string;
+  hostDepartmentId?: string;
 }

@@ -4,7 +4,7 @@ import { tva } from '@gluestack-ui/utils/nativewind-utils';
 import { LucideIcon } from 'lucide-react-native';
 
 const tableActionBadgeStyle = tva({
-  base: 'flex-row items-center justify-center rounded-full active:opacity-70 transition-opacity',
+  base: 'flex-row items-center justify-center rounded-full active:opacity-70',
   variants: {
     actionType: {
       neutral: 'bg-bg-surface',
@@ -51,6 +51,15 @@ const iconTextStyle = tva({
   },
 });
 
+const getIconColor = (actionType: 'neutral' | 'warning' | 'error', theme: 'soft' | 'solid') => {
+  if (theme === 'solid') return '#ffffff';
+  switch (actionType) {
+    case 'neutral': return '#63716e'; // text-secondary
+    case 'warning': return '#eab308'; // warning text
+    case 'error': return '#ef4444'; // error text
+  }
+};
+
 export type TableActionBadgeProps = {
   icon: LucideIcon;
   label?: string;
@@ -77,10 +86,9 @@ export const TableActionBadge = ({
       className={tableActionBadgeStyle({ actionType, theme, hasLabel, class: className })}
       onPress={onPress}
     >
-      <Icon size={iconSize} className={iconTextStyle({ actionType, theme }) as any} />
+      <Icon size={iconSize} color={getIconColor(actionType, theme)} />
       {hasLabel && (
-        // @ts-ignore NativeWind className
-        <Text className={iconTextStyle({ actionType })} style={{ fontFamily: 'DMSans_500Medium' }}>
+        <Text className={iconTextStyle({ actionType, theme }) as any} style={{ fontFamily: 'DMSans_500Medium' }}>
           {label}
         </Text>
       )}

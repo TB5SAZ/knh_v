@@ -63,39 +63,39 @@ module.exports = {
       },
       colors: {
         brand: {
-          primary: "var(--brand-primary)",
-          dark: "var(--brand-dark)",
-          light: "var(--brand-light)",
-          bg: "var(--brand-bg)",
+          primary: "#35BFA3",
+          dark: "#0E4D41",
+          light: "#E4F2D3",
+          bg: "#F8FCF3",
         },
         bg: {
-          main: "var(--bg-main)",
-          surface: "var(--bg-surface)",
+          main: "#FFFFFF",
+          surface: "#F7F7F7",
         },
         text: {
-          primary: "var(--text-primary)",
-          secondary: "var(--text-secondary)",
+          primary: "#203430",
+          secondary: "#63716E",
         },
         border: {
-          default: "var(--border-default)",
-          focus: "var(--border-focus)",
+          default: "#E5E6E6",
+          focus: "#A4ACAB",
         },
         status: {
           success: {
-            text: "var(--status-success-text)",
-            bg: "var(--status-success-bg)",
+            text: "#35BFA3",
+            bg: "#F8FCF3",
           },
           error: {
-            text: "var(--status-error-text)",
-            bg: "var(--status-error-bg)",
+            text: "#E63D4B",
+            bg: "#FAEFF0",
           },
           warning: {
-            text: "var(--status-warning-text)",
-            bg: "var(--status-warning-bg)",
+            text: "#F8C947",
+            bg: "#FDF5DF",
           },
           disabled: {
-            text: "var(--status-disabled-text)",
-            bg: "var(--status-disabled-bg)",
+            text: "#203430",
+            bg: "#A4ACAB",
           }
         }
       }

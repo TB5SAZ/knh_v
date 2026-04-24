@@ -15,6 +15,12 @@ const SCOPE = 'BUTTON';
 
 const Root = withStyleContext(Pressable, SCOPE);
 
+cssInterop(Root, {
+  className: {
+    target: 'style',
+  },
+});
+
 const UIButton = createButton({
   Root: Root,
   Text,
@@ -22,6 +28,12 @@ const UIButton = createButton({
   Spinner: ActivityIndicator,
   Icon: UIIcon,
 });
+
+cssInterop(UIButton, { className: { target: 'style' } });
+cssInterop(UIButton.Text, { className: { target: 'style' } });
+cssInterop(UIButton.Group, { className: { target: 'style' } });
+cssInterop(UIButton.Spinner, { className: { target: 'style' } });
+cssInterop(UIButton.Icon, { className: { target: 'style' } });
 
 cssInterop(PrimitiveIcon, {
   className: {
@@ -285,21 +297,21 @@ type IButtonProps = Omit<
   React.ComponentPropsWithoutRef<typeof UIButton>,
   'context'
 > &
-  VariantProps<typeof buttonStyle> & { className?: string };
+  VariantProps<typeof buttonStyle> & { className?: string; internalClassName?: string };
 
 const Button = React.forwardRef<
   React.ElementRef<typeof UIButton>,
   IButtonProps
 >(
   (
-    { className, variant = 'solid', size = 'md', action = 'primary', ...props },
+    { className, internalClassName, variant = 'solid', size = 'md', action = 'primary', ...props },
     ref
   ) => {
     return (
       <UIButton
         ref={ref}
         {...props}
-        className={buttonStyle({ variant, size, action, class: className })}
+        className={buttonStyle({ variant, size, action, class: internalClassName || className })}
         context={{ variant, size, action }}
       />
     );
@@ -343,6 +355,7 @@ const ButtonSpinner = UIButton.Spinner;
 type IButtonIcon = React.ComponentPropsWithoutRef<typeof UIButton.Icon> &
   VariantProps<typeof buttonIconStyle> & {
     className?: string | undefined;
+    internalClassName?: string | undefined;
     as?: React.ElementType;
     height?: number;
     width?: number;
@@ -351,7 +364,7 @@ type IButtonIcon = React.ComponentPropsWithoutRef<typeof UIButton.Icon> &
 const ButtonIcon = React.forwardRef<
   React.ElementRef<typeof UIButton.Icon>,
   IButtonIcon
->(({ className, size, ...props }, ref) => {
+>(({ className, internalClassName, size, ...props }, ref) => {
   const {
     variant: parentVariant,
     size: parentSize,
@@ -363,7 +376,7 @@ const ButtonIcon = React.forwardRef<
       <UIButton.Icon
         ref={ref}
         {...props}
-        className={buttonIconStyle({ class: className })}
+        className={buttonIconStyle({ class: internalClassName || className })}
         size={size}
       />
     );
@@ -375,7 +388,7 @@ const ButtonIcon = React.forwardRef<
       <UIButton.Icon
         ref={ref}
         {...props}
-        className={buttonIconStyle({ class: className })}
+        className={buttonIconStyle({ class: internalClassName || className })}
       />
     );
   }
@@ -389,7 +402,7 @@ const ButtonIcon = React.forwardRef<
           action: parentAction,
         },
         size,
-        class: className,
+        class: internalClassName || className,
       })}
       ref={ref}
     />

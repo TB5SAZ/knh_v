@@ -6,36 +6,49 @@ import { CustomAvatar } from '../../ui/CustomAvatar';
 import { Pencil, Trash2, ShieldOff } from 'lucide-react-native';
 import { TableActionBadge } from '../../core/TableActionBadge';
 import { VisitorData } from '../../../types/visitor';
+import { TARGET_DEPARTMENTS } from '../../../constants/departments';
 
 interface VisitorTableRowProps {
   item: VisitorData;
   isCompact: boolean;
-  canBlockOrDelete: boolean;
   activeRowId: string | null;
   setActiveRowId: (id: string | null) => void;
   currentUserId?: string;
   isAdmin?: boolean;
   isAdminDept?: boolean;
+  isSecurity?: boolean;
+  isSecretary?: boolean;
   onDelete?: (id: string) => void;
+  onBlock?: (id: string) => void;
 }
 
 export const VisitorTableRow = ({
   item,
   isCompact,
-  canBlockOrDelete,
   activeRowId,
   setActiveRowId,
   currentUserId,
   isAdmin,
   isAdminDept,
+  isSecurity,
+  isSecretary,
   onDelete,
+  onBlock,
 }: VisitorTableRowProps) => {
   const isInternalBg = item.isInternal ? 'bg-[#f8fcf3]' : 'bg-white';
   const canEdit = isAdmin || (currentUserId && (currentUserId === item.createdBy || currentUserId === item.visitedPersonId));
   const canDelete = (isAdminDept || (currentUserId && currentUserId === item.visitedPersonId)) && item.status !== 'deleted';
-  const hasAnyAction = canEdit || canBlockOrDelete || canDelete;
+  
+  const canBlock = !isSecurity && item.status !== 'blocked' && (
+    isAdmin || 
+    isAdminDept || 
+    (isSecretary && item.hostDepartmentId === TARGET_DEPARTMENTS.RESTRICTED_VIEW_DEPT_ID) || 
+    (currentUserId && currentUserId === item.visitedPersonId)
+  );
+  
+  const hasAnyAction = canEdit || canBlock || canDelete;
 
-  const actionCount = [canEdit, canBlockOrDelete, canDelete].filter(Boolean).length;
+  const actionCount = [canEdit, canBlock, canDelete].filter(Boolean).length;
   // action widths based on how many icons are visible
   const actionWidthMap: Record<number, string> = { 0: 'w-0', 1: 'w-[50px]', 2: 'w-[90px]', 3: 'w-[130px]' };
   const actionWidth = actionWidthMap[actionCount] || 'w-0';
@@ -58,7 +71,7 @@ export const VisitorTableRow = ({
     >
       {/* Sol Taraf Eylemler (Arkaplan) */}
       {hasAnyAction && (
-        <View className={`absolute left-0 top-0 bottom-0 ${actionWidth} flex-row items-center justify-start gap-[8px] pl-[10px]`}>
+        <View className={`absolute left-0 top-0 bottom-0 ${actionWidth} flex-row items-center justify-start gap-[8px] pl-[10px] transition-all duration-300 ease-in-out ${activeRowId === item.id ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none xl:group-hover:opacity-100 xl:group-hover:pointer-events-auto'}`}>
         {canEdit && (
           <Link href={`/visitors/edit/${item.id}`} asChild>
             <NativePressable>
@@ -70,11 +83,12 @@ export const VisitorTableRow = ({
             </NativePressable>
           </Link>
         )}
-        {canBlockOrDelete && (
+        {canBlock && (
           <TableActionBadge 
             theme="solid"
             actionType="error" 
             icon={ShieldOff} 
+            onPress={() => onBlock && onBlock(item.id)}
           />
         )}
         {canDelete && (
@@ -90,7 +104,7 @@ export const VisitorTableRow = ({
 
       {/* Kayan İçerik (Foreground) */}
       <View 
-        className={`flex-1 flex-row items-center justify-between pr-2 gap-[24px] px-[10px] w-full h-[56px] transition-transform duration-300 ease-in-out ${isInternalBg} ${
+        className={`flex-1 flex-row items-center justify-between pr-2 gap-[24px] px-[10px] w-full h-[56px] ${isInternalBg} transition-all duration-300 ease-in-out ${
           activeRowId === item.id ? translateXActive : ('translate-x-0 ' + translateXHover)
         }`}
       >
@@ -98,7 +112,7 @@ export const VisitorTableRow = ({
         <View className="flex-row items-center w-[160px] shrink-0 gap-[10px]">
           <CustomAvatar name={item.visitorName || '?'} size="sm" />
           <View className="flex-col items-start justify-center flex-1 gap-[3px]">
-            <Text className="text-[11px] text-[#292929] font-normal leading-[1.3] w-full" numberOfLines={1} style={{ fontFamily: 'DMSans_400Regular' }}>
+            <Text className="text-[11px] text-[#292929] font-semibold leading-[1.3] w-full" numberOfLines={1} style={{ fontFamily: 'DMSans_600SemiBold' }}>
               {item.visitorName || '-'}
             </Text>
             <Text className="text-[10px] text-[#63716e] font-normal leading-[1.3] w-full" numberOfLines={1} style={{ fontFamily: 'DMSans_400Regular' }}>
@@ -109,7 +123,7 @@ export const VisitorTableRow = ({
 
         {/* Ziyaret Edilen */}
         <View className="flex-col items-start justify-center w-[120px] shrink-0 gap-[3px]">
-          <Text className="text-[11px] text-[#292929] font-normal leading-[1.3] w-full" numberOfLines={1} style={{ fontFamily: 'DMSans_400Regular' }}>
+          <Text className="text-[11px] text-[#292929] font-semibold leading-[1.3] w-full" numberOfLines={1} style={{ fontFamily: 'DMSans_600SemiBold' }}>
             {item.hostName || '-'}
           </Text>
           <Text className="text-[10px] text-[#63716e] font-normal leading-[1.3] w-full" numberOfLines={1} style={{ fontFamily: 'DMSans_400Regular' }}>

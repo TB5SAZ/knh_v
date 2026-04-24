@@ -45,6 +45,7 @@ export const mapVisitorData = (item: RawVisitorData): VisitorData => {
     isInternal: item.visitors ? !item.visitors.is_external : false,
     createdBy: item.created_by || undefined,
     visitedPersonId: item.visited_person_id || undefined,
+    hostDepartmentId: item.profiles?.department_id || undefined,
   };
 };
 
@@ -124,6 +125,17 @@ export const applyFiltersAndSort = (
     query = query.eq('created_by', user.id);
   }
 
+  // Diğer departman çalışanları sadece kendilerine gelen ziyaretçileri görebilir
+  const isSpecialDept = profile?.department_id && [
+    TARGET_DEPARTMENTS.ADMIN_DEPT_ID,
+    TARGET_DEPARTMENTS.SECURITY_DEPT_ID,
+    TARGET_DEPARTMENTS.SPECIAL_AUTH_DEPT_ID
+  ].includes(profile.department_id);
+
+  if (!isSpecialDept && user?.id) {
+    query = query.eq('visited_person_id', user.id);
+  }
+
 
 
   // Özel admin departmanı dışındakiler silinenleri göremez
@@ -132,5 +144,11 @@ export const applyFiltersAndSort = (
   }
 
   const [sortBy, order] = sortOption.split('-');
+  
+  if (sortBy.includes('.')) {
+    const [table, column] = sortBy.split('.');
+    return query.order(column, { foreignTable: table, ascending: order === 'asc' }).range(from, to);
+  }
+
   return query.order(sortBy, { ascending: order === 'asc' }).range(from, to);
 };

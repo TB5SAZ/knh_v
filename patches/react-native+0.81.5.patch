@@ -1,0 +1,17 @@
+diff --git a/node_modules/react-native/index.js b/node_modules/react-native/index.js
+index c737c93..069cba6 100644
+--- a/node_modules/react-native/index.js
++++ b/node_modules/react-native/index.js
+@@ -89,12 +89,6 @@ module.exports = {
+    * See https://github.com/th3rdwave/react-native-safe-area-context
+    */
+   get SafeAreaView() {
+-    warnOnce(
+-      'safe-area-view-deprecated',
+-      'SafeAreaView has been deprecated and will be removed in a future release. ' +
+-        "Please use 'react-native-safe-area-context' instead. " +
+-        'See https://github.com/th3rdwave/react-native-safe-area-context',
+-    );
+     return require('./Libraries/Components/SafeAreaView/SafeAreaView').default;
+   },
+   get ScrollView() {

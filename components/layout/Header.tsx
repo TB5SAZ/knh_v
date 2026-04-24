@@ -9,15 +9,18 @@ import { ArrowLeft, Settings, Bell, Menu, ChevronLeft } from 'lucide-react-nativ
 import { Image } from 'expo-image';
 import { useAuth } from '@/src/providers/AuthProvider';
 import { useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export interface HeaderProps {
   title: string;
   isMainPage?: boolean;
   breadcrumbItems?: AppBreadcrumbItem[];
+  onMenuPress?: () => void;
 }
 
-export function Header({ title, isMainPage = false, breadcrumbItems = [] }: HeaderProps) {
+export function Header({ title, isMainPage = false, breadcrumbItems = [], onMenuPress }: HeaderProps) {
   const { user, profile, role } = useAuth();
+  const insets = useSafeAreaInsets();
   
   const firstName = profile?.first_name || user?.user_metadata?.first_name || 'Kullanıcı';
   const lastName = profile?.last_name || user?.user_metadata?.last_name || '';
@@ -26,8 +29,11 @@ export function Header({ title, isMainPage = false, breadcrumbItems = [] }: Head
   const router = useRouter();
 
   return (
-    <View className="w-full z-50">
-      <View className="hidden md:flex bg-transparent flex-row justify-between items-center px-6 py-4 lg:px-8 lg:py-5">
+    <View className="w-full z-50" style={{ zIndex: 50, elevation: 50 }}>
+      <View 
+        className="hidden md:flex bg-transparent flex-row justify-between items-center px-6 pb-4 lg:px-8 lg:pb-5"
+        style={{ paddingTop: Math.max(insets.top, 16) }}
+      >
         {/* Left Area (Title & Navigation) */}
         <View className="flex-col gap-0 lg:gap-1">
           {isMainPage ? (
@@ -71,7 +77,10 @@ export function Header({ title, isMainPage = false, breadcrumbItems = [] }: Head
       </View>
 
       {/* Mobile Container */}
-      <View className="flex md:hidden w-full flex-row items-center justify-between px-4 py-3 bg-white">
+      <View 
+        className="flex md:hidden w-full flex-row items-center justify-between px-4 pb-3 bg-white border-b border-gray-100"
+        style={{ paddingTop: Math.max(insets.top, 12) }}
+      >
         {isMainPage ? (
           <>
             {/* Left: Logo */}
@@ -89,9 +98,9 @@ export function Header({ title, isMainPage = false, breadcrumbItems = [] }: Head
             </Text>
 
             {/* Right: Menu */}
-            <View className="w-8 h-8 items-center justify-center">
+            <Pressable onPress={onMenuPress} className="w-8 h-8 items-center justify-center active:bg-slate-100 rounded-full">
               <Menu size={22} color="#203430" />
-            </View>
+            </Pressable>
           </>
         ) : (
           <>
@@ -106,9 +115,9 @@ export function Header({ title, isMainPage = false, breadcrumbItems = [] }: Head
             </Text>
 
             {/* Right: Menu */}
-            <View className="w-8 h-8 items-center justify-center">
+            <Pressable onPress={onMenuPress} className="w-8 h-8 items-center justify-center active:bg-slate-100 rounded-full">
               <Menu size={22} color="#203430" />
-            </View>
+            </Pressable>
           </>
         )}
       </View>

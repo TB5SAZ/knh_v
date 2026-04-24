@@ -67,19 +67,21 @@ export default function LoginScreen() {
         {(isDesktop || !isSplashComplete) && (
           <Animated.View style={greenPanelStyle}>
             <View className="flex-1 bg-brand-primary items-center justify-center p-16">
-              <Image 
-                source={logoVertical} 
-                style={{ width: logoDims.width, height: logoDims.height }} 
-                contentFit="contain" 
-              />
-              {showSpinner && (
-                <LoadingSpinner 
-                  size="large" 
-                  color="#ffffff"
-                  className="absolute"
-                  style={{ top: '50%', marginTop: (logoDims.height / 2) + 24 }} 
+              <View style={{ width: logoDims.width, height: logoDims.height, alignItems: 'center', justifyContent: 'center' }}>
+                <Image 
+                  source={logoVertical} 
+                  style={{ width: '100%', height: '100%' }} 
+                  contentFit="contain" 
                 />
-              )}
+                {showSpinner && (
+                  <View style={{ position: 'absolute', bottom: -60 }}>
+                    <LoadingSpinner 
+                      size="large" 
+                      color="#ffffff"
+                    />
+                  </View>
+                )}
+              </View>
             </View>
           </Animated.View>
         )}

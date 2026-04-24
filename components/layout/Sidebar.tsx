@@ -20,9 +20,10 @@ import { useAuth } from '@/src/providers/AuthProvider';
 
 export interface SidebarProps {
   isCollapsed?: boolean;
+  onClose?: () => void;
 }
 
-export function Sidebar({ isCollapsed = false }: SidebarProps) {
+export function Sidebar({ isCollapsed = false, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { role } = useAuth();
   
@@ -36,7 +37,7 @@ export function Sidebar({ isCollapsed = false }: SidebarProps) {
 
   return (
     <View 
-      className={`bg-white h-full relative py-5 flex-col justify-between transition-all duration-300 ${
+      className={`bg-white h-full relative py-5 flex-col justify-between ${
         isCollapsed ? 'w-[60px] px-1.5 items-center' : 'w-[245px] px-4'
       }`}
     >
@@ -113,11 +114,11 @@ export function Sidebar({ isCollapsed = false }: SidebarProps) {
       {/* Footer Section */}
       <View className="w-full">
         {isCollapsed ? (
-          <Pressable onPress={handleLogout} className="h-10 w-10 bg-brand-light rounded-xl items-center justify-center active:opacity-70 mx-auto transition-colors md:hover:bg-[#d0ebb3]">
+          <Pressable onPress={handleLogout} className="h-10 w-10 bg-brand-light rounded-xl items-center justify-center active:opacity-70 mx-auto md:hover:bg-[#d0ebb3]">
             <LogOut size={18} color="var(--brand-dark)" />
           </Pressable>
         ) : (
-          <Pressable onPress={handleLogout} className="w-full flex-row items-center justify-center gap-2 bg-brand-light py-3 px-4 rounded-xl active:opacity-70 transition-colors md:hover:bg-[#d0ebb3]">
+          <Pressable onPress={handleLogout} className="w-full flex-row items-center justify-center gap-2 bg-brand-light py-3 px-4 rounded-xl active:opacity-70 md:hover:bg-[#d0ebb3]">
              <LogOut size={18} color="var(--brand-dark)" />
              <Text className="text-brand-dark font-medium text-[14px] tracking-tight">Çıkış Yap</Text>
           </Pressable>

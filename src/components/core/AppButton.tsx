@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
-import { Text, View } from 'react-native';
-import { Button, ButtonSpinner, ButtonIcon } from '@/src/components/ui/button';
+import { Text, View, ActivityIndicator } from 'react-native';
+import { Button, ButtonIcon } from '@/src/components/ui/button';
 import { LucideIcon } from 'lucide-react-native';
 
 export type AppButtonVariant = 'primary' | 'secondary' | 'ghost' | 'success' | 'error';
@@ -37,11 +37,11 @@ const iconSizes = {
 };
 
 const variantClasses = {
-  primary: 'bg-brand-primary border-transparent data-[active=true]:scale-[0.95] transition-transform duration-100',
-  secondary: 'bg-brand-light border-transparent data-[active=true]:scale-[0.95] transition-transform duration-100',
-  ghost: 'bg-transparent border-transparent data-[active=true]:scale-[0.95] transition-transform duration-100',
-  success: 'bg-status-success-text border-transparent data-[active=true]:scale-[0.95] transition-transform duration-100',
-  error: 'bg-status-error-text border-transparent data-[active=true]:scale-[0.95] transition-transform duration-100',
+  primary: 'bg-brand-primary border-transparent data-[active=true]:opacity-80',
+  secondary: 'bg-brand-light border-transparent data-[active=true]:opacity-80',
+  ghost: 'bg-transparent border-transparent data-[active=true]:opacity-80',
+  success: 'bg-status-success-text border-transparent data-[active=true]:opacity-80',
+  error: 'bg-status-error-text border-transparent data-[active=true]:opacity-80',
 };
 
 const variantTextClasses = {
@@ -52,7 +52,7 @@ const variantTextClasses = {
   error: 'text-status-error-bg',
 };
 
-const disabledContainerClass = 'bg-status-disabled-bg border-transparent pointer-events-none focus:outline-none';
+const disabledContainerClass = 'bg-status-disabled-bg border-transparent focus:outline-none';
 const disabledTextClass = 'text-status-disabled-text';
 
 const spinnerColors = {
@@ -81,7 +81,7 @@ export const AppButton = forwardRef<React.ElementRef<typeof Button>, AppButtonPr
     // Yüklenme anında butonu gri yapmak yerine orjinal renginde tutuyoruz
     const resolvedContainerClass = isDisabled 
       ? disabledContainerClass 
-      : `${variantClasses[variant]} ${isLoading ? 'pointer-events-none opacity-90' : ''}`;
+      : `${variantClasses[variant]} ${isLoading ? 'opacity-90' : ''}`;
       
     const resolvedTextClass = isDisabled 
       ? disabledTextClass 
@@ -99,16 +99,19 @@ export const AppButton = forwardRef<React.ElementRef<typeof Button>, AppButtonPr
         variant="solid"
         size="md"
         isDisabled={isDisabled || isLoading}
-        className={`group overflow-hidden flex-row items-center justify-center border-0 ${sizeClasses[size]} ${resolvedContainerClass} ${className}`}
+        internalClassName={`group overflow-hidden flex-row items-center justify-center border-0 ${sizeClasses[size]} ${resolvedContainerClass} ${className}`}
         {...rest}
       >
         {/* Otomatik Koyulaştırma Katmanı */}
-        <View className="absolute inset-0 bg-black opacity-0 group-[&:hover]:opacity-[0.25] group-[&:active]:opacity-[0.25] group-data-[hover=true]:opacity-[0.25] group-data-[active=true]:opacity-[0.25] pointer-events-none" />
+        <View 
+          pointerEvents="none"
+          className="absolute inset-0 bg-black opacity-0 group-[&:hover]:opacity-[0.25] group-[&:active]:opacity-[0.25] group-data-[hover=true]:opacity-[0.25] group-data-[active=true]:opacity-[0.25]" 
+        />
 
-        {isLoading && <ButtonSpinner color={resolvedSpinnerColor} />}
-        {!isLoading && LeftIcon && <ButtonIcon as={LeftIcon} size={iconSizes[size] as any} className={`z-10 ${resolvedTextClass}`} />}
+        {isLoading ? <ActivityIndicator color={resolvedSpinnerColor} size="small" /> : null}
+        {!isLoading && LeftIcon ? <ButtonIcon as={LeftIcon} size={iconSizes[size] as any} internalClassName={`z-10 ${resolvedTextClass}`} /> : null}
         <Text className={`text-center z-10 ${textClasses[size]} ${resolvedTextClass}`}>{title}</Text>
-        {!isLoading && RightIcon && <ButtonIcon as={RightIcon} size={iconSizes[size] as any} className={`z-10 ${resolvedTextClass}`} />}
+        {!isLoading && RightIcon ? <ButtonIcon as={RightIcon} size={iconSizes[size] as any} internalClassName={`z-10 ${resolvedTextClass}`} /> : null}
       </Button>
     );
   }

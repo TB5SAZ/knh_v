@@ -42,11 +42,13 @@ export const AppInput = React.forwardRef<TextInput, AppInputProps>(({
   
   const PasswordIcon = showPassword ? EyeOff : Eye;
 
-  const heightClass = {
-    sm: 'h-[30px]',
-    md: 'h-[36px]',
-    lg: 'h-[38px]',
-  }[size];
+  const heightClass = props.multiline
+    ? 'min-h-[80px] py-2 items-start'
+    : {
+        sm: 'h-[30px] items-center',
+        md: 'h-[36px] items-center',
+        lg: 'h-[38px] items-center',
+      }[size];
 
   const textClass = size === 'sm' ? 'text-body-11-regular' : 'text-body-12-regular';
 
@@ -66,7 +68,7 @@ export const AppInput = React.forwardRef<TextInput, AppInputProps>(({
       
       <Input
         variant="outline"
-        className={`bg-bg-surface px-3 ${heightClass} rounded-lg ${borderClass} flex-row items-center gap-1.5`}
+        className={`bg-bg-surface px-3 rounded-lg flex-row gap-1.5 ${heightClass} ${borderClass}`}
       >
         {LeftIcon && (
           <InputSlot className="pl-0 pr-0">
@@ -81,8 +83,8 @@ export const AppInput = React.forwardRef<TextInput, AppInputProps>(({
           autoCorrect={isPassword ? false : props.autoCorrect}
           autoCapitalize={isPassword ? 'none' : props.autoCapitalize}
           spellCheck={isPassword ? false : props.spellCheck}
-          className={`flex-1 ${textClass} text-text-secondary p-0 web:outline-none placeholder:text-text-secondary`}
-          style={{ fontFamily: 'DMSans_400Regular' }}
+          className={`flex-1 ${textClass} text-text-secondary p-0 web:outline-none placeholder:text-text-secondary ${props.multiline ? 'min-h-[64px]' : ''}`}
+          style={{ fontFamily: 'DMSans_400Regular', ...(props.multiline ? { textAlignVertical: 'top' } : {}) }}
           onChangeText={onChangeText}
           value={value}
           {...props}

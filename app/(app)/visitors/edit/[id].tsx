@@ -59,9 +59,9 @@ export default function VisitorEditScreen() {
     const fetchVisit = async () => {
       try {
         const visit = await visitorService.getVisitById(id);
-        const visitor = visit.visitor;
-        const department_id = visit.visited_person?.department_id;
-        const entryTime = new Date(visit.entry_time);
+        const visitor = visit.visitor || {} as any;
+        const department_id = (visit.visited_person && !Array.isArray(visit.visited_person)) ? visit.visited_person.department_id : null;
+        const entryTime = visit.entry_time ? new Date(visit.entry_time) : new Date();
 
         reset({
           existingVisitorId: visitor.id,

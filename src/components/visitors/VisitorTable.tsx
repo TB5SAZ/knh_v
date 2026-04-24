@@ -8,6 +8,7 @@ import { VisitorTableRow } from './table/VisitorTableRow';
 import { TARGET_DEPARTMENTS } from '../../constants/departments';
 import { AppAlert, AppAlertStatus } from '../core/AppAlert';
 import { visitorService } from '../../services/visitorService';
+import { AddBlacklistModal } from '../blacklist/AddBlacklistModal';
 
 interface VisitorTableProps {
   searchQuery?: string;
@@ -48,10 +49,6 @@ export const VisitorTable = ({
     onTotalCountChange
   });
 
-  const canBlockOrDelete = profile?.department_id 
-    ? [TARGET_DEPARTMENTS.ADMIN_DEPT_ID, TARGET_DEPARTMENTS.SPECIAL_AUTH_DEPT_ID, TARGET_DEPARTMENTS.SECURITY_DEPT_ID].includes(profile.department_id) 
-    : false;
-
   const isAdmin = profile?.role === 'admin' || profile?.department_id === TARGET_DEPARTMENTS.ADMIN_DEPT_ID;
   const isAdminDept = profile?.department_id === TARGET_DEPARTMENTS.ADMIN_DEPT_ID;
 
@@ -68,6 +65,9 @@ export const VisitorTable = ({
     description: '',
     status: 'info',
   });
+
+  const [isBlockModalOpen, setIsBlockModalOpen] = useState(false);
+  const [blockModalData, setBlockModalData] = useState<{ tcNo?: string; firstName?: string; lastName?: string }>();
 
   const handleDelete = (id: string) => {
     setAlertConfig({
@@ -98,6 +98,27 @@ export const VisitorTable = ({
     });
   };
 
+  const handleBlock = async (id: string) => {
+    try {
+      const visit = await visitorService.getVisitById(id);
+      if (visit?.visitor) {
+        setBlockModalData({
+          tcNo: visit.visitor.tc_no || '',
+          firstName: visit.visitor.first_name || '',
+          lastName: visit.visitor.last_name || '',
+        });
+        setIsBlockModalOpen(true);
+      }
+    } catch (err: any) {
+      setAlertConfig({
+        isOpen: true,
+        title: 'Hata',
+        description: err.message || 'Ziyaretçi bilgileri alınırken hata oluştu.',
+        status: 'error',
+      });
+    }
+  };
+
   return (
     <>
     <ScrollView
@@ -105,6 +126,7 @@ export const VisitorTable = ({
       showsHorizontalScrollIndicator={false}
       className="w-full shrink"
       contentContainerStyle={{ flexGrow: 1 }}
+      keyboardShouldPersistTaps="handled"
     >
       <View className={`flex-col shrink bg-transparent w-full ${isCompact ? 'min-w-[700px]' : 'min-w-[1115px]'}`}>
         <VisitorTableHeader isCompact={isCompact} />
@@ -113,8 +135,9 @@ export const VisitorTable = ({
           className="shrink w-full" 
           style={{ minHeight: itemsPerPage * 56 }} 
           showsVerticalScrollIndicator={true}
+          keyboardShouldPersistTaps="handled"
         >
-          {isLoading ? (
+          {isLoading && visitors.length === 0 ? (
             <View className="flex-1 items-center justify-center h-full" style={{ minHeight: itemsPerPage * 56 }}>
               <Spinner size="large" color="#63716e" />
             </View>
@@ -125,20 +148,24 @@ export const VisitorTable = ({
               </Text>
             </View>
           ) : (
-            visitors.map((item) => (
-              <VisitorTableRow 
-                key={item.id} 
-                item={item} 
-                isCompact={isCompact}
-                canBlockOrDelete={canBlockOrDelete}
-                activeRowId={activeRowId}
-                setActiveRowId={setActiveRowId}
-                currentUserId={profile?.id}
-                isAdmin={isAdmin}
-                isAdminDept={isAdminDept}
-                onDelete={handleDelete}
-              />
-            ))
+            <View className={`w-full ${isLoading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+              {visitors.map((item) => (
+                <VisitorTableRow 
+                  key={item.id} 
+                  item={item} 
+                  isCompact={isCompact}
+                  activeRowId={activeRowId}
+                  setActiveRowId={setActiveRowId}
+                  currentUserId={profile?.id}
+                  isAdmin={isAdmin}
+                  isAdminDept={isAdminDept}
+                  isSecurity={profile?.department_id === TARGET_DEPARTMENTS.SECURITY_DEPT_ID}
+                  isSecretary={profile?.department_id === TARGET_DEPARTMENTS.SPECIAL_AUTH_DEPT_ID}
+                  onDelete={handleDelete}
+                  onBlock={handleBlock}
+                />
+              ))}
+            </View>
           )}
         </ScrollView>
       </View>
@@ -152,6 +179,12 @@ export const VisitorTable = ({
       status={alertConfig.status}
       confirmText={alertConfig.confirmText}
       onConfirm={alertConfig.onConfirm}
+    />
+
+    <AddBlacklistModal 
+      isOpen={isBlockModalOpen} 
+      onClose={() => setIsBlockModalOpen(false)} 
+      initialData={blockModalData}
     />
     </>
   );

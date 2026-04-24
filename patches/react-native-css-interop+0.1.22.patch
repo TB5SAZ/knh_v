@@ -1,0 +1,2965 @@
+diff --git a/node_modules/react-native-css-interop/.cache/android.js b/node_modules/react-native-css-interop/.cache/android.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/.cache/android.map b/node_modules/react-native-css-interop/.cache/android.map
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/.cache/ios.js b/node_modules/react-native-css-interop/.cache/ios.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/.cache/ios.map b/node_modules/react-native-css-interop/.cache/ios.map
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/.cache/macos.js b/node_modules/react-native-css-interop/.cache/macos.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/.cache/native.js b/node_modules/react-native-css-interop/.cache/native.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/.cache/web.css b/node_modules/react-native-css-interop/.cache/web.css
+new file mode 100644
+index 0000000..646fe96
+--- /dev/null
++++ b/node_modules/react-native-css-interop/.cache/web.css
+@@ -0,0 +1,2914 @@
++*, ::before, ::after {
++  --tw-border-spacing-x: 0;
++  --tw-border-spacing-y: 0;
++  --tw-translate-x: 0;
++  --tw-translate-y: 0;
++  --tw-rotate: 0;
++  --tw-skew-x: 0;
++  --tw-skew-y: 0;
++  --tw-scale-x: 1;
++  --tw-scale-y: 1;
++  --tw-pan-x:  ;
++  --tw-pan-y:  ;
++  --tw-pinch-zoom:  ;
++  --tw-scroll-snap-strictness: proximity;
++  --tw-gradient-from-position:  ;
++  --tw-gradient-via-position:  ;
++  --tw-gradient-to-position:  ;
++  --tw-ordinal:  ;
++  --tw-slashed-zero:  ;
++  --tw-numeric-figure:  ;
++  --tw-numeric-spacing:  ;
++  --tw-numeric-fraction:  ;
++  --tw-ring-inset:  ;
++  --tw-ring-offset-width: 0px;
++  --tw-ring-offset-color: #fff;
++  --tw-ring-color: rgb(59 130 246 / 0.5);
++  --tw-ring-offset-shadow: 0 0 #0000;
++  --tw-ring-shadow: 0 0 #0000;
++  --tw-shadow: 0 0 #0000;
++  --tw-shadow-colored: 0 0 #0000;
++  --tw-blur:  ;
++  --tw-brightness:  ;
++  --tw-contrast:  ;
++  --tw-grayscale:  ;
++  --tw-hue-rotate:  ;
++  --tw-invert:  ;
++  --tw-saturate:  ;
++  --tw-sepia:  ;
++  --tw-drop-shadow:  ;
++  --tw-backdrop-blur:  ;
++  --tw-backdrop-brightness:  ;
++  --tw-backdrop-contrast:  ;
++  --tw-backdrop-grayscale:  ;
++  --tw-backdrop-hue-rotate:  ;
++  --tw-backdrop-invert:  ;
++  --tw-backdrop-opacity:  ;
++  --tw-backdrop-saturate:  ;
++  --tw-backdrop-sepia:  ;
++  --tw-contain-size:  ;
++  --tw-contain-layout:  ;
++  --tw-contain-paint:  ;
++  --tw-contain-style:  ;
++}
++
++::-ms-backdrop {
++  --tw-border-spacing-x: 0;
++  --tw-border-spacing-y: 0;
++  --tw-translate-x: 0;
++  --tw-translate-y: 0;
++  --tw-rotate: 0;
++  --tw-skew-x: 0;
++  --tw-skew-y: 0;
++  --tw-scale-x: 1;
++  --tw-scale-y: 1;
++  --tw-pan-x:  ;
++  --tw-pan-y:  ;
++  --tw-pinch-zoom:  ;
++  --tw-scroll-snap-strictness: proximity;
++  --tw-gradient-from-position:  ;
++  --tw-gradient-via-position:  ;
++  --tw-gradient-to-position:  ;
++  --tw-ordinal:  ;
++  --tw-slashed-zero:  ;
++  --tw-numeric-figure:  ;
++  --tw-numeric-spacing:  ;
++  --tw-numeric-fraction:  ;
++  --tw-ring-inset:  ;
++  --tw-ring-offset-width: 0px;
++  --tw-ring-offset-color: #fff;
++  --tw-ring-color: rgb(59 130 246 / 0.5);
++  --tw-ring-offset-shadow: 0 0 #0000;
++  --tw-ring-shadow: 0 0 #0000;
++  --tw-shadow: 0 0 #0000;
++  --tw-shadow-colored: 0 0 #0000;
++  --tw-blur:  ;
++  --tw-brightness:  ;
++  --tw-contrast:  ;
++  --tw-grayscale:  ;
++  --tw-hue-rotate:  ;
++  --tw-invert:  ;
++  --tw-saturate:  ;
++  --tw-sepia:  ;
++  --tw-drop-shadow:  ;
++  --tw-backdrop-blur:  ;
++  --tw-backdrop-brightness:  ;
++  --tw-backdrop-contrast:  ;
++  --tw-backdrop-grayscale:  ;
++  --tw-backdrop-hue-rotate:  ;
++  --tw-backdrop-invert:  ;
++  --tw-backdrop-opacity:  ;
++  --tw-backdrop-saturate:  ;
++  --tw-backdrop-sepia:  ;
++  --tw-contain-size:  ;
++  --tw-contain-layout:  ;
++  --tw-contain-paint:  ;
++  --tw-contain-style:  ;
++}
++
++::backdrop {
++  --tw-border-spacing-x: 0;
++  --tw-border-spacing-y: 0;
++  --tw-translate-x: 0;
++  --tw-translate-y: 0;
++  --tw-rotate: 0;
++  --tw-skew-x: 0;
++  --tw-skew-y: 0;
++  --tw-scale-x: 1;
++  --tw-scale-y: 1;
++  --tw-pan-x:  ;
++  --tw-pan-y:  ;
++  --tw-pinch-zoom:  ;
++  --tw-scroll-snap-strictness: proximity;
++  --tw-gradient-from-position:  ;
++  --tw-gradient-via-position:  ;
++  --tw-gradient-to-position:  ;
++  --tw-ordinal:  ;
++  --tw-slashed-zero:  ;
++  --tw-numeric-figure:  ;
++  --tw-numeric-spacing:  ;
++  --tw-numeric-fraction:  ;
++  --tw-ring-inset:  ;
++  --tw-ring-offset-width: 0px;
++  --tw-ring-offset-color: #fff;
++  --tw-ring-color: rgb(59 130 246 / 0.5);
++  --tw-ring-offset-shadow: 0 0 #0000;
++  --tw-ring-shadow: 0 0 #0000;
++  --tw-shadow: 0 0 #0000;
++  --tw-shadow-colored: 0 0 #0000;
++  --tw-blur:  ;
++  --tw-brightness:  ;
++  --tw-contrast:  ;
++  --tw-grayscale:  ;
++  --tw-hue-rotate:  ;
++  --tw-invert:  ;
++  --tw-saturate:  ;
++  --tw-sepia:  ;
++  --tw-drop-shadow:  ;
++  --tw-backdrop-blur:  ;
++  --tw-backdrop-brightness:  ;
++  --tw-backdrop-contrast:  ;
++  --tw-backdrop-grayscale:  ;
++  --tw-backdrop-hue-rotate:  ;
++  --tw-backdrop-invert:  ;
++  --tw-backdrop-opacity:  ;
++  --tw-backdrop-saturate:  ;
++  --tw-backdrop-sepia:  ;
++  --tw-contain-size:  ;
++  --tw-contain-layout:  ;
++  --tw-contain-paint:  ;
++  --tw-contain-style:  ;
++}
++
++/*
++! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com
++*/
++
++/*
++1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
++2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
++*/
++
++*,
++::before,
++::after {
++  box-sizing: border-box;
++  /* 1 */
++  border-width: 0;
++  /* 2 */
++  border-style: solid;
++  /* 2 */
++  border-color: #e5e7eb;
++  /* 2 */
++}
++
++::before,
++::after {
++  --tw-content: '';
++}
++
++/*
++1. Use a consistent sensible line-height in all browsers.
++2. Prevent adjustments of font size after orientation changes in iOS.
++3. Use a more readable tab size.
++4. Use the user's configured `sans` font-family by default.
++5. Use the user's configured `sans` font-feature-settings by default.
++6. Use the user's configured `sans` font-variation-settings by default.
++7. Disable tap highlights on iOS
++*/
++
++html,
++:host {
++  line-height: 1.5;
++  /* 1 */
++  -webkit-text-size-adjust: 100%;
++  /* 2 */
++  -moz-tab-size: 4;
++  /* 3 */
++  -o-tab-size: 4;
++     tab-size: 4;
++  /* 3 */
++  font-family: DMSans_400Regular, sans-serif;
++  /* 4 */
++  -webkit-font-feature-settings: normal;
++          font-feature-settings: normal;
++  /* 5 */
++  font-variation-settings: normal;
++  /* 6 */
++  -webkit-tap-highlight-color: transparent;
++  /* 7 */
++}
++
++/*
++1. Remove the margin in all browsers.
++2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
++*/
++
++body {
++  margin: 0;
++  /* 1 */
++  line-height: inherit;
++  /* 2 */
++}
++
++/*
++1. Add the correct height in Firefox.
++2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
++3. Ensure horizontal rules are visible by default.
++*/
++
++hr {
++  height: 0;
++  /* 1 */
++  color: inherit;
++  /* 2 */
++  border-top-width: 1px;
++  /* 3 */
++}
++
++/*
++Add the correct text decoration in Chrome, Edge, and Safari.
++*/
++
++abbr:where([title]) {
++  -webkit-text-decoration: underline dotted;
++          text-decoration: underline dotted;
++}
++
++/*
++Remove the default font size and weight for headings.
++*/
++
++h1,
++h2,
++h3,
++h4,
++h5,
++h6 {
++  font-size: inherit;
++  font-weight: inherit;
++}
++
++/*
++Reset links to optimize for opt-in styling instead of opt-out.
++*/
++
++a {
++  color: inherit;
++  text-decoration: inherit;
++}
++
++/*
++Add the correct font weight in Edge and Safari.
++*/
++
++b,
++strong {
++  font-weight: bolder;
++}
++
++/*
++1. Use the user's configured `mono` font-family by default.
++2. Use the user's configured `mono` font-feature-settings by default.
++3. Use the user's configured `mono` font-variation-settings by default.
++4. Correct the odd `em` font sizing in all browsers.
++*/
++
++code,
++kbd,
++samp,
++pre {
++  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
++  /* 1 */
++  -webkit-font-feature-settings: normal;
++          font-feature-settings: normal;
++  /* 2 */
++  font-variation-settings: normal;
++  /* 3 */
++  font-size: 1em;
++  /* 4 */
++}
++
++/*
++Add the correct font size in all browsers.
++*/
++
++small {
++  font-size: 80%;
++}
++
++/*
++Prevent `sub` and `sup` elements from affecting the line height in all browsers.
++*/
++
++sub,
++sup {
++  font-size: 75%;
++  line-height: 0;
++  position: relative;
++  vertical-align: baseline;
++}
++
++sub {
++  bottom: -0.25em;
++}
++
++sup {
++  top: -0.5em;
++}
++
++/*
++1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
++2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
++3. Remove gaps between table borders by default.
++*/
++
++table {
++  text-indent: 0;
++  /* 1 */
++  border-color: inherit;
++  /* 2 */
++  border-collapse: collapse;
++  /* 3 */
++}
++
++/*
++1. Change the font styles in all browsers.
++2. Remove the margin in Firefox and Safari.
++3. Remove default padding in all browsers.
++*/
++
++button,
++input,
++optgroup,
++select,
++textarea {
++  font-family: inherit;
++  /* 1 */
++  -webkit-font-feature-settings: inherit;
++          font-feature-settings: inherit;
++  /* 1 */
++  font-variation-settings: inherit;
++  /* 1 */
++  font-size: 100%;
++  /* 1 */
++  font-weight: inherit;
++  /* 1 */
++  line-height: inherit;
++  /* 1 */
++  letter-spacing: inherit;
++  /* 1 */
++  color: inherit;
++  /* 1 */
++  margin: 0;
++  /* 2 */
++  padding: 0;
++  /* 3 */
++}
++
++/*
++Remove the inheritance of text transform in Edge and Firefox.
++*/
++
++button,
++select {
++  text-transform: none;
++}
++
++/*
++1. Correct the inability to style clickable types in iOS and Safari.
++2. Remove default button styles.
++*/
++
++button,
++input:where([type='button']),
++input:where([type='reset']),
++input:where([type='submit']) {
++  -webkit-appearance: button;
++  /* 1 */
++  background-color: transparent;
++  /* 2 */
++  background-image: none;
++  /* 2 */
++}
++
++/*
++Use the modern Firefox focus style for all focusable elements.
++*/
++
++:-moz-focusring {
++  outline: auto;
++}
++
++/*
++Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
++*/
++
++:-moz-ui-invalid {
++  box-shadow: none;
++}
++
++/*
++Add the correct vertical alignment in Chrome and Firefox.
++*/
++
++progress {
++  vertical-align: baseline;
++}
++
++/*
++Correct the cursor style of increment and decrement buttons in Safari.
++*/
++
++::-webkit-inner-spin-button,
++::-webkit-outer-spin-button {
++  height: auto;
++}
++
++/*
++1. Correct the odd appearance in Chrome and Safari.
++2. Correct the outline style in Safari.
++*/
++
++[type='search'] {
++  -webkit-appearance: textfield;
++  /* 1 */
++  outline-offset: -2px;
++  /* 2 */
++}
++
++/*
++Remove the inner padding in Chrome and Safari on macOS.
++*/
++
++::-webkit-search-decoration {
++  -webkit-appearance: none;
++}
++
++/*
++1. Correct the inability to style clickable types in iOS and Safari.
++2. Change font properties to `inherit` in Safari.
++*/
++
++::-webkit-file-upload-button {
++  -webkit-appearance: button;
++  /* 1 */
++  font: inherit;
++  /* 2 */
++}
++
++/*
++Add the correct display in Chrome and Safari.
++*/
++
++summary {
++  display: list-item;
++}
++
++/*
++Removes the default spacing and border for appropriate elements.
++*/
++
++blockquote,
++dl,
++dd,
++h1,
++h2,
++h3,
++h4,
++h5,
++h6,
++hr,
++figure,
++p,
++pre {
++  margin: 0;
++}
++
++fieldset {
++  margin: 0;
++  padding: 0;
++}
++
++legend {
++  padding: 0;
++}
++
++ol,
++ul,
++menu {
++  list-style: none;
++  margin: 0;
++  padding: 0;
++}
++
++/*
++Reset default styling for dialogs.
++*/
++
++dialog {
++  padding: 0;
++}
++
++/*
++Prevent resizing textareas horizontally by default.
++*/
++
++textarea {
++  resize: vertical;
++}
++
++/*
++1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
++2. Set the default placeholder color to the user's configured gray 400 color.
++*/
++
++input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
++  opacity: 1;
++  /* 1 */
++  color: #9ca3af;
++  /* 2 */
++}
++
++input:-ms-input-placeholder, textarea:-ms-input-placeholder {
++  opacity: 1;
++  /* 1 */
++  color: #9ca3af;
++  /* 2 */
++}
++
++input::-ms-input-placeholder, textarea::-ms-input-placeholder {
++  opacity: 1;
++  /* 1 */
++  color: #9ca3af;
++  /* 2 */
++}
++
++input::placeholder,
++textarea::placeholder {
++  opacity: 1;
++  /* 1 */
++  color: #9ca3af;
++  /* 2 */
++}
++
++/*
++Set the default cursor for buttons.
++*/
++
++button,
++[role="button"] {
++  cursor: pointer;
++}
++
++/*
++Make sure disabled buttons don't get the pointer cursor.
++*/
++
++:disabled {
++  cursor: default;
++}
++
++/*
++1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
++2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
++   This can trigger a poorly considered lint error in some tools but is included by design.
++*/
++
++img,
++svg,
++video,
++canvas,
++audio,
++iframe,
++embed,
++object {
++  display: block;
++  /* 1 */
++  vertical-align: middle;
++  /* 2 */
++}
++
++/*
++Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
++*/
++
++img,
++video {
++  max-width: 100%;
++  height: auto;
++}
++
++/* Make elements with the HTML hidden attribute stay hidden by default */
++
++[hidden]:where(:not([hidden="until-found"])) {
++  display: none;
++}
++
++:root {
++  --css-interop-darkMode: class dark;
++  --css-interop: true;
++  --css-interop-nativewind: true;
++}
++
++*,
++  ::before,
++  ::after {
++  -ms-user-select: none;
++      user-select: none;
++  -webkit-user-select: none;
++}
++
++html,
++  body,
++  #root {
++  cursor: default;
++  /* Mobildeki can sıkıcı mavi tıklama efektini de webde kapatalım */
++  -webkit-tap-highlight-color: transparent;
++}
++
++input,
++  textarea,
++  [contenteditable] {
++  -ms-user-select: text;
++      user-select: text;
++  -webkit-user-select: text;
++  cursor: text;
++}
++
++.pointer-events-none {
++  pointer-events: none;
++}
++
++.absolute {
++  position: absolute;
++}
++
++.relative {
++  position: relative;
++}
++
++.inset-0 {
++  inset: 0px;
++}
++
++.-right-1 {
++  right: -0.25rem;
++}
++
++.-right-1\.5 {
++  right: -0.375rem;
++}
++
++.-right-2 {
++  right: -0.5rem;
++}
++
++.-right-3 {
++  right: -0.75rem;
++}
++
++.-right-4 {
++  right: -1rem;
++}
++
++.-top-1 {
++  top: -0.25rem;
++}
++
++.-top-1\.5 {
++  top: -0.375rem;
++}
++
++.-top-2 {
++  top: -0.5rem;
++}
++
++.bottom-0 {
++  bottom: 0px;
++}
++
++.left-0 {
++  left: 0px;
++}
++
++.right-0 {
++  right: 0px;
++}
++
++.right-1 {
++  right: 0.25rem;
++}
++
++.top-0 {
++  top: 0px;
++}
++
++.top-1 {
++  top: 0.25rem;
++}
++
++.top-full {
++  top: 100%;
++}
++
++.z-0 {
++  z-index: 0;
++}
++
++.z-10 {
++  z-index: 10;
++}
++
++.z-40 {
++  z-index: 40;
++}
++
++.z-50 {
++  z-index: 50;
++}
++
++.z-\[9999\] {
++  z-index: 9999;
++}
++
++.m-0 {
++  margin: 0px;
++}
++
++.mx-1 {
++  margin-left: 0.25rem;
++  margin-right: 0.25rem;
++}
++
++.mx-2 {
++  margin-left: 0.5rem;
++  margin-right: 0.5rem;
++}
++
++.mx-4 {
++  margin-left: 1rem;
++  margin-right: 1rem;
++}
++
++.mx-auto {
++  margin-left: auto;
++  margin-right: auto;
++}
++
++.my-0 {
++  margin-top: 0px;
++  margin-bottom: 0px;
++}
++
++.-ml-1 {
++  margin-left: -0.25rem;
++}
++
++.mb-1 {
++  margin-bottom: 0.25rem;
++}
++
++.mb-1\.5 {
++  margin-bottom: 0.375rem;
++}
++
++.mb-2 {
++  margin-bottom: 0.5rem;
++}
++
++.mb-4 {
++  margin-bottom: 1rem;
++}
++
++.mb-6 {
++  margin-bottom: 1.5rem;
++}
++
++.mb-8 {
++  margin-bottom: 2rem;
++}
++
++.mb-\[32px\] {
++  margin-bottom: 32px;
++}
++
++.ml-1\.5 {
++  margin-left: 0.375rem;
++}
++
++.ml-2 {
++  margin-left: 0.5rem;
++}
++
++.ml-6 {
++  margin-left: 1.5rem;
++}
++
++.mr-4 {
++  margin-right: 1rem;
++}
++
++.mt-0\.5 {
++  margin-top: 0.125rem;
++}
++
++.mt-1 {
++  margin-top: 0.25rem;
++}
++
++.mt-1\.5 {
++  margin-top: 0.375rem;
++}
++
++.mt-2 {
++  margin-top: 0.5rem;
++}
++
++.mt-4 {
++  margin-top: 1rem;
++}
++
++.mt-8 {
++  margin-top: 2rem;
++}
++
++.mt-\[-4px\] {
++  margin-top: -4px;
++}
++
++.box-border {
++  box-sizing: border-box;
++}
++
++.flex {
++  display: flex;
++}
++
++.hidden {
++  display: none;
++}
++
++.\!size-2 {
++  width: 0.5rem !important;
++  height: 0.5rem !important;
++}
++
++.\!size-2\.5 {
++  width: 0.625rem !important;
++  height: 0.625rem !important;
++}
++
++.\!size-3 {
++  width: 0.75rem !important;
++  height: 0.75rem !important;
++}
++
++.\!size-3\.5 {
++  width: 0.875rem !important;
++  height: 0.875rem !important;
++}
++
++.\!size-4 {
++  width: 1rem !important;
++  height: 1rem !important;
++}
++
++.\!h-\[22px\] {
++  height: 22px !important;
++}
++
++.h-1 {
++  height: 0.25rem;
++}
++
++.h-10 {
++  height: 2.5rem;
++}
++
++.h-11 {
++  height: 2.75rem;
++}
++
++.h-12 {
++  height: 3rem;
++}
++
++.h-16 {
++  height: 4rem;
++}
++
++.h-2 {
++  height: 0.5rem;
++}
++
++.h-2\.5 {
++  height: 0.625rem;
++}
++
++.h-24 {
++  height: 6rem;
++}
++
++.h-3 {
++  height: 0.75rem;
++}
++
++.h-3\.5 {
++  height: 0.875rem;
++}
++
++.h-32 {
++  height: 8rem;
++}
++
++.h-4 {
++  height: 1rem;
++}
++
++.h-5 {
++  height: 1.25rem;
++}
++
++.h-6 {
++  height: 1.5rem;
++}
++
++.h-8 {
++  height: 2rem;
++}
++
++.h-9 {
++  height: 2.25rem;
++}
++
++.h-\[100px\] {
++  height: 100px;
++}
++
++.h-\[14px\] {
++  height: 14px;
++}
++
++.h-\[18px\] {
++  height: 18px;
++}
++
++.h-\[28px\] {
++  height: 28px;
++}
++
++.h-\[30px\] {
++  height: 30px;
++}
++
++.h-\[34px\] {
++  height: 34px;
++}
++
++.h-\[36px\] {
++  height: 36px;
++}
++
++.h-\[38px\] {
++  height: 38px;
++}
++
++.h-\[40px\] {
++  height: 40px;
++}
++
++.h-\[42px\] {
++  height: 42px;
++}
++
++.h-\[44px\] {
++  height: 44px;
++}
++
++.h-\[64px\] {
++  height: 64px;
++}
++
++.h-auto {
++  height: auto;
++}
++
++.h-full {
++  height: 100%;
++}
++
++.h-px {
++  height: 1px;
++}
++
++.max-h-\[200px\] {
++  max-height: 200px;
++}
++
++.min-h-0 {
++  min-height: 0px;
++}
++
++.min-h-10 {
++  min-height: 2.5rem;
++}
++
++.min-h-11 {
++  min-height: 2.75rem;
++}
++
++.min-h-12 {
++  min-height: 3rem;
++}
++
++.min-h-9 {
++  min-height: 2.25rem;
++}
++
++.min-h-\[120px\] {
++  min-height: 120px;
++}
++
++.min-h-\[36px\] {
++  min-height: 36px;
++}
++
++.\!w-\[22px\] {
++  width: 22px !important;
++}
++
++.w-10 {
++  width: 2.5rem;
++}
++
++.w-12 {
++  width: 3rem;
++}
++
++.w-16 {
++  width: 4rem;
++}
++
++.w-2 {
++  width: 0.5rem;
++}
++
++.w-2\.5 {
++  width: 0.625rem;
++}
++
++.w-24 {
++  width: 6rem;
++}
++
++.w-3 {
++  width: 0.75rem;
++}
++
++.w-3\.5 {
++  width: 0.875rem;
++}
++
++.w-32 {
++  width: 8rem;
++}
++
++.w-4 {
++  width: 1rem;
++}
++
++.w-5 {
++  width: 1.25rem;
++}
++
++.w-6 {
++  width: 1.5rem;
++}
++
++.w-64 {
++  width: 16rem;
++}
++
++.w-8 {
++  width: 2rem;
++}
++
++.w-\[14px\] {
++  width: 14px;
++}
++
++.w-\[18px\] {
++  width: 18px;
++}
++
++.w-\[245px\] {
++  width: 245px;
++}
++
++.w-\[40px\] {
++  width: 40px;
++}
++
++.w-\[60\%\] {
++  width: 60%;
++}
++
++.w-\[60px\] {
++  width: 60px;
++}
++
++.w-\[64px\] {
++  width: 64px;
++}
++
++.w-\[70\%\] {
++  width: 70%;
++}
++
++.w-\[80\%\] {
++  width: 80%;
++}
++
++.w-\[90\%\] {
++  width: 90%;
++}
++
++.w-auto {
++  width: auto;
++}
++
++.w-full {
++  width: 100%;
++}
++
++.min-w-0 {
++  min-width: 0px;
++}
++
++.min-w-4 {
++  min-width: 1rem;
++}
++
++.min-w-5 {
++  min-width: 1.25rem;
++}
++
++.min-w-6 {
++  min-width: 1.5rem;
++}
++
++.min-w-\[200px\] {
++  min-width: 200px;
++}
++
++.max-w-3xl {
++  max-width: 48rem;
++}
++
++.max-w-\[360px\] {
++  max-width: 360px;
++}
++
++.max-w-\[400px\] {
++  max-width: 400px;
++}
++
++.max-w-\[420px\] {
++  max-width: 420px;
++}
++
++.max-w-\[510px\] {
++  max-width: 510px;
++}
++
++.max-w-\[640px\] {
++  max-width: 640px;
++}
++
++.max-w-full {
++  max-width: 100%;
++}
++
++.max-w-md {
++  max-width: 28rem;
++}
++
++.max-w-sm {
++  max-width: 24rem;
++}
++
++.flex-1 {
++  flex: 1 1 0%;
++}
++
++.shrink-0 {
++  flex-shrink: 0;
++}
++
++.scale-125 {
++  --tw-scale-x: 1.25;
++  --tw-scale-y: 1.25;
++  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
++          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
++}
++
++.scale-75 {
++  --tw-scale-x: .75;
++  --tw-scale-y: .75;
++  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
++          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
++}
++
++.transform {
++  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
++          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
++}
++
++.cursor-not-allowed {
++  cursor: not-allowed;
++}
++
++.list-none {
++  list-style-type: none;
++}
++
++.flex-row {
++  flex-direction: row;
++}
++
++.flex-row-reverse {
++  flex-direction: row-reverse;
++}
++
++.flex-col {
++  flex-direction: column;
++}
++
++.flex-col-reverse {
++  flex-direction: column-reverse;
++}
++
++.flex-wrap {
++  flex-wrap: wrap;
++}
++
++.content-center {
++  align-content: center;
++}
++
++.items-start {
++  align-items: flex-start;
++}
++
++.items-end {
++  align-items: flex-end;
++}
++
++.items-center {
++  align-items: center;
++}
++
++.items-stretch {
++  align-items: stretch;
++}
++
++.justify-start {
++  justify-content: flex-start;
++}
++
++.justify-end {
++  justify-content: flex-end;
++}
++
++.justify-center {
++  justify-content: center;
++}
++
++.justify-between {
++  justify-content: space-between;
++}
++
++.gap-0 {
++  gap: 0px;
++}
++
++.gap-1 {
++  gap: 0.25rem;
++}
++
++.gap-1\.5 {
++  gap: 0.375rem;
++}
++
++.gap-10 {
++  gap: 2.5rem;
++}
++
++.gap-2 {
++  gap: 0.5rem;
++}
++
++.gap-3 {
++  gap: 0.75rem;
++}
++
++.gap-4 {
++  gap: 1rem;
++}
++
++.gap-5 {
++  gap: 1.25rem;
++}
++
++.gap-6 {
++  gap: 1.5rem;
++}
++
++.gap-7 {
++  gap: 1.75rem;
++}
++
++.gap-8 {
++  gap: 2rem;
++}
++
++.gap-\[10px\] {
++  gap: 10px;
++}
++
++.space-y-12 > :not([hidden]) ~ :not([hidden]) {
++  --tw-space-y-reverse: 0;
++  margin-top: calc(3rem * calc(1 - var(--tw-space-y-reverse)));
++  margin-bottom: calc(3rem * var(--tw-space-y-reverse));
++}
++
++.space-y-6 > :not([hidden]) ~ :not([hidden]) {
++  --tw-space-y-reverse: 0;
++  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
++  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
++}
++
++.overflow-hidden {
++  overflow: hidden;
++}
++
++.whitespace-pre-wrap {
++  white-space: pre-wrap;
++}
++
++.\!rounded {
++  border-radius: 0.25rem !important;
++}
++
++.\!rounded-md {
++  border-radius: 0.375rem !important;
++}
++
++.\!rounded-sm {
++  border-radius: 0.125rem !important;
++}
++
++.rounded {
++  border-radius: 0.25rem;
++}
++
++.rounded-2xl {
++  border-radius: 1rem;
++}
++
++.rounded-\[10px\] {
++  border-radius: 10px;
++}
++
++.rounded-\[16px\] {
++  border-radius: 16px;
++}
++
++.rounded-\[20px\] {
++  border-radius: 20px;
++}
++
++.rounded-\[6px\] {
++  border-radius: 6px;
++}
++
++.rounded-full {
++  border-radius: 9999px;
++}
++
++.rounded-lg {
++  border-radius: 0.5rem;
++}
++
++.rounded-md {
++  border-radius: 0.375rem;
++}
++
++.rounded-none {
++  border-radius: 0px;
++}
++
++.rounded-sm {
++  border-radius: 0.125rem;
++}
++
++.rounded-xl {
++  border-radius: 0.75rem;
++}
++
++.rounded-t-xl {
++  border-top-left-radius: 0.75rem;
++  border-top-right-radius: 0.75rem;
++}
++
++.rounded-tl-3xl {
++  border-top-left-radius: 1.5rem;
++}
++
++.rounded-tr-3xl {
++  border-top-right-radius: 1.5rem;
++}
++
++.\!border {
++  border-width: 1px !important;
++}
++
++.\!border-2 {
++  border-width: 2px !important;
++}
++
++.border {
++  border-width: 1px;
++}
++
++.border-0 {
++  border-width: 0px;
++}
++
++.border-2 {
++  border-width: 2px;
++}
++
++.border-\[3px\] {
++  border-width: 3px;
++}
++
++.border-b {
++  border-bottom-width: 1px;
++}
++
++.border-t {
++  border-top-width: 1px;
++}
++
++.border-blue-100 {
++  --tw-border-opacity: 1;
++  border-color: rgb(219 234 254 / var(--tw-border-opacity, 1));
++}
++
++.border-border-default {
++  border-color: var(--border-default);
++}
++
++.border-brand-primary {
++  border-color: var(--brand-primary);
++}
++
++.border-gray-100 {
++  --tw-border-opacity: 1;
++  border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
++}
++
++.border-gray-200 {
++  --tw-border-opacity: 1;
++  border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
++}
++
++.border-slate-100 {
++  --tw-border-opacity: 1;
++  border-color: rgb(241 245 249 / var(--tw-border-opacity, 1));
++}
++
++.border-slate-50 {
++  --tw-border-opacity: 1;
++  border-color: rgb(248 250 252 / var(--tw-border-opacity, 1));
++}
++
++.border-status-error-text {
++  border-color: var(--status-error-text);
++}
++
++.border-status-success-text {
++  border-color: var(--status-success-text);
++}
++
++.border-transparent {
++  border-color: transparent;
++}
++
++.border-white {
++  --tw-border-opacity: 1;
++  border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
++}
++
++.bg-\[\#0e4d41\] {
++  --tw-bg-opacity: 1;
++  background-color: rgb(14 77 65 / var(--tw-bg-opacity, 1));
++}
++
++.bg-\[\#E4F2D3\] {
++  --tw-bg-opacity: 1;
++  background-color: rgb(228 242 211 / var(--tw-bg-opacity, 1));
++}
++
++.bg-\[\#F5F5F5\] {
++  --tw-bg-opacity: 1;
++  background-color: rgb(245 245 245 / var(--tw-bg-opacity, 1));
++}
++
++.bg-bg-main {
++  background-color: var(--bg-main);
++}
++
++.bg-bg-surface {
++  background-color: var(--bg-surface);
++}
++
++.bg-black {
++  --tw-bg-opacity: 1;
++  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
++}
++
++.bg-black\/50 {
++  background-color: rgb(0 0 0 / 0.5);
++}
++
++.bg-blue-50 {
++  --tw-bg-opacity: 1;
++  background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));
++}
++
++.bg-border-default {
++  background-color: var(--border-default);
++}
++
++.bg-brand-dark {
++  background-color: var(--brand-dark);
++}
++
++.bg-brand-light {
++  background-color: var(--brand-light);
++}
++
++.bg-brand-primary {
++  background-color: var(--brand-primary);
++}
++
++.bg-gray-100 {
++  --tw-bg-opacity: 1;
++  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
++}
++
++.bg-gray-200 {
++  --tw-bg-opacity: 1;
++  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
++}
++
++.bg-gray-50 {
++  --tw-bg-opacity: 1;
++  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
++}
++
++.bg-slate-50 {
++  --tw-bg-opacity: 1;
++  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
++}
++
++.bg-status-disabled-bg {
++  background-color: var(--status-disabled-bg);
++}
++
++.bg-status-error-text {
++  background-color: var(--status-error-text);
++}
++
++.bg-status-success-text {
++  background-color: var(--status-success-text);
++}
++
++.bg-teal-500 {
++  --tw-bg-opacity: 1;
++  background-color: rgb(20 184 166 / var(--tw-bg-opacity, 1));
++}
++
++.bg-transparent {
++  background-color: transparent;
++}
++
++.bg-white {
++  --tw-bg-opacity: 1;
++  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
++}
++
++.bg-yellow-500 {
++  --tw-bg-opacity: 1;
++  background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
++}
++
++.fill-none {
++  fill: none;
++}
++
++.p-0 {
++  padding: 0px;
++}
++
++.p-1 {
++  padding: 0.25rem;
++}
++
++.p-16 {
++  padding: 4rem;
++}
++
++.p-2 {
++  padding: 0.5rem;
++}
++
++.p-3 {
++  padding: 0.75rem;
++}
++
++.p-4 {
++  padding: 1rem;
++}
++
++.p-5 {
++  padding: 1.25rem;
++}
++
++.p-6 {
++  padding: 1.5rem;
++}
++
++.p-8 {
++  padding: 2rem;
++}
++
++.p-\[10px\] {
++  padding: 10px;
++}
++
++.p-\[4px\] {
++  padding: 4px;
++}
++
++.p-\[6px\] {
++  padding: 6px;
++}
++
++.p-\[8px\] {
++  padding: 8px;
++}
++
++.px-0 {
++  padding-left: 0px;
++  padding-right: 0px;
++}
++
++.px-1\.5 {
++  padding-left: 0.375rem;
++  padding-right: 0.375rem;
++}
++
++.px-2 {
++  padding-left: 0.5rem;
++  padding-right: 0.5rem;
++}
++
++.px-3 {
++  padding-left: 0.75rem;
++  padding-right: 0.75rem;
++}
++
++.px-3\.5 {
++  padding-left: 0.875rem;
++  padding-right: 0.875rem;
++}
++
++.px-4 {
++  padding-left: 1rem;
++  padding-right: 1rem;
++}
++
++.px-5 {
++  padding-left: 1.25rem;
++  padding-right: 1.25rem;
++}
++
++.px-6 {
++  padding-left: 1.5rem;
++  padding-right: 1.5rem;
++}
++
++.px-7 {
++  padding-left: 1.75rem;
++  padding-right: 1.75rem;
++}
++
++.px-\[10px\] {
++  padding-left: 10px;
++  padding-right: 10px;
++}
++
++.px-\[12px\] {
++  padding-left: 12px;
++  padding-right: 12px;
++}
++
++.px-\[16px\] {
++  padding-left: 16px;
++  padding-right: 16px;
++}
++
++.px-\[18px\] {
++  padding-left: 18px;
++  padding-right: 18px;
++}
++
++.px-\[24px\] {
++  padding-left: 24px;
++  padding-right: 24px;
++}
++
++.py-0 {
++  padding-top: 0px;
++  padding-bottom: 0px;
++}
++
++.py-0\.5 {
++  padding-top: 0.125rem;
++  padding-bottom: 0.125rem;
++}
++
++.py-1 {
++  padding-top: 0.25rem;
++  padding-bottom: 0.25rem;
++}
++
++.py-3 {
++  padding-top: 0.75rem;
++  padding-bottom: 0.75rem;
++}
++
++.py-4 {
++  padding-top: 1rem;
++  padding-bottom: 1rem;
++}
++
++.py-5 {
++  padding-top: 1.25rem;
++  padding-bottom: 1.25rem;
++}
++
++.py-\[10px\] {
++  padding-top: 10px;
++  padding-bottom: 10px;
++}
++
++.py-\[12px\] {
++  padding-top: 12px;
++  padding-bottom: 12px;
++}
++
++.py-\[20px\] {
++  padding-top: 20px;
++  padding-bottom: 20px;
++}
++
++.py-\[6px\] {
++  padding-top: 6px;
++  padding-bottom: 6px;
++}
++
++.py-\[8px\] {
++  padding-top: 8px;
++  padding-bottom: 8px;
++}
++
++.pb-2 {
++  padding-bottom: 0.5rem;
++}
++
++.pb-6 {
++  padding-bottom: 1.5rem;
++}
++
++.pl-0 {
++  padding-left: 0px;
++}
++
++.pr-0 {
++  padding-right: 0px;
++}
++
++.pt-2 {
++  padding-top: 0.5rem;
++}
++
++.text-left {
++  text-align: left;
++}
++
++.text-center {
++  text-align: center;
++}
++
++.text-right {
++  text-align: right;
++}
++
++.text-start {
++  text-align: start;
++}
++
++.font-sans {
++  font-family: DMSans_400Regular, sans-serif;
++}
++
++.\!text-body-12-regular {
++  font-size: 12px !important;
++  line-height: 1.3 !important;
++}
++
++.\!text-body-14-medium {
++  font-size: 14px !important;
++  line-height: 1.3 !important;
++}
++
++.\!text-body-16-regular {
++  font-size: 16px !important;
++  line-height: 1.35 !important;
++}
++
++.text-2xl {
++  font-size: 1.5rem;
++  line-height: 2rem;
++}
++
++.text-3xl {
++  font-size: 1.875rem;
++  line-height: 2.25rem;
++}
++
++.text-4xl {
++  font-size: 2.25rem;
++  line-height: 2.5rem;
++}
++
++.text-5xl {
++  font-size: 3rem;
++  line-height: 1;
++}
++
++.text-6xl {
++  font-size: 3.75rem;
++  line-height: 1;
++}
++
++.text-\[10px\] {
++  font-size: 10px;
++}
++
++.text-\[11px\] {
++  font-size: 11px;
++}
++
++.text-\[13px\] {
++  font-size: 13px;
++}
++
++.text-\[14px\] {
++  font-size: 14px;
++}
++
++.text-\[16px\] {
++  font-size: 16px;
++}
++
++.text-\[20px\] {
++  font-size: 20px;
++}
++
++.text-\[32px\] {
++  font-size: 32px;
++}
++
++.text-\[9px\] {
++  font-size: 9px;
++}
++
++.text-base {
++  font-size: 1rem;
++  line-height: 1.5rem;
++}
++
++.text-body-11-medium {
++  font-size: 11px;
++  line-height: 1.3;
++}
++
++.text-body-11-regular {
++  font-size: 11px;
++  line-height: 1.3;
++}
++
++.text-body-12-bold {
++  font-size: 12px;
++  line-height: 1.3;
++}
++
++.text-body-12-medium {
++  font-size: 12px;
++  line-height: 1.3;
++}
++
++.text-body-12-regular {
++  font-size: 12px;
++  line-height: 1.3;
++}
++
++.text-body-14-medium {
++  font-size: 14px;
++  line-height: 1.3;
++}
++
++.text-body-14-regular {
++  font-size: 14px;
++  line-height: 1.3;
++}
++
++.text-body-16-regular {
++  font-size: 16px;
++  line-height: 1.35;
++}
++
++.text-btn-11-medium {
++  font-size: 11px;
++  line-height: 1;
++}
++
++.text-btn-12-medium {
++  font-size: 12px;
++  line-height: 1;
++}
++
++.text-btn-14-medium {
++  font-size: 14px;
++  line-height: 1;
++}
++
++.text-btn-16-semibold {
++  font-size: 16px;
++  line-height: 1;
++}
++
++.text-heading-14-semibold {
++  font-size: 14px;
++  line-height: 1.2;
++}
++
++.text-heading-16-semibold {
++  font-size: 16px;
++  line-height: 1.2;
++}
++
++.text-heading-18-semibold {
++  font-size: 18px;
++  line-height: 1.2;
++}
++
++.text-heading-24-bold {
++  font-size: 24px;
++  line-height: 1.2;
++}
++
++.text-lg {
++  font-size: 1.125rem;
++  line-height: 1.75rem;
++}
++
++.text-sm {
++  font-size: 0.875rem;
++  line-height: 1.25rem;
++}
++
++.text-xl {
++  font-size: 1.25rem;
++  line-height: 1.75rem;
++}
++
++.text-xs {
++  font-size: 0.75rem;
++  line-height: 1rem;
++}
++
++.font-bold {
++  font-weight: 700;
++}
++
++.font-medium {
++  font-weight: 500;
++}
++
++.font-normal {
++  font-weight: 400;
++}
++
++.font-semibold {
++  font-weight: 600;
++}
++
++.uppercase {
++  text-transform: uppercase;
++}
++
++.italic {
++  font-style: italic;
++}
++
++.leading-5 {
++  line-height: 1.25rem;
++}
++
++.leading-6 {
++  line-height: 1.5rem;
++}
++
++.leading-\[11px\] {
++  line-height: 11px;
++}
++
++.leading-\[13px\] {
++  line-height: 13px;
++}
++
++.leading-\[30px\] {
++  line-height: 30px;
++}
++
++.leading-\[32px\] {
++  line-height: 32px;
++}
++
++.leading-\[9px\] {
++  line-height: 9px;
++}
++
++.tracking-\[-0\.64px\] {
++  letter-spacing: -0.64px;
++}
++
++.tracking-normal {
++  letter-spacing: 0em;
++}
++
++.tracking-tight {
++  letter-spacing: -0.025em;
++}
++
++.tracking-wide {
++  letter-spacing: 0.025em;
++}
++
++.tracking-wider {
++  letter-spacing: 0.05em;
++}
++
++.tracking-widest {
++  letter-spacing: 0.1em;
++}
++
++.\!text-text-secondary {
++  color: var(--text-secondary) !important;
++}
++
++.text-\[\#203430\] {
++  --tw-text-opacity: 1;
++  color: rgb(32 52 48 / var(--tw-text-opacity, 1));
++}
++
++.text-blue-600 {
++  --tw-text-opacity: 1;
++  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
++}
++
++.text-blue-800 {
++  --tw-text-opacity: 1;
++  color: rgb(30 64 175 / var(--tw-text-opacity, 1));
++}
++
++.text-brand-dark {
++  color: var(--brand-dark);
++}
++
++.text-brand-primary {
++  color: var(--brand-primary);
++}
++
++.text-gray-400 {
++  --tw-text-opacity: 1;
++  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
++}
++
++.text-gray-500 {
++  --tw-text-opacity: 1;
++  color: rgb(107 114 128 / var(--tw-text-opacity, 1));
++}
++
++.text-gray-600 {
++  --tw-text-opacity: 1;
++  color: rgb(75 85 99 / var(--tw-text-opacity, 1));
++}
++
++.text-gray-800 {
++  --tw-text-opacity: 1;
++  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
++}
++
++.text-slate-400 {
++  --tw-text-opacity: 1;
++  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
++}
++
++.text-slate-500 {
++  --tw-text-opacity: 1;
++  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
++}
++
++.text-slate-600 {
++  --tw-text-opacity: 1;
++  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
++}
++
++.text-slate-700 {
++  --tw-text-opacity: 1;
++  color: rgb(51 65 85 / var(--tw-text-opacity, 1));
++}
++
++.text-slate-800 {
++  --tw-text-opacity: 1;
++  color: rgb(30 41 59 / var(--tw-text-opacity, 1));
++}
++
++.text-status-disabled-text {
++  color: var(--status-disabled-text);
++}
++
++.text-status-error-bg {
++  color: var(--status-error-bg);
++}
++
++.text-status-error-text {
++  color: var(--status-error-text);
++}
++
++.text-status-success-bg {
++  color: var(--status-success-bg);
++}
++
++.text-teal-500 {
++  --tw-text-opacity: 1;
++  color: rgb(20 184 166 / var(--tw-text-opacity, 1));
++}
++
++.text-teal-600 {
++  --tw-text-opacity: 1;
++  color: rgb(13 148 136 / var(--tw-text-opacity, 1));
++}
++
++.text-text-primary {
++  color: var(--text-primary);
++}
++
++.text-text-secondary {
++  color: var(--text-secondary);
++}
++
++.text-white {
++  --tw-text-opacity: 1;
++  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
++}
++
++.underline {
++  text-decoration-line: underline;
++}
++
++.line-through {
++  text-decoration-line: line-through;
++}
++
++.no-underline {
++  text-decoration-line: none;
++}
++
++.opacity-0 {
++  opacity: 0;
++}
++
++.opacity-100 {
++  opacity: 1;
++}
++
++.opacity-50 {
++  opacity: 0.5;
++}
++
++.opacity-60 {
++  opacity: 0.6;
++}
++
++.opacity-70 {
++  opacity: 0.7;
++}
++
++.opacity-90 {
++  opacity: 0.9;
++}
++
++.shadow-lg {
++  --tw-shadow: 0px 4px 10px rgba(0, 0, 0, 0.35);
++  --tw-shadow-colored: 0px 4px 10px var(--tw-shadow-color);
++  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
++}
++
++.shadow-md {
++  --tw-shadow: 0px 3px 10px rgba(0, 0, 0, 0.35);
++  --tw-shadow-colored: 0px 3px 10px var(--tw-shadow-color);
++  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
++}
++
++.shadow-sm {
++  --tw-shadow:  0px 1px 1px rgba(0, 0, 0, 0.35);
++  --tw-shadow-colored: 0px 1px 1px var(--tw-shadow-color);
++  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
++}
++
++.outline-none {
++  outline: 2px solid transparent;
++  outline-offset: 2px;
++}
++
++.outline {
++  outline-style: solid;
++}
++
++.outline-0 {
++  outline-width: 0px;
++}
++
++.filter {
++  -webkit-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
++          filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
++}
++
++.transition {
++  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, backdrop-filter, -webkit-transform, -webkit-filter;
++  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
++  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-transform, -webkit-filter;
++  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
++  transition-duration: 150ms;
++}
++
++.transition-all {
++  transition-property: all;
++  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
++  transition-duration: 150ms;
++}
++
++.transition-colors {
++  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
++  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
++  transition-duration: 150ms;
++}
++
++.transition-transform {
++  transition-property: -webkit-transform;
++  transition-property: transform;
++  transition-property: transform, -webkit-transform;
++  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
++  transition-duration: 150ms;
++}
++
++.duration-100 {
++  transition-duration: 100ms;
++}
++
++.duration-200 {
++  transition-duration: 200ms;
++}
++
++.duration-300 {
++  transition-duration: 300ms;
++}
++
++.text-heading-40-bold,
++  .text-heading-28-bold,
++  .text-heading-24-bold,
++  .text-heading-20-bold,
++  .text-heading-18-bold,
++  .text-body-12-bold,
++  .text-body-11-bold {
++  font-family: 'DMSans_700Bold';
++  font-weight: normal;
++}
++
++.text-heading-24-semibold,
++  .text-heading-18-semibold,
++  .text-heading-16-semibold,
++  .text-heading-14-semibold,
++  .text-heading-12-semibold,
++  .text-body-10-semibold,
++  .text-btn-16-semibold {
++  font-family: 'DMSans_600SemiBold';
++  font-weight: normal;
++}
++
++.\!text-body-14-medium {
++  font-family: 'DMSans_500Medium' !important;
++  font-weight: normal !important;
++}
++
++.text-body-14-medium,
++  .text-body-12-medium,
++  .text-body-11-medium,
++  .text-body-9-medium,
++  .text-btn-14-medium,
++  .text-btn-12-medium,
++  .text-btn-11-medium {
++  font-family: 'DMSans_500Medium';
++  font-weight: normal;
++}
++
++
++  .\!text-body-16-regular {
++  font-family: 'DMSans_400Regular' !important;
++  font-weight: normal !important;
++}
++
++.text-body-18-regular,
++  .text-body-16-regular,
++  .text-body-14-regular,
++  .text-body-12-regular,
++  .text-body-11-regular,
++  .text-body-10-regular,
++  .text-body-9-regular,
++  .text-body-8-regular {
++  font-family: 'DMSans_400Regular';
++  font-weight: normal;
++}
++
++
++  .\!text-body-12-regular {
++  font-family: 'DMSans_400Regular' !important;
++  font-weight: normal !important;
++}
++
++/* Native App Feel for Web: Her yerde metin seçimini ve imleci kapat, sadece inputlarda aç */
++
++:root {
++  /* İLKEL RENK JETONLARI (PRIMITIVES) */
++  /* Üst Satır */
++  --color-dark-green: #0E4D41;
++  --color-green: #35BFA3;
++  --color-light-green: #E4F2D3;
++  --color-subtle-green: #F8FCF3;
++  /* Orta Satır */
++  --color-black: #203430;
++  --color-dark-grey: #63716E;
++  --color-light-grey: #A4ACAB;
++  --color-semi-subtle-grey: #E5E6E6;
++  --color-subtle-grey: #F7F7F7;
++  --color-white: #FFFFFF;
++  /* Alt Satır */
++  --color-red: #E63D4B;
++  --color-subtle-red: #FAEFF0;
++  --color-yellow: #F8C947;
++  --color-light-yellow: #FDF5DF;
++  /* SEMANTİK RENK JETONLARI (SEMANTICS) */
++  /* Marka / Aksiyon (Üst Satır) */
++  --brand-primary: var(--color-green);
++  --brand-dark: var(--color-dark-green);
++  --brand-light: var(--color-light-green);
++  --brand-bg: var(--color-subtle-green);
++  /* İskelet / Metin / UI (Orta Satır) */
++  --bg-main: var(--color-white);
++  --bg-surface: var(--color-subtle-grey);
++  --text-primary: var(--color-black);
++  --text-secondary: var(--color-dark-grey);
++  --border-default: var(--color-semi-subtle-grey);
++  --border-focus: var(--color-light-grey);
++  /* Durum / Geri Bildirim (Alt Satır) */
++  --status-success-text: var(--color-green);
++  --status-success-bg: var(--color-subtle-green);
++  --status-error-text: var(--color-red);
++  --status-error-bg: var(--color-subtle-red);
++  --status-warning-text: var(--color-yellow);
++  --status-warning-bg: var(--color-light-yellow);
++  --status-disabled-text: var(--color-black);
++  --status-disabled-bg: var(--color-light-grey);
++}
++
++.placeholder\:\!text-text-secondary::-webkit-input-placeholder {
++  color: var(--text-secondary) !important;
++}
++
++.placeholder\:\!text-text-secondary:-ms-input-placeholder {
++  color: var(--text-secondary) !important;
++}
++
++.placeholder\:\!text-text-secondary::-ms-input-placeholder {
++  color: var(--text-secondary) !important;
++}
++
++.placeholder\:\!text-text-secondary::placeholder {
++  color: var(--text-secondary) !important;
++}
++
++.placeholder\:text-text-secondary::-webkit-input-placeholder {
++  color: var(--text-secondary);
++}
++
++.placeholder\:text-text-secondary:-ms-input-placeholder {
++  color: var(--text-secondary);
++}
++
++.placeholder\:text-text-secondary::-ms-input-placeholder {
++  color: var(--text-secondary);
++}
++
++.placeholder\:text-text-secondary::placeholder {
++  color: var(--text-secondary);
++}
++
++.last\:border-b-0:last-child {
++  border-bottom-width: 0px;
++}
++
++.hover\:bg-slate-100:hover {
++  --tw-bg-opacity: 1;
++  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
++}
++
++.focus\:outline-none:focus {
++  outline: 2px solid transparent;
++  outline-offset: 2px;
++}
++
++.active\:bg-brand-light:active {
++  background-color: var(--brand-light);
++}
++
++.active\:bg-slate-100:active {
++  --tw-bg-opacity: 1;
++  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
++}
++
++.active\:bg-slate-200:active {
++  --tw-bg-opacity: 1;
++  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1));
++}
++
++.active\:opacity-70:active {
++  opacity: 0.7;
++}
++
++.disabled\:cursor-not-allowed:disabled {
++  cursor: not-allowed;
++}
++
++.group\/avatar-group.avatar-group .group-\[\.avatar-group\]\/avatar-group\:-ml-2\.5 {
++  margin-left: -0.625rem;
++}
++
++.group:active .group-\[\&\:active\]\:opacity-\[0\.25\] {
++  opacity: 0.25;
++}
++
++.group:hover .group-\[\&\:hover\]\:opacity-\[0\.25\] {
++  opacity: 0.25;
++}
++
++.group[data-active="true"] .group-data-\[active\=true\]\:opacity-\[0\.25\] {
++  opacity: 0.25;
++}
++
++.group[data-hover="true"] .group-data-\[hover\=true\]\:opacity-\[0\.25\] {
++  opacity: 0.25;
++}
++
++.web\:pointer-events-none {
++  pointer-events: none;
++}
++
++.web\:pointer-events-auto {
++  pointer-events: auto;
++}
++
++.web\:w-full {
++  width: 100%;
++}
++
++.web\:cursor-default {
++  cursor: default;
++}
++
++.web\:cursor-pointer {
++  cursor: pointer;
++}
++
++.web\:cursor-text {
++  cursor: text;
++}
++
++.web\:select-none {
++  -webkit-user-select: none;
++      -ms-user-select: none;
++          user-select: none;
++}
++
++.web\:truncate {
++  overflow: hidden;
++  text-overflow: ellipsis;
++  white-space: nowrap;
++}
++
++.web\:outline-none {
++  outline: 2px solid transparent;
++  outline-offset: 2px;
++}
++
++.web\:outline-0 {
++  outline-width: 0px;
++}
++
++.web\:disabled\:cursor-not-allowed:disabled {
++  cursor: not-allowed;
++}
++
++.data-\[checked\=true\]\:border-brand-primary[data-checked="true"] {
++  border-color: var(--brand-primary);
++}
++
++.data-\[checked\=true\]\:bg-brand-primary[data-checked="true"] {
++  background-color: var(--brand-primary);
++}
++
++.data-\[invalid\=true\]\:rounded-xl[data-invalid="true"] {
++  border-radius: 0.75rem;
++}
++
++.data-\[invalid\=true\]\:border-2[data-invalid="true"] {
++  border-width: 2px;
++}
++
++.data-\[invalid\=true\]\:border-b-2[data-invalid="true"] {
++  border-bottom-width: 2px;
++}
++
++.data-\[invalid\=true\]\:web\:shadow-\[inset_0_0_0_1px\][data-invalid="true"] {
++  --tw-shadow: inset 0 0 0 1px;
++  --tw-shadow-colored: inset 0 0 0 1px var(--tw-shadow-color);
++  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
++}
++
++.data-\[focus\=true\]\:border-border-focus[data-focus="true"] {
++  border-color: var(--border-focus);
++}
++
++.data-\[focus\=true\]\:border-status-error-text[data-focus="true"] {
++  border-color: var(--status-error-text);
++}
++
++.data-\[focus\=true\]\:border-status-success-text[data-focus="true"] {
++  border-color: var(--status-success-text);
++}
++
++.data-\[focus\=true\]\:bg-slate-50[data-focus="true"] {
++  --tw-bg-opacity: 1;
++  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
++}
++
++.data-\[focus\=true\]\:outline-0[data-focus="true"] {
++  outline-width: 0px;
++}
++
++.data-\[focus\=true\]\:ring-2[data-focus="true"] {
++  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
++  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
++  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
++}
++
++.data-\[focus\=true\]\:web\:shadow-\[inset_0_-1px_0_0\][data-focus="true"] {
++  --tw-shadow: inset 0 -1px 0 0;
++  --tw-shadow-colored: inset 0 -1px 0 0 var(--tw-shadow-color);
++  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
++}
++
++.data-\[focus\=true\]\:web\:shadow-\[inset_0_0_0_1px\][data-focus="true"] {
++  --tw-shadow: inset 0 0 0 1px;
++  --tw-shadow-colored: inset 0 0 0 1px var(--tw-shadow-color);
++  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
++}
++
++.data-\[focus\=true\]\:web\:outline-none[data-focus="true"] {
++  outline: 2px solid transparent;
++  outline-offset: 2px;
++}
++
++.data-\[focus\=true\]\:web\:outline-0[data-focus="true"] {
++  outline-width: 0px;
++}
++
++.data-\[focus-visible\=true\]\:outline-none[data-focus-visible="true"] {
++  outline: 2px solid transparent;
++  outline-offset: 2px;
++}
++
++.data-\[focus-visible\=true\]\:ring-2[data-focus-visible="true"] {
++  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
++  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
++  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
++}
++
++.data-\[focus-visible\=true\]\:web\:cursor-pointer[data-focus-visible="true"] {
++  cursor: pointer;
++}
++
++.data-\[focus-visible\=true\]\:web\:outline-none[data-focus-visible="true"] {
++  outline: 2px solid transparent;
++  outline-offset: 2px;
++}
++
++.web\:data-\[focus-visible\=true\]\:outline-none[data-focus-visible="true"] {
++  outline: 2px solid transparent;
++  outline-offset: 2px;
++}
++
++.data-\[focus-visible\=true\]\:web\:outline[data-focus-visible="true"] {
++  outline-style: solid;
++}
++
++.data-\[focus-visible\=true\]\:web\:outline-2[data-focus-visible="true"] {
++  outline-width: 2px;
++}
++
++.data-\[focus-visible\=true\]\:web\:ring-2[data-focus-visible="true"] {
++  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
++  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
++  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
++}
++
++.web\:data-\[focus-visible\=true\]\:ring-2[data-focus-visible="true"] {
++  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
++  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
++  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
++}
++
++.data-\[hover\=true\]\:data-\[checked\=true\]\:bg-brand-primary[data-checked="true"][data-hover="true"] {
++  background-color: var(--brand-primary);
++}
++
++.data-\[hover\=true\]\:data-\[checked\=true\]\:border-brand-primary[data-checked="true"][data-hover="true"] {
++  border-color: var(--brand-primary);
++}
++
++.data-\[hover\=true\]\:data-\[checked\=true\]\:data-\[disabled\=true\]\:opacity-40[data-disabled="true"][data-checked="true"][data-hover="true"] {
++  opacity: 0.4;
++}
++
++.data-\[hover\=true\]\:border-brand-primary[data-hover="true"] {
++  border-color: var(--brand-primary);
++}
++
++.data-\[hover\=true\]\:bg-bg-surface[data-hover="true"] {
++  background-color: var(--bg-surface);
++}
++
++.data-\[hover\=true\]\:bg-brand-primary[data-hover="true"] {
++  background-color: var(--brand-primary);
++}
++
++.data-\[hover\=true\]\:bg-transparent[data-hover="true"] {
++  background-color: transparent;
++}
++
++.data-\[hover\=true\]\:underline[data-hover="true"] {
++  text-decoration-line: underline;
++}
++
++.data-\[active\=true\]\:scale-\[0\.95\][data-active="true"] {
++  --tw-scale-x: 0.95;
++  --tw-scale-y: 0.95;
++  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
++          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
++}
++
++.data-\[active\=true\]\:bg-transparent[data-active="true"] {
++  background-color: transparent;
++}
++
++.data-\[active\=true\]\:underline[data-active="true"] {
++  text-decoration-line: underline;
++}
++
++.data-\[disabled\=true\]\:data-\[focus\=true\]\:bg-transparent[data-focus="true"][data-disabled="true"] {
++  background-color: transparent;
++}
++
++.data-\[disabled\=true\]\:cursor-not-allowed[data-disabled="true"] {
++  cursor: not-allowed;
++}
++
++.data-\[disabled\=true\]\:opacity-40[data-disabled="true"] {
++  opacity: 0.4;
++}
++
++.data-\[disabled\=true\]\:opacity-50[data-disabled="true"] {
++  opacity: 0.5;
++}
++
++.data-\[disabled\=true\]\:web\:pointer-events-auto[data-disabled="true"] {
++  pointer-events: auto;
++}
++
++.data-\[disabled\=true\]\:web\:cursor-not-allowed[data-disabled="true"] {
++  cursor: not-allowed;
++}
++
++.web\:data-\[disabled\=true\]\:cursor-not-allowed[data-disabled="true"] {
++  cursor: not-allowed;
++}
++
++.dark\:text-gray-300:is(.dark *) {
++  --tw-text-opacity: 1;
++  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
++}
++
++@media (min-width: 768px) {
++  .md\:flex {
++    display: flex;
++  }
++
++  .md\:hidden {
++    display: none;
++  }
++
++  .md\:w-auto {
++    width: auto;
++  }
++
++  .md\:min-w-\[124px\] {
++    min-width: 124px;
++  }
++
++  .md\:flex-row {
++    flex-direction: row;
++  }
++
++  .md\:items-center {
++    align-items: center;
++  }
++
++  .md\:justify-end {
++    justify-content: flex-end;
++  }
++
++  .md\:justify-between {
++    justify-content: space-between;
++  }
++
++  .md\:gap-0 {
++    gap: 0px;
++  }
++
++  .md\:gap-6 {
++    gap: 1.5rem;
++  }
++
++  .md\:rounded-xl {
++    border-radius: 0.75rem;
++  }
++
++  .md\:border {
++    border-width: 1px;
++  }
++
++  .md\:border-slate-100 {
++    --tw-border-opacity: 1;
++    border-color: rgb(241 245 249 / var(--tw-border-opacity, 1));
++  }
++
++  .md\:p-6 {
++    padding: 1.5rem;
++  }
++
++  .md\:p-8 {
++    padding: 2rem;
++  }
++
++  .md\:px-\[64px\] {
++    padding-left: 64px;
++    padding-right: 64px;
++  }
++
++  .md\:py-\[32px\] {
++    padding-top: 32px;
++    padding-bottom: 32px;
++  }
++
++  .md\:hover\:bg-\[\#d0ebb3\]:hover {
++    --tw-bg-opacity: 1;
++    background-color: rgb(208 235 179 / var(--tw-bg-opacity, 1));
++  }
++
++  .md\:hover\:bg-brand-light:hover {
++    background-color: var(--brand-light);
++  }
++}
++
++@media (min-width: 1024px) {
++  .lg\:flex {
++    display: flex;
++  }
++
++  .lg\:gap-1 {
++    gap: 0.25rem;
++  }
++
++  .lg\:gap-3 {
++    gap: 0.75rem;
++  }
++
++  .lg\:gap-4 {
++    gap: 1rem;
++  }
++
++  .lg\:p-8 {
++    padding: 2rem;
++  }
++
++  .lg\:px-8 {
++    padding-left: 2rem;
++    padding-right: 2rem;
++  }
++
++  .lg\:py-5 {
++    padding-top: 1.25rem;
++    padding-bottom: 1.25rem;
++  }
++
++  .lg\:text-base {
++    font-size: 1rem;
++    line-height: 1.5rem;
++  }
++
++  .lg\:text-xl {
++    font-size: 1.25rem;
++    line-height: 1.75rem;
++  }
++
++  .lg\:text-xs {
++    font-size: 0.75rem;
++    line-height: 1rem;
++  }
++}
++
++.\[\&\:\:-webkit-calendar-picker-indicator\]\:hidden::-webkit-calendar-picker-indicator {
++  display: none;
++}
++
++.\[\&\:\:-webkit-calendar-picker-indicator\]\:opacity-0::-webkit-calendar-picker-indicator {
++  opacity: 0;
++}
+\ No newline at end of file
+diff --git a/node_modules/react-native-css-interop/.cache/windows.js b/node_modules/react-native-css-interop/.cache/windows.js
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-css-interop/dist/runtime/native/render-component.js b/node_modules/react-native-css-interop/dist/runtime/native/render-component.js
+index a352339..e3f53ff 100644
+--- a/node_modules/react-native-css-interop/dist/runtime/native/render-component.js
++++ b/node_modules/react-native-css-interop/dist/runtime/native/render-component.js
+@@ -135,8 +135,16 @@ function stringify(object) {
+         }
+         seen.add(value);
+         const newValue = Array.isArray(value) ? [] : {};
+-        for (const entry of Object.entries(value)) {
+-            newValue[entry[0]] = replace(entry[0], entry[1]);
++        try {
++            for (const entry of Object.entries(value)) {
++                try {
++                    newValue[entry[0]] = replace(entry[0], entry[1]);
++                } catch (e) {
++                    newValue[entry[0]] = "[Getter Error]";
++                }
++            }
++        } catch (e) {
++            // Ignore errors from Object.entries triggering getters
+         }
+         seen.delete(value);
+         return newValue;

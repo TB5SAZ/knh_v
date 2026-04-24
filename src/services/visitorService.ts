@@ -81,7 +81,8 @@ const upsertVisitorInformation = async (data: VisitorFormValues): Promise<string
 const createVisitRecord = async (
   visitorId: string, 
   data: VisitorFormValues, 
-  combinedDateTime: Date
+  combinedDateTime: Date,
+  isBlocked?: boolean
 ): Promise<string> => {
   const { data: authData } = await supabase.auth.getUser();
   const currentUserId = authData.user?.id;
@@ -98,6 +99,7 @@ const createVisitRecord = async (
       visit_purpose: data.visitReason,
       entry_time: combinedDateTime.toISOString(),
       created_by: currentUserId,
+      status: isBlocked ? 'blocked' : 'pending' // Defaulting to pending or whatever default is. Wait, if I don't pass status, it defaults in DB. 
     })
     .select('id')
     .single();
@@ -161,15 +163,36 @@ export const visitorService = {
    * @returns Result indicating success and the new visit ID.
    * @throws AppError if any database operation fails.
    */
-  async createVisit(data: VisitorFormValues, isSecurity: boolean): Promise<{ success: boolean; visitId?: string }> {
+  async createVisit(data: VisitorFormValues, isSecurity: boolean): Promise<{ success: boolean; visitId?: string; isBlocked?: boolean; blockReason?: string }> {
     try {
       visitorSchema.parse(data);
       
       const combinedDateTime = buildCombinedDateTime(data, isSecurity);
       const visitorId = await upsertVisitorInformation(data);
-      const visitId = await createVisitRecord(visitorId, data, combinedDateTime);
 
-      return { success: true, visitId };
+      let isBlocked = false;
+      let blockReason = '';
+
+      if (visitorId) {
+        const { data: blacklistData, error: blacklistError } = await supabase
+          .from('blacklist')
+          .select('reason')
+          .eq('visitor_id', visitorId)
+          .eq('personnel', data.targetUserId)
+          .limit(1)
+          .maybeSingle();
+          
+        if (blacklistError) {
+          logger.error('Error checking blacklist:', blacklistError);
+        } else if (blacklistData) {
+          isBlocked = true;
+          blockReason = blacklistData.reason;
+        }
+      }
+      
+      const visitId = await createVisitRecord(visitorId, data, combinedDateTime, isBlocked);
+
+      return { success: true, visitId, isBlocked, blockReason };
     } catch (error) {
       logger.error('Visit creation error:', error);
       throw error;
@@ -229,7 +252,7 @@ export const visitorService = {
         created_by,
         visited_person_id,
         visitor:visitor_id (id, first_name, last_name, tc_no, title, phone, is_foreign, is_external, created_at),
-        visited_person:visited_person_id (department_id)
+        visited_person:profiles!visits_visited_person_id_fkey (department_id)
       `)
       .eq('id', visitId)
       .single();

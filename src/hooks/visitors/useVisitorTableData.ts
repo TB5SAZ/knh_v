@@ -37,6 +37,7 @@ export const useVisitorTableData = ({
 
     const fetchVisitors = async () => {
       try {
+        setActiveRowId(null); // Filtre değişikliğinde aksiyon butonlarını kapat
         setIsLoading(true);
         const safeQuery = searchQuery.trim().replace(/[%",]/g, '');
         

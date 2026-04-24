@@ -20,33 +20,33 @@ interface LegendItemProps {
 
 const LegendItem = ({ color, title, value, percentage, icon: Icon, iconColor }: LegendItemProps) => {
   return (
-    <VStack className="flex-1 gap-1">
-      <HStack className="items-center gap-2">
-        <View className="h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
+    <View className="flex-col items-center gap-1 w-full">
+      <View className="flex-row items-center justify-center gap-1.5">
+        <View className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: color }} />
         <Text 
-          className="text-[12px]" 
+          className="text-[11px] md:text-[12px] text-center" 
           style={{ fontFamily: 'DMSans_400Regular', color: COLORS.chart.textPrimary }}
         >
           {title}
         </Text>
-      </HStack>
-      <HStack className="items-center gap-1.5 ml-4">
-        <Icon size={16} color={iconColor} />
+      </View>
+      <View className="flex-row items-center justify-center gap-1.5">
+        <Icon size={14} color={iconColor} />
         <Text 
-          className="text-[12px]" 
+          className="text-[11px] md:text-[12px]" 
           style={{ fontFamily: 'DMSans_400Regular', color: COLORS.chart.textSecondary }}
         >
           {value}
         </Text>
-        <View className="h-[1px] w-2" style={{ backgroundColor: COLORS.chart.separator }} />
+        <View className="h-[1px] w-2 shrink-0" style={{ backgroundColor: COLORS.chart.separator }} />
         <Text 
-          className="text-[12px]" 
+          className="text-[11px] md:text-[12px]" 
           style={{ fontFamily: 'DMSans_700Bold', color: COLORS.chart.textPrimary }}
         >
           {percentage}
         </Text>
-      </HStack>
-    </VStack>
+      </View>
+    </View>
   );
 };
 
@@ -70,15 +70,19 @@ export default function VisitorDistributionChart({ stats }: VisitorDistributionC
 
   const getPercentage = (value: number) => `${Math.round((value / totalVal) * 100)}%`;
 
-  const pieData = [
+  const hasData = (internalVal + externalVal + blockedVal + cancelledVal) > 0;
+  
+  const pieData = hasData ? [
     { value: cancelledVal, color: COLORS.chart.cancelled },
     { value: blockedVal, color: COLORS.chart.blocked },
     { value: internalVal, color: COLORS.chart.internal },
-    { value: externalVal > 0 ? externalVal : 1, color: COLORS.chart.external }, // Prevent empty pie if 0
+    { value: externalVal, color: COLORS.chart.external },
+  ] : [
+    { value: 1, color: '#e5e5e5' } // Empty state pie
   ];
 
   return (
-    <VStack className="flex-1 w-full bg-bg-main rounded-[16px] p-4 flex-col gap-4">
+    <VStack className="w-full bg-bg-main rounded-[16px] p-4 flex-col gap-4 overflow-hidden">
       {/* Header */}
       <HStack className="items-center justify-between">
         <Text 
@@ -98,8 +102,8 @@ export default function VisitorDistributionChart({ stats }: VisitorDistributionC
       </HStack>
 
       {/* Body */}
-      <View className="flex-1 justify-center">
-        <HStack className="w-full flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
+      <View className="justify-center w-full">
+        <View className="w-full flex-col md:flex-row justify-between gap-6 md:gap-0">
         
         {/* 1. Kısım: Grafik */}
         <View className="w-full md:flex-1 items-center justify-center">
@@ -116,14 +120,14 @@ export default function VisitorDistributionChart({ stats }: VisitorDistributionC
         </View>
         
         {/* 2. ve 3. Kısım: Metinler */}
-        <HStack className="w-full md:flex-[2] flex-row justify-between gap-2 md:gap-0">
+        <View className="w-full md:flex-[2] flex-row justify-between mt-6 md:mt-0 px-1">
           {/* Column 1 */}
-          <VStack className="flex-1 gap-4 items-center justify-center md:pl-2 lg:pl-12">
+          <View className="flex-col gap-5 w-[49%]">
             <LegendItem 
               color={COLORS.chart.cancelled}
               title="İptal Edilen Ziyaretler" 
               value={cancelledVal.toString()} 
-              percentage={getPercentage(cancelledVal)} 
+              percentage={hasData ? getPercentage(cancelledVal) : '0%'} 
               icon={UserX} 
               iconColor={COLORS.chart.internal} 
             />
@@ -131,19 +135,19 @@ export default function VisitorDistributionChart({ stats }: VisitorDistributionC
               color={COLORS.chart.blocked} 
               title="Engellenen Ziyaretler" 
               value={blockedVal.toString()} 
-              percentage={getPercentage(blockedVal)} 
+              percentage={hasData ? getPercentage(blockedVal) : '0%'} 
               icon={ShieldOff} 
               iconColor={COLORS.chart.blocked} 
             />
-          </VStack>
+          </View>
           
           {/* Column 2 */}
-          <VStack className="flex-1 gap-4 items-center justify-center md:pl-2 lg:pl-8">
+          <View className="flex-col gap-5 w-[49%]">
             <LegendItem 
               color={COLORS.chart.internal} 
               title="Kurum İçi Ziyaretler" 
               value={internalVal.toString()} 
-              percentage={getPercentage(internalVal)} 
+              percentage={hasData ? getPercentage(internalVal) : '0%'} 
               icon={Building2} 
               iconColor={COLORS.chart.internal} 
             />
@@ -151,14 +155,14 @@ export default function VisitorDistributionChart({ stats }: VisitorDistributionC
               color={COLORS.chart.external} 
               title="Kurum Dışı Ziyaretler" 
               value={externalVal.toString()} 
-              percentage={getPercentage(externalVal)} 
+              percentage={hasData ? getPercentage(externalVal) : '0%'} 
               icon={Globe} 
               iconColor={COLORS.chart.internal} 
             />
-          </VStack>
-        </HStack>
+          </View>
+        </View>
 
-        </HStack>
+        </View>
       </View>
     </VStack>
   );

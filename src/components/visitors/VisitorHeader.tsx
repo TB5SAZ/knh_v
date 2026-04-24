@@ -11,7 +11,6 @@ interface VisitorHeaderProps {
   setValue: UseFormSetValue<VisitorFormValues>;
   isExternal: boolean;
   isForeign: boolean;
-  isForeign: boolean;
   onClearSuggestions: () => void;
   isEditMode?: boolean;
 }

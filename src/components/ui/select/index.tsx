@@ -245,7 +245,6 @@ SelectTrigger.displayName = 'SelectTrigger';
 SelectInput.displayName = 'SelectInput';
 SelectIcon.displayName = 'SelectIcon';
 
-// Actionsheet Components
 const SelectPortal = UISelect.Portal;
 const SelectBackdrop = UISelect.Backdrop;
 const SelectContent = UISelect.Content;
@@ -257,8 +256,10 @@ const SelectVirtualizedList = UISelect.VirtualizedList;
 const SelectFlatList = UISelect.FlatList;
 const SelectSectionList = UISelect.SectionList;
 const SelectSectionHeaderText = UISelect.SectionHeaderText;
-// @ts-ignore: Gluestack inner type limitation
-const SelectItemText = UISelect.ItemText;
+
+// Fix: UISelect.ItemText is undefined in this version of Gluestack, 
+// so we use ActionsheetItemText directly to prevent wrap-jsx crashes.
+const SelectItemText = ActionsheetItemText;
 
 export {
   Select,
