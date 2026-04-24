@@ -30,7 +30,7 @@ function useDepartmentList(
   profile: any,
   setValue: UseFormSetValue<VisitorFormValues>
 ) {
-  const [departments, setDepartments] = useState<Array<{ label: string; value: string }>>([]);
+  const [departments, setDepartments] = useState<{ label: string; value: string }[]>([]);
 
   useEffect(() => {
     async function fetchDepartments() {
@@ -71,7 +71,7 @@ function useTargetUsersList(
   profile: any,
   setValue: UseFormSetValue<VisitorFormValues>
 ) {
-  const [targetUsers, setTargetUsers] = useState<Array<{ label: string; value: string }>>([]);
+  const [targetUsers, setTargetUsers] = useState<{ label: string; value: string }[]>([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
 
   useEffect(() => {

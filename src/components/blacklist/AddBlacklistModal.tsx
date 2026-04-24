@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput } from 'react-native';
-import { supabase } from '@/src/lib/supabase';
+import React from 'react';
+import { View, Text } from 'react-native';
 import { useAuth } from '@/src/providers/AuthProvider';
-import { TARGET_DEPARTMENTS } from '@/src/constants/departments';
-import { AppAlert, AppAlertStatus } from '../core/AppAlert';
-import { z } from 'zod';
+import { AppAlert } from '../core/AppAlert';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -20,31 +17,8 @@ import { AlertTriangle, X } from 'lucide-react-native';
 import { AppInput } from '../core/AppInput';
 import { AppSelect } from '../core/AppSelect';
 import { AppButton } from '../core/AppButton';
-
-const isValidTC = (tc: string) => {
-  if (!/^[1-9]\d{10}$/.test(tc)) return false;
-  const digits = tc.split('').map(Number);
-  const sumOdd = digits[0] + digits[2] + digits[4] + digits[6] + digits[8];
-  const sumEven = digits[1] + digits[3] + digits[5] + digits[7];
-  if ((sumOdd * 7 - sumEven) % 10 !== digits[9]) return false;
-  const sumFirst10 = digits.slice(0, 10).reduce((a, b) => a + b, 0);
-  if (sumFirst10 % 10 !== digits[10]) return false;
-  return true;
-};
-
-const schema = z.object({
-  tcNo: z.string()
-    .length(11, 'TC No 11 haneli olmalıdır')
-    .regex(/^\d+$/, 'Sadece rakam içermelidir')
-    .refine(isValidTC, 'Geçersiz TC Kimlik No'),
-  firstName: z.string().min(2, 'Ad en az 2 karakter olmalıdır'),
-  lastName: z.string().min(2, 'Soyad en az 2 karakter olmalıdır'),
-  department: z.string().min(1, 'Kısım / Departman seçmelisiniz'),
-  personnel: z.string().min(1, 'Lütfen ilgili kişiyi seçiniz'),
-  reason: z.string().min(10, 'Engellenme nedeni en az 10 karakter olmalıdır'),
-});
-
-type FormValues = z.infer<typeof schema>;
+import { addBlacklistSchema, AddBlacklistFormValues } from '@/src/schemas/blacklist.schema';
+import { useAddBlacklistModal } from '@/src/hooks/blacklist/useAddBlacklistModal';
 
 export interface AddBlacklistModalProps {
   isOpen: boolean;
@@ -60,31 +34,8 @@ export interface AddBlacklistModalProps {
 export function AddBlacklistModal({ isOpen, onClose, onSuccess, initialData }: AddBlacklistModalProps) {
   const { user, profile } = useAuth();
   
-  const isAdmin = profile?.role === 'admin' || profile?.department_id === TARGET_DEPARTMENTS.ADMIN_DEPT_ID;
-  const isSecretary = profile?.department_id === TARGET_DEPARTMENTS.SPECIAL_AUTH_DEPT_ID;
-  const isOther = !isAdmin && !isSecretary;
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [alertState, setAlertState] = useState<{
-    isOpen: boolean;
-    status: AppAlertStatus;
-    title: string;
-    description: string;
-  }>({
-    isOpen: false,
-    status: 'info',
-    title: '',
-    description: '',
-  });
-  const {
-    control,
-    handleSubmit,
-    reset,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<FormValues>({
-    resolver: zodResolver(schema),
+  const methods = useForm<AddBlacklistFormValues>({
+    resolver: zodResolver(addBlacklistSchema),
     mode: 'onChange',
     defaultValues: {
       tcNo: initialData?.tcNo || '',
@@ -95,6 +46,8 @@ export function AddBlacklistModal({ isOpen, onClose, onSuccess, initialData }: A
       reason: '',
     },
   });
+
+  const { control, handleSubmit, reset, formState: { errors } } = methods;
 
   React.useEffect(() => {
     if (isOpen) {
@@ -109,162 +62,16 @@ export function AddBlacklistModal({ isOpen, onClose, onSuccess, initialData }: A
     }
   }, [isOpen, initialData, reset]);
 
-  const selectedDepartment = watch('department');
-  const tcNoValue = watch('tcNo');
-
-  const [departments, setDepartments] = useState<{label: string, value: string}[]>([]);
-  const [personnelOptions, setPersonnelOptions] = useState<{label: string, value: string}[]>([]);
-
-  // Watch TC No and auto-fill if visitor exists
-  React.useEffect(() => {
-    if (tcNoValue?.length === 11) {
-      const fetchVisitor = async () => {
-        const { data } = await supabase
-          .from('visitors')
-          .select('id, first_name, last_name')
-          .eq('tc_no', tcNoValue)
-          .single();
-          
-        if (data) {
-          setValue('firstName', data.first_name);
-          setValue('lastName', data.last_name);
-        }
-      };
-      fetchVisitor();
-    }
-  }, [tcNoValue, setValue]);
-
-  React.useEffect(() => {
-    async function fetchDepartments() {
-      let query = supabase
-        .from('departments')
-        .select('id, name')
-        .eq('is_selectable', true)
-        .order('name');
-        
-      if (isSecretary) {
-        query = query.eq('id', TARGET_DEPARTMENTS.RESTRICTED_VIEW_DEPT_ID);
-      } else if (isOther && profile?.department_id) {
-        query = query.eq('id', profile.department_id);
-      }
-
-      const { data, error } = await query;
-      if (data) {
-        setDepartments(data.map(d => ({ label: d.name, value: d.id })));
-        if ((isSecretary || isOther) && data.length === 1) {
-          setValue('department', data[0].id);
-        }
-      }
-    }
-    if (isOpen) {
-      fetchDepartments();
-    }
-  }, [isOpen, isSecretary, isOther, profile?.department_id, setValue]);
-
-  React.useEffect(() => {
-    async function fetchPersonnel() {
-      if (!selectedDepartment) {
-        setPersonnelOptions([]);
-        return;
-      }
-      let query = supabase
-        .from('profiles')
-        .select('id, first_name, last_name, role')
-        .eq('department_id', selectedDepartment);
-
-      if (isOther && profile?.id) {
-        query = query.eq('id', profile.id);
-      }
-
-      const { data, error } = await query;
-      if (data) {
-        setPersonnelOptions(data.map(p => ({ 
-          label: `${p.first_name} ${p.last_name}${p.role ? ` / ${p.role}` : ''}`, 
-          value: p.id 
-        })));
-        if (isOther && data.length === 1) {
-          setValue('personnel', data[0].id);
-        }
-      }
-    }
-    if (isOpen) {
-      fetchPersonnel();
-    }
-  }, [selectedDepartment, isOpen, isOther, profile?.id, setValue]);
-
-  const onSubmit = async (data: FormValues) => {
-    try {
-      setIsLoading(true);
-
-      // Check if visitor already exists
-      let visitorId: string;
-      const { data: existingVisitor } = await supabase
-        .from('visitors')
-        .select('id')
-        .eq('tc_no', data.tcNo)
-        .single();
-        
-      if (existingVisitor) {
-        visitorId = existingVisitor.id;
-      } else {
-        // Create visitor if they don't exist
-        const { data: newVisitor, error: visitorError } = await supabase
-          .from('visitors')
-          .insert([{
-            tc_no: data.tcNo,
-            first_name: data.firstName,
-            last_name: data.lastName,
-          }])
-          .select('id')
-          .single();
-          
-        if (visitorError) throw new Error("Ziyaretçi kaydı oluşturulurken hata: " + visitorError.message);
-        visitorId = newVisitor.id;
-      }
-
-      const { error } = await supabase.from('blacklist').insert([
-        {
-          department: data.department,
-          personnel: data.personnel,
-          reason: data.reason,
-          added_by: user?.id || null, // Or any relevant field
-          visitor_id: visitorId,
-          // status is probably active by default in the db
-        },
-      ]);
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
-      setAlertState({
-        isOpen: true,
-        status: 'success',
-        title: 'Başarılı',
-        description: 'Kişi başarıyla kara listeye eklendi',
-      });
-      
-      reset();
-      if (onSuccess) {
-        onSuccess();
-      }
-      onClose();
-    } catch (err: any) {
-      setAlertState({
-        isOpen: true,
-        status: 'error',
-        title: 'Kayıt Hatası',
-        description: err.message || 'Veritabanına kayıt sırasında bir hata oluştu.',
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleClose = () => {
-    reset();
-    onClose();
-  };
+  const {
+    departments,
+    personnelOptions,
+    isLoading,
+    alertState,
+    setAlertState,
+    onSubmit,
+    handleClose,
+    isOther
+  } = useAddBlacklistModal(isOpen, onClose, methods, user, profile, onSuccess);
 
   return (
     <>
@@ -356,8 +163,7 @@ export function AddBlacklistModal({ isOpen, onClose, onSuccess, initialData }: A
                     selectedValue={value}
                     onValueChange={(val) => {
                       onChange(val);
-                      // Clear personnel selection when department changes
-                      setValue('personnel', '');
+                      methods.setValue('personnel', '');
                     }}
                     isDisabled={isOther}
                     className={errors.department ? 'border-status-error-text' : ''}
@@ -381,10 +187,10 @@ export function AddBlacklistModal({ isOpen, onClose, onSuccess, initialData }: A
                   </Text>
                   <AppSelect
                     options={personnelOptions}
-                    placeholder={selectedDepartment ? "Kişi seçiniz" : "Önce departman seçiniz"}
+                    placeholder={methods.watch('department') ? "Kişi seçiniz" : "Önce departman seçiniz"}
                     selectedValue={value}
                     onValueChange={onChange}
-                    isDisabled={!selectedDepartment || isOther}
+                    isDisabled={!methods.watch('department') || isOther}
                     className={errors.personnel ? 'border-status-error-text' : ''}
                   />
                   {errors.personnel && (

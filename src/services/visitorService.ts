@@ -4,6 +4,8 @@ import { VisitorFormValues, visitorSchema } from '@/src/schemas/visitorSchema';
 import { Visitor, VisitorUpdateData } from '../types/visitor';
 import { logger } from '@/src/utils/logger';
 
+const POSTGRES_UNIQUE_VIOLATION = '23505';
+
 // --- HELPER FUNCTIONS ---
 
 const buildCombinedDateTime = (data: VisitorFormValues, isSecurity: boolean): Date => {
@@ -40,7 +42,7 @@ const upsertVisitorInformation = async (data: VisitorFormValues): Promise<string
       .single();
 
     if (visErr) {
-      if (visErr.code === '23505') {
+      if (visErr.code === POSTGRES_UNIQUE_VIOLATION) {
         throw new AppError('Bu T.C. Kimlik / Pasaport no ile kayıtlı başka bir ziyaretçi bulunuyor. Lütfen listeden seçin.');
       }
       throw new AppError(`Ziyaretçi kaydedilirken hata oluştu: ${visErr.message}`);
@@ -69,7 +71,7 @@ const upsertVisitorInformation = async (data: VisitorFormValues): Promise<string
     .eq('id', visitorId);
 
   if (updateErr) {
-    if (updateErr.code === '23505') {
+    if (updateErr.code === POSTGRES_UNIQUE_VIOLATION) {
       throw new AppError('Bu T.C. Kimlik / Pasaport no ile kayıtlı başka bir ziyaretçi bulunuyor.');
     }
     throw new AppError(`Ziyaretçi bilgileri güncellenirken hata oluştu: ${updateErr.message}`);

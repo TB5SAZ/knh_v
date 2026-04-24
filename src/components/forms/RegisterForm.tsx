@@ -201,3 +201,5 @@ export const RegisterForm = React.memo(({ isLoading, setIsLoading, setAlertState
     </View>
   );
 });
+
+RegisterForm.displayName = 'RegisterForm';

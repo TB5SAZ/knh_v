@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { router } from 'expo-router';
 import { secureStorage } from '@/src/lib/storage';
-
-const SUPPORT_PHONE_NUMBER = '0 (551) 537 14 12';
 
 import { AppInput } from '@/src/components/core/AppInput';
 import { AppCheckbox } from '@/src/components/core/AppCheckbox';
@@ -13,6 +10,8 @@ import { AppButton } from '@/src/components/core/AppButton';
 import { AppAlertStatus } from '@/src/components/core/AppAlert';
 import { authService } from '@/src/services/authService';
 import { loginSchema, LoginFormValues } from '@/src/schemas/auth.schema';
+
+const SUPPORT_PHONE_NUMBER = '0 (551) 537 14 12';
 
 interface AppAlertState {
   isOpen: boolean;
@@ -52,8 +51,8 @@ export const LoginForm = React.memo(({ isLoading, setIsLoading, setAlertState, j
           setValue('tcKimlik', savedTc, { shouldValidate: true });
           setValue('rememberMe', true);
         }
-      } catch (e) {
-        console.error('Beni hatırla okunamadı');
+      } catch (error) {
+        console.error('Beni hatırla okunamadı', error);
       }
     };
     loadRememberedUser();
@@ -172,3 +171,5 @@ export const LoginForm = React.memo(({ isLoading, setIsLoading, setAlertState, j
     </View>
   );
 });
+
+LoginForm.displayName = 'LoginForm';

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Pressable, Text, View, ScrollView } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
 

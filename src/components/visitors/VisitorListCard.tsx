@@ -43,7 +43,7 @@ export function VisitorListCard({ onAddVisitor }: VisitorListCardProps = {}) {
       setProfiles([]);
       filters.setSelectedProfile('');
     }
-  }, [filters.selectedDepartment]);
+  }, [filters.selectedDepartment, filters.setSelectedProfile]);
 
   return (
     <VStack className="bg-white rounded-2xl p-4 md:p-6 gap-4 w-full shrink">

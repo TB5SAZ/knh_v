@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, Text, ScrollView, Pressable } from 'react-native';
+import { View, Text } from 'react-native';
 import { Controller, Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
 import { AppInput } from '@/src/components/core/AppInput';
 import { AppCheckbox } from '@/src/components/core/AppCheckbox';
 import { VisitorFormValues } from '@/src/schemas/visitorSchema';
-import { maskTc } from '@/src/utils/validations';
 import { VisitorAutocompleteDropdown } from './VisitorAutocompleteDropdown';
 import { Visitor } from '@/src/types/visitor';
 

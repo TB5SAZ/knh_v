@@ -15,7 +15,7 @@ import {
 import { ChevronDown, Check } from 'lucide-react-native';
 
 export interface AppSelectProps {
-  options: Array<{ label: string; value: string }>;
+  options: { label: string; value: string }[];
   placeholder?: string;
   selectedValue?: string;
   onValueChange?: (value: string) => void;
@@ -245,7 +245,7 @@ function DesktopAppSelect({
               renderItem={({ item }) => (
                 <Pressable
                   onPress={() => {
-                    onValueChange(item.value);
+                    onValueChange?.(item.value);
                     setIsOpen(false);
                   }}
                   style={{

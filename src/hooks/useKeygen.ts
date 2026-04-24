@@ -6,7 +6,7 @@ import { generateSecureKey } from '../utils/secureRandom';
 import { DEPARTMENT_ROLES } from '../constants';
 
 export function useKeygen() {
-  const [departments, setDepartments] = useState<Array<{ label: string; value: string }>>([]);
+  const [departments, setDepartments] = useState<{ label: string; value: string }[]>([]);
   const [selectedDepartmentId, setSelectedDepartmentId] = useState<string>('');
   const [selectedRole, setSelectedRole] = useState<string>('');
   

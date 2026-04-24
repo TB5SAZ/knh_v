@@ -8,8 +8,8 @@ import { VisitorFormValues } from '@/src/schemas/visitorSchema';
 interface VisitorTargetInfoProps {
   control: Control<VisitorFormValues>;
   errors: FieldErrors<VisitorFormValues>;
-  departments: Array<{ label: string; value: string }>;
-  targetUsers: Array<{ label: string; value: string }>;
+  departments: { label: string; value: string }[];
+  targetUsers: { label: string; value: string }[];
   selectedUnitId: string;
   isLoadingUsers: boolean;
   isRestrictedSelf: boolean;

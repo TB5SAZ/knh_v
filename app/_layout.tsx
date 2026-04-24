@@ -4,16 +4,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
-import 'react-native-reanimated';
 import { configureReanimatedLogger, ReanimatedLogLevel } from 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
-// Disable Reanimated strict mode warnings (caused by NativeWind CSS interop)
-configureReanimatedLogger({
-  level: ReanimatedLogLevel.warn,
-  strict: false,
-});
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { 
   useFonts, 
   DMSans_400Regular, 
@@ -26,6 +20,12 @@ import { useEffect } from 'react';
 import { GluestackUIProvider } from '@/src/components/ui/gluestack-ui-provider';
 import { AuthProvider } from '@/src/providers/AuthProvider';
 import '@/global.css';
+
+// Disable Reanimated strict mode warnings (caused by NativeWind CSS interop)
+configureReanimatedLogger({
+  level: ReanimatedLogLevel.warn,
+  strict: false,
+});
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

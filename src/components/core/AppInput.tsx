@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Text, View, TextInput } from 'react-native';
 import { Input, InputField, InputSlot, InputIcon } from '@/src/components/ui/input';
 import { FormControl, FormControlLabel, FormControlLabelText, FormControlError, FormControlErrorText, FormControlErrorIcon } from '@/src/components/ui/form-control';
-import { Eye, EyeOff, AlertCircle } from 'lucide-react-native';
-import { LucideIcon } from 'lucide-react-native';
+import { Eye, EyeOff, AlertCircle , LucideIcon } from 'lucide-react-native';
+
 
 export interface AppInputProps extends Omit<React.ComponentProps<typeof InputField>, 'type' | 'value' | 'onChangeText' | 'size'> {
   label?: string;
